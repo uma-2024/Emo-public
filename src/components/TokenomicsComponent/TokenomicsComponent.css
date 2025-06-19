@@ -1,0 +1,173 @@
+.tokenomics-wrapper {
+  background: #000;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  gap: 20px;
+  padding: 80px 60px;
+  overflow: hidden;
+}
+
+.tokenomics-card {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  position: relative;
+  width: 40%;
+  min-height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  z-index: 1;
+  border-radius: 35px;
+  border-top: 2px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+.tokenomics-card video.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.tokenomics-card .card-header,
+.tokenomics-card .card-description {
+  position: relative;
+  z-index: 2;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tokenomics-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tokenomics-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #1a1a1a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 300px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-description {
+  margin-top: 10px;
+  color: #555;
+}
+
+.pulse-icon {
+  width: 20%;
+}
+
+.pulse-icon2 {
+  width: 20%;
+  height: 20%;
+}
+
+.tokenomics-chart {
+  position: relative;
+  width: 50%;
+}
+
+.hover-fill {
+  transition: fill 0.3s ease;
+}
+
+.hover-fill[data-index="0"].hover-active {
+  fill: #e85243 !important;
+  transform: translateY(-10px);
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+.hover-fill[data-index="1"].hover-active {
+  fill: #efb00d !important;
+  transform: translateY(-10px);
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+.hover-fill[data-index="2"].hover-active {
+  fill: #3d8ada !important;
+  transform: translateY(-10px);
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+.hover-fill[data-index="3"].hover-active {
+  fill: #33af71 !important;
+  transform: translateY(-10px);
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.tokenomics-chart {
+  position: relative;
+}
+
+.hover-flag {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.flag-line {
+  width: 2px;
+  height: 40px;
+  margin: 0 auto 5px;
+  background-color: currentColor;
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: drawLine 0.6s ease-out forwards;
+  opacity: 0.3;
+}
+
+@keyframes drawLine {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 0.3;
+  }
+}
+
+.flag-label {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: inherit;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.flag-label span {
+  opacity: 0.7;
+  font-size: 12px;
+}
