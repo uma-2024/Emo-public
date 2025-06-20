@@ -1,0 +1,134 @@
+.footer-container {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+ position: relative;
+ z-index: 20;
+  }
+  
+  .footer-logo img {
+    width: 80px;
+    margin-bottom: 15px;
+  }
+  
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bbb;
+  }
+  
+  .footer-tagline .decentralized {
+    color: #d36fcf;
+  }
+  .footer-tagline .grow {
+    color: #50fa7b;
+  }
+  .footer-tagline .beyond {
+    color: #f8f8a5;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+  }
+  
+  .footer-column {
+    flex: 1;
+    min-width: 180px;
+    margin: 20px 10px;
+  }
+  
+  .footer-container-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .footer-column ul li:hover {
+    color: #fff;
+  }
+  
+  .newsletter p {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 10px;
+  }
+  
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .subscribe-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    background: #2b2b2b;
+    color: #fff;
+  }
+  
+  .subscribe-form button {
+    background-color: #27fa89;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .footer-bottom {
+    margin-top: 40px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #aaa;
+  }
+  
+  .social-icons i {
+    margin-left: 15px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .social-icons i:hover {
+    color: #27fa89;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .footer-links {
+      flex-direction: column;
+    }
+  
+    .footer-column {
+      margin: 15px 0;
+    }
+  
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+  }
+  

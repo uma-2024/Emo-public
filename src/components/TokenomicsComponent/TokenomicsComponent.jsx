@@ -82,8 +82,7 @@ export default function TokenomicsComponent() {
 
       <div className="tokenomics-chart">
         <svg
-          width="849"
-          height="790"
+         className="svg-circle"
           viewBox="0 0 849 490"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

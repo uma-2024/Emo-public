@@ -1,0 +1,60 @@
+.token-sale-section {
+    padding: 60px 40px;
+    overflow: hidden;
+    color: white;
+  }
+  
+  .token-sale-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+  }
+  
+  .token-card {
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 580px;
+  }
+  
+  .btc-card-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .token-metrics {
+    flex: 1;
+    position: relative;
+    border: 1px solid #1effa2;
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px #00ffae50;
+    overflow: hidden;
+  }
+
+  .bg-video-inside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  .token-metrics h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .token-metrics p {
+    margin: 6px 0;
+    color: #ddd;
+    position: relative;
+    z-index: 1;
+  }
+  
