@@ -27,11 +27,7 @@ export default function PreSaleConnect() {
           <p className="info">
             Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy.
           </p>
-          <div className="nai-tag">
-            <span className="bubble red">N</span>
-            <span className="bubble orange">A</span>
-            <span className="bubble blue">I</span>
-          </div>
+      
           <button className="connect-btn">Connect Now</button>
         </div>
 

@@ -1,12 +1,13 @@
 import React from "react";
 import "./Footer.css";
+import logo from '../../assets/images/logo.png'
 
 const Footer = () => {
   return (
     <footer className="footer-container">
       <div className="footer-top">
         <div className="footer-logo">
-          <img src="/logo.svg" alt="XIK Logo" />
+          <img src={logo} alt="XIK Logo" />
           <p className="footer-tagline">
             Believe In The Power Of <span className="decentralized">Decentralized</span> Collaboration.<br />
             We <span className="grow">Grow</span> Together And <span className="beyond">Beyond</span> The Next Level.

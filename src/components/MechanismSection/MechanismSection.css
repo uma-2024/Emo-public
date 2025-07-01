@@ -1,0 +1,116 @@
+.mechanism-section-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid #1afc85;
+    margin: 40px 0;
+    margin: 80px ;
+    box-shadow: 0 0 30px rgba(57, 255, 136, 0.3);
+    border-top: 2px solid #fff ;
+  }
+  
+  .mechanism-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .mechanism-section-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 40px 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: white;
+  }
+  
+  .mechanism-left {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+  }
+  
+  .mechanism-illustration {
+    max-width: 60%;
+    height: auto;
+  }
+  
+  .mechanism-right {
+    flex: 1;
+    min-width: 300px;
+    padding-left: 20px;
+  }
+  
+  .mechanism-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .mechanism-subtext {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+    max-width: 400px;
+  }
+  
+  .mechanism-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .mechanism-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #1afc85;
+    background: transparent;
+    color: #fff;
+    transition: background 0.3s ease;
+  }
+  
+  .mechanism-btn.primary {
+    background: #1afc85;
+    color: #000;
+    border: none;
+  }
+  
+  .mechanism-btn.secondary:hover {
+    background: #1afc85;
+    color: #000;
+  }
+  
+  .mechanism-dots {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+  }
+  
+  .dot.active {
+    background: #1afc85;
+    border-color: #1afc85;
+  }
+  

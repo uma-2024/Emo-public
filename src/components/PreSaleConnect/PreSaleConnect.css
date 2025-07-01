@@ -1,12 +1,12 @@
 .presale-wrapper {
     position: relative;
     height: 100%;
-    width: 80%;
+    /* width: 100%; */
     border: 1px solid #5CFFB1;
     border-top: 1.5px solid #fff;
     border-radius: 20px;
     overflow: hidden;
-    margin: 60px auto;
+    margin:80px;
   }
   
   .video-bg {

@@ -5,6 +5,9 @@ import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
 import PreSale from "./components/PreSale/PreSale";
+import Tokenomics from "./components/Tokenomics/Tokenomics";
+import About from "./components/About/About";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pre-sale" element={<PreSale />} />
+        <Route path="/tokenomics" element={<Tokenomics />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       <Footer />

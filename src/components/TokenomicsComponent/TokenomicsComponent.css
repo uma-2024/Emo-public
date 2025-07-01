@@ -6,7 +6,7 @@
   flex-direction: row;
   /* justify-content: space-between; */
   gap: 20px;
-  padding: 80px 60px;
+  padding: 0px 80px;
   overflow: hidden;
 }
 

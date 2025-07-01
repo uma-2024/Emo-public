@@ -1,0 +1,91 @@
+.xik-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 80px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .xik-left {
+    flex: 1;
+    min-width: 320px;
+  }
+  
+  .xik-card {
+    background: radial-gradient(circle at center, #1c1c1c, #000);
+    border: 1px solid #1afc85;
+    border-radius: 16px;
+    padding: 30px 24px;
+    color: #fff;
+    position: relative;
+  }
+  
+  
+  .xik-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .xik-desc {
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #ccc;
+  }
+  
+  .xik-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .xik-list {
+    padding-left: 20px;
+    margin: 0;
+    color: #fff;
+  }
+  
+  .xik-list li {
+    margin-bottom: 8px;
+    list-style: disc;
+  }
+  
+  .xik-right {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    display: flex;
+  justify-content: center;
+  align-self: end;
+  }
+  
+  .xik-logo {
+    max-width: 60%;
+    height: auto;
+  }
+
+
+  .xik-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .xik-card-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .xik-card-content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  

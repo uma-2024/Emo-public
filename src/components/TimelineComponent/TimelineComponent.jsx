@@ -156,7 +156,7 @@ const TimelineComponent = () => {
     strokeOpacity={0.2}
     strokeWidth="3.1746"
   />
-  {/* Green stroke that fills on scroll — combined like a progress bar */}
+
   <motion.path
     d="M0.746094 36.2773L106.778 68.9758L695.984 36.2773"
     fill="transparent"

@@ -2,16 +2,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 24px;
-    padding: 40px 20px;
     background-color: #000;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 80px;
+
   }
   
   .feature-card {
     position: relative;
     background-color: #111;
     border-radius: 16px;
-    padding: 24px;
+    padding:30px 24px;
     flex: 1 1 300px;
     max-width: 340px;
     color: white;
@@ -19,6 +22,8 @@
     box-sizing: border-box;
     transition: transform 0.3s ease;
     overflow: hidden;
+    border: 1px solid #5CFFB1;
+    border-top: 1.4px solid #fff;
   }
   
   .feature-card:hover {
@@ -31,23 +36,24 @@
     bottom: 0;
     left: 0;
     height: 50%;
-    width: 100%;
+    width: 99.5%;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    border: 1px solid rgba(0, 255, 170, 0.3);
+    border: 1px solid #5CFFB1;
     border-top: none;
     pointer-events: none;
+    opacity: 0.4;
   }
   
   .feature-icon {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     margin-bottom: 16px;
   }
   
   .feature-title {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin-bottom: 12px;
   }

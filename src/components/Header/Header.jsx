@@ -21,12 +21,12 @@ const routeContent = {
     subtitle: "Understand how tokens are distributed, burned, and earned.",
     buttons: ["Explore Tokenomics", "Download Report"],
   },
-  "/about-us": {
+  "/about": {
     title: "Who We Are",
     subtitle: "Meet the team behind XIK and our mission to decentralize innovation.",
     buttons: ["Our Vision", "Team"],
   },
-  "/contact-us": {
+  "/contact": {
     title: "Let’s Get in Touch",
     subtitle: "We’re here to answer questions, support you, and build together.",
     buttons: ["Email Us", "Join Telegram"],
@@ -54,12 +54,10 @@ const Header = () => {
     seconds: "50",
   });
 
-  // Set your target date here
   const targetDate = new Date("2025-05-12T00:00:00Z").getTime();
 
   useEffect(() => {
     if (!content?.showCountdown) {
-        // alert("content?.showCountdown not found")
         return;
         
     }
@@ -68,10 +66,6 @@ const Header = () => {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-    //   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    //   const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    //   const minutes = Math.floor((distance / 1000 / 60) % 60);
-    //   const seconds = Math.floor((distance / 1000) % 60);
 
       setCountdown({
         days: days.toString().padStart(2, "0"),

@@ -1,0 +1,160 @@
+.statistics-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #1afc85;
+    border-top: 2px solid #fff;
+    border-radius: 12px;
+    padding: 30px;
+    color: #fff;
+    margin: 80px ;
+    box-shadow: 0 0 30px rgba(57, 255, 136, 0.3);
+  }
+  
+  .statistics-card {
+    border-radius: 16px;
+
+    width: 50%;
+
+  }
+
+  .statistics-card img{
+    width: 100%;
+    border-radius: 16px;
+  }
+  .statistics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .stats-performance .green {
+    color: #1afc85;
+    font-weight: bold;
+  }
+  
+  .stats-performance .light {
+    color: #ccc;
+  }
+  
+  .stats-price {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .stats-highlow {
+    font-size: 14px;
+    color: #aaa;
+  }
+  
+  .stats-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .user-name {
+    font-weight: 500;
+  }
+  
+  .verified-tag {
+    background: #1afc85;
+    color: #000;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  
+  .statistics-chart-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .pair {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .meta-info {
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .buy-sell-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .buy-btn,
+  .sell-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .buy-btn {
+    background-color: #1afc85;
+    color: #000;
+  }
+  
+  .sell-btn {
+    background-color: #ff3c41;
+    color: #fff;
+  }
+  
+  .chart-placeholder {
+    background-color: #111;
+    border-radius: 8px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  
+  .chart-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .statistics-info {
+    width: 55%;
+    padding-left: 40px;
+  }
+  
+  .info-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .info-desc {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  
+  .info-btn {
+    padding: 10px 20px;
+    border: 1px solid #1afc85;
+    background: transparent;
+    color: #1afc85;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+  
+  .info-btn:hover {
+    background: #1afc85;
+    color: #000;
+  }
