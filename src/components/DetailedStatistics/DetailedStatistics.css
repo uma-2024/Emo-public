@@ -158,3 +158,18 @@
     background: #1afc85;
     color: #000;
   }
+
+  @media (max-width: 768px) {
+    .statistics-container {
+      margin: 40px 16px;
+      flex-direction: column;
+    }
+    .statistics-card {
+      width: 100%;
+    }
+    .statistics-info {
+      width: 100%;
+      padding-left: 0px;
+    }
+  
+  }

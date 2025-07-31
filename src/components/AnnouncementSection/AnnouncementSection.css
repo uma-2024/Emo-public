@@ -18,7 +18,9 @@
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 30px;
+    margin-top: 0px;
   }
+
   
   .announcement-list {
     display: flex;

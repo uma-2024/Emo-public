@@ -151,3 +151,15 @@
     color: #aaa;
   }
   
+  @media (max-width: 768px) {
+    .presale-wrapper {
+      margin:40px 16px;
+    }
+    .presale-content {
+      flex-direction: column;
+      padding: 20px;
+    }
+    .sidebar-menu {
+      flex-direction: row;
+    }
+  }

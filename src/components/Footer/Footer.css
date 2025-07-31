@@ -118,10 +118,14 @@
   }
   
   @media screen and (max-width: 768px) {
-    .footer-links {
+    .footer-container {
+      padding: 40px 16px;
+      padding-bottom: 0px;
+    }
+    /* .footer-links {
       flex-direction: column;
     }
-  
+   */
     .footer-column {
       margin: 15px 0;
     }

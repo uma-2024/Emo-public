@@ -78,3 +78,10 @@
     height: auto;
   }
   
+
+
+  @media (max-width: 768px) {
+    .why-join-wrapper {
+      margin: 40px 16px;
+    }
+  }

@@ -8,6 +8,7 @@ import PreSale from "./components/PreSale/PreSale";
 import Tokenomics from "./components/Tokenomics/Tokenomics";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
+import AnnouncementSection from "./components/AnnouncementSection/AnnouncementSection";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/tokenomics" element={<Tokenomics />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/announcement" element={<AnnouncementSection />} />
       </Routes>
 
       <Footer />

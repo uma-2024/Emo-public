@@ -114,3 +114,8 @@
     border-color: #1afc85;
   }
   
+  @media (max-width: 768px) {
+    .mechanism-section-wrapper {
+      margin: 40px 16px;
+    }
+  }

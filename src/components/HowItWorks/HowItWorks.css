@@ -1,6 +1,6 @@
 .how-it-works-section {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     padding: 60px 80px;
     gap: 50px;
@@ -88,3 +88,10 @@
     border-color: #fff;
   }
   
+  @media (max-width: 768px) {
+    .how-it-works-section {
+   
+    padding: 40px 16px;
+    gap: 50px;
+    } 
+  }

@@ -74,3 +74,16 @@
     color: #000;
   }
   
+  @media (max-width: 768px) {
+    .automation-promo-wrapper {
+      position: relative;
+      height: 400px;
+
+      margin: 40px 16px ;
+      box-shadow: 0 0 30px rgba(57, 255, 136, 0.3);
+    }
+    .automation-promo-overlay {
+ 
+      padding: 10px;
+    }
+  }

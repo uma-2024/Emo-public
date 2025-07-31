@@ -42,6 +42,12 @@ const routeContent = {
     buttons: ["Buy Now", "Know More"],
     showCountdown: true,
   },
+  "/announcement": {
+    title: "Announcement",
+    subtitle: "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem. ",
+    buttons: ["Join Pre-Sale", "Contact Us"],
+   
+  },
 };
 
 const Header = () => {

@@ -1,101 +1,108 @@
 .reserve-card {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    padding: 30px;
-    border-radius: 16px;
-    overflow: hidden;
-    color: white;
-    box-shadow: 0 0 20px rgba(92, 255, 177, 0.20);;
-    border-radius: 40px;
-border: 1px solid #FFF;
-    background: black;
-margin: 40px auto;
-  }
-  
-  .reserve-bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .reserve-card-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 16px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 0 20px rgba(92, 255, 177, 0.2);
+  border-radius: 40px;
+  border: 1px solid #fff;
+  background: black;
+  margin: 40px auto;
+}
+
+.reserve-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reserve-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.reserve-card-badge {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.badge-new {
+  background: #00e676;
+  color: black;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.badge-date {
+  background: #3c3c50;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.reserve-title {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.reserve-desc {
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+.amount-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.amount-box {
+  background: #fff;
+  color: black;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.buy-button {
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #ff00cc, #333399);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.tooltip {
+  font-size: 0.75rem;
+  color: #aaa;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .reserve-card {
+    width: 80%;
+    max-width: 400px;
+    padding: 30px;
   }
-  
-  .reserve-card-badge {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .badge-new {
-    background: #00e676;
-    color: black;
-    font-weight: bold;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-  }
-  
-  .badge-date {
-    background: #3c3c50;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-  }
-  
-  .reserve-title {
-    font-size: 2rem;
-    margin: 10px 0;
-  }
-  
-  .reserve-desc {
-    font-size: 0.95rem;
-    margin-bottom: 25px;
-    color: #ccc;
-  }
-  
-  .amount-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .amount-box {
-    background: #fff;
-    color: black;
-    border-radius: 25px;
-    padding: 8px 16px;
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-  
-  .buy-button {
-    padding: 12px 24px;
-    background: linear-gradient(90deg, #ff00cc, #333399);
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-bottom: 15px;
-  }
-  
-  .tooltip {
-    font-size: 0.75rem;
-    color: #aaa;
-    text-align: center;
-  }
-  
+}
