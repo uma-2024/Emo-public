@@ -1,20 +1,26 @@
-
-
 import React, { useState } from "react";
 import "./PreSaleConnect.css";
 import videoBg from "../../assets/bg.mp4";
 import metamaskIcon from "../../assets/images/Frame 27111.svg";
 import { FaRocket, FaWallet, FaDollarSign, FaGlobe } from "react-icons/fa";
 
+// NEW: step images (replace with your own files/paths)
+import connectImg from "../../assets/images/Frame 27111.svg";
+import planImg from "../../assets/images/image01.svg";
+import payImg from "../../assets/images/image02.svg";
+import confirmImg from "../../assets/images/image03.svg";
+
 const icons = [
-  { Component: FaRocket,    label: "rocket"    },
-  { Component: FaWallet,    label: "wallet"    },
-  { Component: FaDollarSign,label: "dollar"    },
-  { Component: FaGlobe,     label: "globe"     },
+  { Component: FaRocket,    label: "rocket" },
+  { Component: FaWallet,    label: "wallet" },
+  { Component: FaDollarSign,label: "dollar" },
+  { Component: FaGlobe,     label: "globe"  },
 ];
 
+// NEW: image to show for each step (index matches icons)
+const stepImages = [connectImg, planImg, payImg, confirmImg];
+
 export default function PreSaleConnect() {
-  // track which icon is active (by index)
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
@@ -38,29 +44,31 @@ export default function PreSaleConnect() {
         <div className="presale-main">
           <h2 className="heading">How to join the pre-sale</h2>
           <h3 className="subheading">
-            {icons[activeIdx].label === "rocket"     && "Connect Wallet"}
-            {icons[activeIdx].label === "wallet"     && "Select Plan"}
-            {icons[activeIdx].label === "dollar"     && "Make Payment"}
-            {icons[activeIdx].label === "globe"      && "Confirmation"}
+            {icons[activeIdx].label === "rocket" && "Connect Wallet"}
+            {icons[activeIdx].label === "wallet" && "Select Plan"}
+            {icons[activeIdx].label === "dollar" && "Make Payment"}
+            {icons[activeIdx].label === "globe"  && "Confirmation"}
           </h3>
           <p className="info">
-            {icons[activeIdx].label === "rocket" && " Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
+            {icons[activeIdx].label === "rocket" && "Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
             {icons[activeIdx].label === "wallet" && "Pick the best tier for you mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
             {icons[activeIdx].label === "dollar" && "Enter payment details mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
             {icons[activeIdx].label === "globe"  && "You’re all set! View on explorer mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
           </p>
           <button className="connect-btn">
-            {icons[activeIdx].label === "rocket"  && "Connect Now"}
-            {icons[activeIdx].label === "wallet"  && "Choose Plan"}
-            {icons[activeIdx].label === "dollar"  && "Pay Now"}
-            {icons[activeIdx].label === "globe"   && "View Status"}
+            {icons[activeIdx].label === "rocket" && "Connect Now"}
+            {icons[activeIdx].label === "wallet" && "Choose Plan"}
+            {icons[activeIdx].label === "dollar" && "Pay Now"}
+            {icons[activeIdx].label === "globe"  && "View Status"}
           </button>
         </div>
 
-        <div 
-        // className="wallet-card"
-        >
-        <img src={metamaskIcon}/>
+        {/* RIGHT IMAGE: changes per step */}
+        <div >
+          <img
+            src={stepImages[activeIdx] || metamaskIcon}
+            alt={icons[activeIdx].label}
+          />
         </div>
       </div>
     </div>

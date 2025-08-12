@@ -8,7 +8,6 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  // Close hamburger menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);

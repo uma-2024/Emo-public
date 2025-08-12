@@ -41,6 +41,7 @@
   .mechanism-illustration {
     max-width: 60%;
     height: auto;
+    height: 335px;
   }
   
   .mechanism-right {
@@ -53,6 +54,7 @@
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 16px;
+    width: 90%;
   }
   
   .mechanism-subtext {
