@@ -40,13 +40,21 @@
   
   .timeline-svg {
     position: absolute;
-    top: 20%;
-    /* left: 0; */
-    width: 150%;
-    height: 100%;
+    top: 74%;
+    width: 118%;
+    /* height: 100; */
+    left: 20%;
     z-index: 1;
   }
-  
+  /* .vector-image{
+    width: 450%;
+  } */
+  .vector-image2 {
+    padding-bottom: 80px;
+  }
+  .vector-image4, .vector-image6{
+    padding-bottom: 80px;
+  }
   .thumbnails {
     display: flex;
     gap: 160px;
@@ -54,6 +62,7 @@
     position: relative;
     z-index: 2;
     align-items: flex-start;
+    padding-top: 200px;
   }
   
   .timeline-card {
@@ -65,6 +74,7 @@
     z-index: 3;
   }
 
+ 
   
   .quarter {
     font-size: 26px;
@@ -79,27 +89,97 @@
   }
   
   .timeline-card {
-    scroll-snap-align: start;
+    position: absolute;
+    top: 50%;
+    left: 96%;
+    transform: translate(-50%, -52%);
+    font-weight: 800;
+    font-size: clamp(18px, 4vw, 48px);
+    line-height: 1;
+    color: #0b0b0b;       
+    pointer-events: none;  
+    z-index: 1;
   }
   
+  .timeline-card1 {
+    top: 75%;
+
+  }
+  .timeline-card2 {
+    top: 19%;
+ 
+  }
+  .timeline-card3 {
+    top: 75%;
+
+  }
+  .timeline-card4 {
+    top: 23%;
+ 
+  }
+  .timeline-card5 {
+    top: 75%;
+
+  }
+  .timeline-card6 {
+    top: 23%;
+ 
+  }
   .title {
-    font-size: 20px;
+    font-size: 16px;
     color: white;
     margin-bottom: 8px;
   }
   
   .desc {
-    font-size: 14px;
+    font-size: 11px;
     color: #ccc;
-    line-height: 1.6;
+    line-height: 1.4;
+    width: 150px;
   }
   
   .ghost-scroll {
     width: 100vw;
   }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .vector-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .vector-image {
+    display: block;
+    height: auto;
+  }
+  
+
   
   @media (max-width: 768px) {
     .timeline-scroll-wrapper {
       margin: 40px 16px;
+    }
+    .timeline-svg {
+      position: absolute;
+      top: 70%;
+      width: 420%;
+      height: 100;
+      left: 40%;
+      z-index: 1;
+    }
+    .thumbnails-track {
+      display: flex;
+      flex-direction: row;
+      height: 40vh;
+      align-items: center;
+      padding: 0 80px;
+      will-change: transform;
+      position: relative;
+      z-index: 2;
     }
   }
