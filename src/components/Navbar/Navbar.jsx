@@ -5,6 +5,7 @@ import "./Navbar.css";
 import logo from "../../assets/images/logo.png";
 import { FaBell } from "react-icons/fa";
 import { WalletContext } from "../WalletConnect/WalletConnect"; // <-- import context
+import ConnectButton from "../ConnectButton/ConnectButton";
 
 function shorten(addr) {
   return addr ? `${addr.slice(0, 6)}…${addr.slice(-4)}` : "";
@@ -47,13 +48,18 @@ const Navbar = () => {
           <FaBell color="white" size={20} />
         </NavLink>
 
-        <button
+        <ConnectButton
+          className="wallet-btn"
+          labelDisconnected="Connect Wallet"
+          labelConnected={(addr) => ` ${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+        />
+        {/* <button
           className={`wallet-btn ${address ? "connected" : ""}`}
           onClick={handleWalletClick}
           aria-pressed={!!address}
         >
           {address ? `${shorten(address)}` : "Connect Wallet"}
-        </button>
+        </button> */}
 
         <div
           className={`hamburger ${menuOpen ? "open" : ""}`}

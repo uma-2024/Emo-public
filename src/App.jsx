@@ -9,12 +9,14 @@ import Tokenomics from "./components/Tokenomics/Tokenomics";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import AnnouncementSection from "./components/AnnouncementSection/AnnouncementSection";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
     <>
       <Navbar />
       <Header />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pre-sale" element={<PreSale />} />

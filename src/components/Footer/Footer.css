@@ -60,7 +60,13 @@
     color: #aaa;
     cursor: pointer;
   }
-  
+  .footer-column ul li a {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+    text-decoration: none;
+  }
   .footer-column ul li:hover {
     color: #fff;
   }
