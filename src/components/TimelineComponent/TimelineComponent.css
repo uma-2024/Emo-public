@@ -159,10 +159,10 @@
   }
   
 @media (min-width:1024px) and (max-width:1279px) {
-  .timeline-scroll-wrapper { margin:48px; height:58vh; }
+  .timeline-scroll-wrapper { margin:48px; height:78vh; }
   .thumbnails-track { padding:0 120px; }
-  .thumbnails { gap:120px; padding-top:160px; }
-  .timeline-svg { top:72%; width:130%; left:12%; }
+  .thumbnails { gap:120px; padding-top:260px; }
+  .timeline-svg { top:92%; width:128%; left:17%; }
   .timeline-card { left:92%; transform:translate(-50%,-50%); font-size:clamp(18px,3vw,40px); }
 }
 
@@ -184,19 +184,32 @@
   .timeline-card { left:95%; font-size:clamp(18px,3.5vw,46px); }
 }
 
-@media (min-width:1600px) and (max-width:1919px) {
+@media (min-width:1600px) and (max-width:1819px) {
   .timeline-scroll-wrapper { margin:80px; height:64vh; }
   .thumbnails-track { padding:0 200px; }
   .thumbnails { gap:176px; padding-top:220px; }
-  .timeline-svg { top:74%; width: 113%; left: 18%; }
+  .timeline-svg { top: 73%;
+    width: 113%;
+    left: 18%; }
   .timeline-card { left:96%; font-size:clamp(18px,3.7vw,48px); }
 }
 
+@media (min-width:1819px) and (max-width:1919px) {
+  .timeline-scroll-wrapper { margin:80px; height:64vh; }
+  .thumbnails-track { padding:0 200px; }
+  .thumbnails { gap:176px; padding-top:220px; }
+  .timeline-svg { top: 73%;
+    width: 102.5%;
+    left: 16.5%; }
+  .timeline-card { left:96%; font-size:clamp(18px,3.7vw,48px); }
+}
 @media (min-width:1920px) and (max-width:2559px) {
   .timeline-scroll-wrapper { margin:96px; height:66vh; }
   .thumbnails-track { padding:0 220px; }
   .thumbnails { gap:200px; padding-top:240px; }
-  .timeline-svg { top:74%; width:112%; left:24%; }
+  .timeline-svg { top: 72%;
+    width: 99%;
+    left: 16%; }
   .timeline-card { left:96%; font-size:clamp(18px,3.8vw,52px); }
 }
 
