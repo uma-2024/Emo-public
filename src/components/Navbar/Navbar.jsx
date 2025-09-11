@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from "react";
+// src/components/Navbar/Navbar.jsx
+import React, { useState, useEffect, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/images/logo.png";
 import { FaBell } from "react-icons/fa";
+import { WalletContext } from "../WalletConnect/WalletConnect"; // <-- import context
+
+function shorten(addr) {
+  return addr ? `${addr.slice(0, 6)}…${addr.slice(-4)}` : "";
+}
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
+  const { address, connectWallet, disconnectWallet } = useContext(WalletContext);
+
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  const handleWalletClick = async () => {
+    if (address) {
+      disconnectWallet();
+    } else {
+      await connectWallet();
+    }
+  };
 
   return (
     <header className="navbar-container">
@@ -19,7 +35,7 @@ const Navbar = () => {
       </div>
 
       <nav className={`navbar-links ${menuOpen ? "active" : ""}`}>
-        <NavLink to="/"   className="nav-item" end>Home</NavLink>
+        <NavLink to="/" className="nav-item" end>Home</NavLink>
         <NavLink to="/pre-sale" className="nav-item">Pre-Sale</NavLink>
         <NavLink to="/tokenomics" className="nav-item">Tokenomics</NavLink>
         <NavLink to="/about" className="nav-item">About Us</NavLink>
@@ -27,17 +43,26 @@ const Navbar = () => {
       </nav>
 
       <div className="bell-button">
-        <NavLink to="/announcement" className="nav-item">
+        <NavLink to="/announcement" className="nav-item" aria-label="Announcements">
           <FaBell color="white" size={20} />
         </NavLink>
-        <button className="wallet-btn">Connect Wallet</button>
+
+        <button
+          className={`wallet-btn ${address ? "connected" : ""}`}
+          onClick={handleWalletClick}
+          aria-pressed={!!address}
+        >
+          {address ? `${shorten(address)}` : "Connect Wallet"}
+        </button>
+
         <div
           className={`hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+          role="button"
+          tabIndex={0}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </div>
       </div>
     </header>
