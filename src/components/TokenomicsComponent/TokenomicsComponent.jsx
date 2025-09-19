@@ -85,7 +85,8 @@ export default function TokenomicsComponent() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g opacity="0.4" filter="url(#filter0_f_27_122)">
+          <g opacity="0.4" filter="url(#filter0_f_27_122)" onMouseEnter={() => { setActiveIndex(0); setHoveringRed(true); }}
+  onMouseLeave={() => { setActiveIndex(null); setHoveringRed(false); }}>
             <path
               className={`hover-fill ${hoveringRed ? "hover-active" : ""}`}
               data-index="0"
