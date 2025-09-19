@@ -19,7 +19,12 @@
     z-index: 0;
     /* opacity: 0.5; */
   }
-  
+  .presale-content-inner{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  }
   .presale-content {
     position: relative;
     z-index: 1;
@@ -161,5 +166,9 @@
     }
     .sidebar-menu {
       flex-direction: row;
+    }
+    .presale-content-inner{
+     flex-direction: column;
+    gap: 30px;
     }
   }

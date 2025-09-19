@@ -51,12 +51,12 @@ const tokenomicsData = [
 ];
 
 export default function TokenomicsComponent() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
   const active = tokenomicsData[activeIndex ?? 0];
   const pathRefs = useRef([]);
   const [flagPosition, setFlagPosition] = useState({ x: 0, y: 0 });
 
-  const [hoveringRed, setHoveringRed] = useState(true);
+  const [hoveringRed, setHoveringRed] = useState(false);
   const [hoveringYellow, setHoveringYellow] = useState(false);
   const [hoveringBlue, setHoveringBlue] = useState(false);
   const [hoveringGreen, setHoveringGreen] = useState(false);

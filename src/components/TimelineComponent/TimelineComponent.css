@@ -169,6 +169,18 @@
   
     .timeline-card { left:92%; transform:translate(-50%,-50%); font-size:clamp(18px,3vw,40px); }
   }
+  @media (min-width: 1020px) and (max-width: 1190px) {
+    .timeline-svg {
+      top: 95%;
+      width: 148%;
+      left: 20%;
+    }
+    .timeline-scroll-wrapper { margin:48px; height:78vh; }
+    .thumbnails-track { padding:0 120px; }
+    .thumbnails { gap:120px; padding-top:260px; }
+  
+    .timeline-card { left:92%; transform:translate(-50%,-50%); font-size:clamp(18px,3vw,40px); }
+  }
 @media (min-width:1200px) and (max-width:1280px) {
   .timeline-scroll-wrapper { margin:48px; height:78vh; }
   .thumbnails-track { padding:0 120px; }
@@ -176,7 +188,13 @@
   .timeline-svg { top:92%; width:128%; left:17%; }
   .timeline-card { left:92%; transform:translate(-50%,-50%); font-size:clamp(18px,3vw,40px); }
 }
-
+@media (min-width:1225px) and (max-width:1236px) {
+  .timeline-scroll-wrapper { margin:48px; height:78vh; }
+  .thumbnails-track { padding:0 120px; }
+  .thumbnails { gap:120px; padding-top:260px; }
+  .timeline-svg { top:92%; width:128%; left:17%; }
+  .timeline-card { left:92%; transform:translate(-50%,-50%); font-size:clamp(18px,3vw,40px); }
+}
 
 @media (min-width:1290px) and (max-width:1439px) {
   .timeline-scroll-wrapper { margin:64px; height:75vh; }
@@ -188,15 +206,34 @@
   .timeline-card { left:94%; font-size:clamp(18px,3.2vw,44px); }
 }
 
-@media (min-width:1440px) and (max-width:1599px) {
+@media (min-width:1440px) and (max-width:1499px) {
+  .timeline-scroll-wrapper { margin:72px; height:62vh; }
+  .thumbnails-track { padding:0 180px; }
+  .thumbnails { gap:160px; padding-top:200px; }
+  .timeline-svg {
+    top: 74%;
+    width: 124%;
+    left: 19.7%; }
+  .timeline-card { left:95%; font-size:clamp(18px,3.5vw,46px); }
+}
+@media (min-width:1500px) and (max-width:1599px) {
   .timeline-scroll-wrapper { margin:72px; height:62vh; }
   .thumbnails-track { padding:0 180px; }
   .thumbnails { gap:160px; padding-top:200px; }
   .timeline-svg { top:74%; width:118%; left:18.7%; }
   .timeline-card { left:95%; font-size:clamp(18px,3.5vw,46px); }
 }
-
-@media (min-width:1600px) and (max-width:1819px) {
+@media (min-width:1600px) and (max-width:1700px) {
+  .timeline-scroll-wrapper { margin:80px; height:64vh; }
+  .thumbnails-track { padding:0 200px; }
+  .thumbnails { gap:176px; padding-top:220px; }
+  .timeline-svg { 
+    top: 73%;
+    width: 114%;
+    left: 18.6%; }
+  .timeline-card { left:96%; font-size:clamp(18px,3.7vw,48px); }
+}
+@media (min-width:1701px) and (max-width:1819px) {
   .timeline-scroll-wrapper { margin:80px; height:64vh; }
   .thumbnails-track { padding:0 200px; }
   .thumbnails { gap:176px; padding-top:220px; }

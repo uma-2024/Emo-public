@@ -108,6 +108,7 @@ export default function PreSaleConnect() {
       </video>
 
       <div className="presale-content">
+        <div className="presale-content-inner">
         <div className="sidebar-menu">
           {icons.map(({ Component, label }, idx) => (
             <Component
@@ -148,7 +149,7 @@ export default function PreSaleConnect() {
             <button className="connect-btn">View Status</button>
           )}
         </div>
-
+        </div>
         <div className="presale-image">
           <img
             src={stepImages[activeIdx] || metamaskIcon}
