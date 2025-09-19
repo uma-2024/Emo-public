@@ -5,42 +5,81 @@ import illustration1 from "../../assets/images/blockchain.svg";
 import illustration2 from "../../assets/images/image1.svg";
 import illustration3 from "../../assets/images/image3.svg";
 import illustration4 from "../../assets/images/image2.svg";
-
+import ConnectButton from "../ConnectButton/ConnectButton";
 const slides = [
   {
     illustration: illustration1,
     title: "XIK uses an agent-based proof-of-stake consensus mechanism.",
     subtext:
       "Join the movement and be part of the most advanced Web3 infrastructure ever built.",
-    primary: { label: "Join Pre-Sale", onClick: () => {/*…*/} },
-    secondary: { label: "Connect Wallet", onClick: () => {/*…*/} },
+    primary: {
+      label: "Join Pre-Sale",
+      onClick: () => {
+        /*…*/
+      },
+    },
+    secondary: { component: <ConnectButton  className="mechanism-btn secondary"/> }, 
   },
   {
     illustration: illustration2,
     title: "Unmatched Security Powered by Intelligent Agents",
-    subtext: "XIK leverages autonomous agents to continuously monitor, detect, and prevent malicious behavior creating a self-healing, attack-resilient blockchain environment.",
-    primary: { label: "Learn More", onClick: () => {/*…*/} },
-    secondary: { label: "Get Started", onClick: () => {/*…*/} },
+    subtext:
+      "XIK leverages autonomous agents to continuously monitor, detect, and prevent malicious behavior creating a self-healing, attack-resilient blockchain environment.",
+    primary: {
+      label: "Learn More",
+      onClick: () => {
+        /*…*/
+      },
+    },
+    secondary: {
+      label: "Get Started",
+      onClick: () => {
+        /*…*/
+      },
+    },
   },
   {
     illustration: illustration3,
     title: "Cross-Chain Ready with Zero Friction",
-    subtext: "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
-    primary: { label: "Discover", onClick: () => {/*…*/} },
-    secondary: { label: "Sign Up", onClick: () => {/*…*/} },
+    subtext:
+      "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+    primary: {
+      label: "Discover",
+      onClick: () => {
+        /*…*/
+      },
+    },
+    secondary: {
+      label: "Sign Up",
+      onClick: () => {
+        /*…*/
+      },
+    },
   },
   {
     illustration: illustration4,
     title: "Cross-Chain Ready with Zero Friction",
-    subtext: "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
-    primary: { label: "Explore", onClick: () => {/*…*/} },
-    secondary: { label: "Join Now", onClick: () => {/*…*/} },
+    subtext:
+      "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+    primary: {
+      label: "Explore",
+      onClick: () => {
+        /*…*/
+      },
+    },
+    secondary: {
+      label: "Join Now",
+      onClick: () => {
+        /*…*/
+      },
+    },
   },
 ];
 
 const MechanismSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { illustration, title, subtext, primary, secondary } = slides[activeIndex];
+  const { illustration, title, subtext, primary, secondary } =
+    slides[activeIndex];
 
   return (
     <div className="mechanism-section-wrapper">
@@ -62,18 +101,21 @@ const MechanismSection = () => {
           <h2 className="mechanism-title">{title}</h2>
           <p className="mechanism-subtext">{subtext}</p>
           <div className="mechanism-buttons">
-            <button
-              className="mechanism-btn primary"
-              onClick={primary.onClick}
-            >
+            <button className="mechanism-btn primary" onClick={primary.onClick}>
               {primary.label}
             </button>
-            <button
-              className="mechanism-btn secondary"
-              onClick={secondary.onClick}
-            >
-              {secondary.label}
-            </button>
+
+            {secondary.component ? (
+              secondary.component
+            ) : (
+              <button
+                className="mechanism-btn secondary"
+                onClick={secondary.onClick}
+              >
+                {secondary.label}
+              
+              </button>
+            )}
           </div>
         </div>
 
@@ -85,6 +127,7 @@ const MechanismSection = () => {
               onClick={() => setActiveIndex(idx)}
             />
           ))}
+      
         </div>
       </div>
     </div>

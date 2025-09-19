@@ -1,88 +1,86 @@
 import React, { useState, useRef } from "react";
 import "./TokenomicsComponent.css";
-import image from '../../assets/images/Group 112.svg'
-import video from '../../assets/bg.mp4'
+import image from "../../assets/images/Group 112.svg";
+import video from "../../assets/bg.mp4";
 const tokenomicsData = [
-    {
-      label: "Sales",
-      color: "#E85243",
-      value: "2.1m",
-      flagX: 530,
-      flagY: 80,
-      description: `Tokenomics Name: XIK
+  {
+    label: "Sales",
+    color: "#E85243",
+    value: "2.1m",
+    flagX: 530,
+    flagY: 80,
+    description: `Tokenomics Name: XIK
   
   Total Supply: 28,000,000,000
   
   Stablecoin: XIKS (USD-pegged, backed by 150% asset reserves)
   
-  Burn Mechanism: Up to 0.05% of each transaction is permanently burned`
-    },
-    {
-      label: "Staking",
-      color: "#EFB00D",
-      value: "2.1m",
-      flagX: 530,
-      flagY: 80,
-      description: `Rewards:
+  Burn Mechanism: Up to 0.05% of each transaction is permanently burned`,
+  },
+
+  {
+    label: "Staking",
+    color: "#EFB00D",
+    value: "2.1m",
+    flagX: 530,
+    flagY: 80,
+    description: `Rewards:
   • Stakers: Earn 8–15% APY
-  • Mobile Miners: Earn 5–10 XIK/hour`
-    },
-    {
-      label: "Liquidity",
-      color: "#3D8ADA",
-      value: "2.1m",
-      flagX: 530,
-      flagY: 80,
-      description: `Dual Token Model:
+  • Mobile Miners: Earn 5–10 XIK/hour`,
+  },
+  {
+    label: "Liquidity",
+    color: "#3D8ADA",
+    value: "2.1m",
+    flagX: 530,
+    flagY: 80,
+    description: `Dual Token Model:
   Volatile XIK for governance and rewards.
-  Stable XIKS for payments and savings.`
-    },
-    {
-      label: "Governance",
-      color: "#33AF71",
-      value: "2.1m",
-      flagX: 530,
-      flagY: 80,
-      description: `Tooltip suggestion:
+  Stable XIKS for payments and savings.`,
+  },
+  {
+    label: "Governance",
+    color: "#33AF71",
+    value: "2.1m",
+    flagX: 530,
+    flagY: 80,
+    description: `Tooltip suggestion:
   XIK fuels AI governance and user rewards.
-  XIKS offers price stability, backed by reserves and yield-generating assets.`
-    }
-  ];
-  
-  
+  XIKS offers price stability, backed by reserves and yield-generating assets.`,
+  },
+];
 
 export default function TokenomicsComponent() {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const active = tokenomicsData[activeIndex ?? 0];
   const pathRefs = useRef([]);
   const [flagPosition, setFlagPosition] = useState({ x: 0, y: 0 });
 
-  const [hoveringRed, setHoveringRed] = useState(false);
+  const [hoveringRed, setHoveringRed] = useState(true);
   const [hoveringYellow, setHoveringYellow] = useState(false);
   const [hoveringBlue, setHoveringBlue] = useState(false);
   const [hoveringGreen, setHoveringGreen] = useState(false);
-  
+
   return (
     <div className="tokenomics-wrapper">
-     <div className="tokenomics-card">
-  <video className="bg-video" autoPlay muted loop playsInline>
-    <source src={video} type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+      <div className="tokenomics-card">
+        <video className="bg-video" autoPlay muted loop playsInline>
+          <source src={video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-  <div className="card-header">
-    <img src={image} className="pulse-icon" />
-    <h2>{active.label}</h2>
-  </div>
-  <p className="card-description">
-    {active.description || "Hover over a segment to see more details."}
-  </p>
-</div>
-
+        <div className="card-header">
+          <img src={image} className="pulse-icon" />
+          <h2>{active.label}</h2>
+        </div>
+        <p className="card-description">
+          {active.description || "Hover over a segment to see more details."}
+        </p>
+      </div>
 
       <div className="tokenomics-chart">
         <svg
-         className="svg-circle"
+          className="svg-circle"
           viewBox="0 0 849 490"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -131,13 +129,14 @@ export default function TokenomicsComponent() {
             //     setActiveIndex(null);
             //   }}
             ref={(el) => (pathRefs.current[0] = el)}
-         
             onMouseEnter={(e) => {
               const rect = pathRefs.current[0].getBoundingClientRect();
-              const container = document.querySelector(".tokenomics-chart").getBoundingClientRect();
+              const container = document
+                .querySelector(".tokenomics-chart")
+                .getBoundingClientRect();
               setFlagPosition({
                 x: rect.left + rect.width / 2 - container.left,
-                y: rect.top - container.top - 10
+                y: rect.top - container.top - 10,
               });
               setActiveIndex(0);
               setHoveringRed(true);
@@ -153,20 +152,22 @@ export default function TokenomicsComponent() {
             className={`hover-fill ${hoveringYellow ? "hover-active" : ""}`}
             data-index="1"
             ref={(el) => (pathRefs.current[1] = el)}
-  onMouseEnter={() => {
-    const rect = pathRefs.current[1].getBoundingClientRect();
-    const container = document.querySelector(".tokenomics-chart").getBoundingClientRect();
-    setFlagPosition({
-      x: rect.left + rect.width / 2 - container.left,
-      y: rect.top - container.top - 10
-    });
-    setActiveIndex(1);
-    setHoveringYellow(true);
-  }}
-              onMouseLeave={() => {
-                setHoveringYellow(false);
-                setActiveIndex(null);
-              }}
+            onMouseEnter={() => {
+              const rect = pathRefs.current[1].getBoundingClientRect();
+              const container = document
+                .querySelector(".tokenomics-chart")
+                .getBoundingClientRect();
+              setFlagPosition({
+                x: rect.left + rect.width / 2 - container.left,
+                y: rect.top - container.top - 10,
+              });
+              setActiveIndex(1);
+              setHoveringYellow(true);
+            }}
+            onMouseLeave={() => {
+              setHoveringYellow(false);
+              setActiveIndex(null);
+            }}
             d="M220.172 160.905C214.229 159.04 212.003 154.737 215.527 151.403C233.484 134.413 257.478 119.779 285.976 108.483C314.473 97.1872 346.749 89.5166 380.666 85.9446C387.32 85.2437 393.478 87.9887 394.358 91.8605C395.238 95.7323 390.505 99.2628 383.858 99.985C353.773 103.253 325.151 110.108 299.841 120.141C274.531 130.173 253.168 143.132 237.078 158.166C233.522 161.488 226.115 162.77 220.172 160.905Z"
             fill="#464646"
           />
@@ -175,18 +176,20 @@ export default function TokenomicsComponent() {
             ref={(el) => (pathRefs.current[2] = el)}
             onMouseEnter={() => {
               const rect = pathRefs.current[2].getBoundingClientRect();
-              const container = document.querySelector(".tokenomics-chart").getBoundingClientRect();
+              const container = document
+                .querySelector(".tokenomics-chart")
+                .getBoundingClientRect();
               setFlagPosition({
                 x: rect.left + rect.width / 2 - container.left,
-                y: rect.top - container.top - 10
+                y: rect.top - container.top - 10,
               });
               setActiveIndex(2);
               setHoveringBlue(true);
             }}
-              onMouseLeave={() => {
-                setHoveringBlue(false);
-                setActiveIndex(null);
-              }}
+            onMouseLeave={() => {
+              setHoveringBlue(false);
+              setActiveIndex(null);
+            }}
             data-index="2"
             d="M219.692 288.704C213.735 290.554 206.279 289.273 203.376 285.746C188.581 267.769 180.506 248.165 179.735 228.214C178.964 208.263 185.517 188.471 198.909 170.131C201.537 166.532 208.887 165.06 214.981 166.755C221.075 168.45 223.601 172.669 221.008 176.276C209.274 192.598 203.539 210.179 204.224 227.898C204.909 245.618 211.995 263.033 224.978 279.038C227.847 282.574 225.649 286.854 219.692 288.704Z"
             fill="#464646"
@@ -196,18 +199,20 @@ export default function TokenomicsComponent() {
             ref={(el) => (pathRefs.current[3] = el)}
             onMouseEnter={() => {
               const rect = pathRefs.current[3].getBoundingClientRect();
-              const container = document.querySelector(".tokenomics-chart").getBoundingClientRect();
+              const container = document
+                .querySelector(".tokenomics-chart")
+                .getBoundingClientRect();
               setFlagPosition({
                 x: rect.left + rect.width / 2 - container.left,
-                y: rect.top - container.top - 10
+                y: rect.top - container.top - 10,
               });
               setActiveIndex(3);
               setHoveringGreen(true);
             }}
-              onMouseLeave={() => {
-                setHoveringGreen(false);
-                setActiveIndex(null);
-              }}
+            onMouseLeave={() => {
+              setHoveringGreen(false);
+              setActiveIndex(null);
+            }}
             data-index="3"
             d="M271.004 325.967C266.539 328.901 258.776 329.201 253.925 326.48C241.372 319.438 230.162 311.64 220.488 303.219C216.75 299.965 218.693 295.616 224.51 293.623C230.327 291.63 237.812 292.749 241.582 295.992C249.905 303.15 259.467 309.801 270.119 315.844C274.944 318.581 275.47 323.034 271.004 325.967Z"
             fill="#464646"
@@ -300,27 +305,25 @@ export default function TokenomicsComponent() {
           </defs>
         </svg>
         {activeIndex !== null && (
-  <div
-    className="hover-flag"
-    style={{
-      left: `${flagPosition.x}px`,
-      top: `${flagPosition.y}px`,
-      color: tokenomicsData[activeIndex].color,
-    }}
-  >
-     <div className="flag-label">
-     <img src={image} className="pulse-icon2"/><strong>{tokenomicsData[activeIndex].label}</strong>{" "}
-      <span>{tokenomicsData[activeIndex].value}</span>
-    </div>
-    <div
-      className="flag-line"
-      style={{ backgroundColor: tokenomicsData[activeIndex].color }}
-    />
-   
-  </div>
-)}
-
-
+          <div
+            className="hover-flag"
+            style={{
+              left: `${flagPosition.x}px`,
+              top: `${flagPosition.y}px`,
+              color: tokenomicsData[activeIndex].color,
+            }}
+          >
+            <div className="flag-label">
+              <img src={image} className="pulse-icon2" />
+              <strong>{tokenomicsData[activeIndex].label}</strong>{" "}
+              <span>{tokenomicsData[activeIndex].value}</span>
+            </div>
+            <div
+              className="flag-line"
+              style={{ backgroundColor: tokenomicsData[activeIndex].color }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

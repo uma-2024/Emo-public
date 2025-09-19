@@ -26,8 +26,15 @@ const AutomationPromo = () => {
           to own the currency powering the intelligent automation revolution.
         </p>
         <div className="automation-buttons">
-          <button className="automation-btn primary">Join Pre-Sale Now</button>
-          <button className="automation-btn secondary">Whitepaper</button>
+          <button className="automation-btn primary" >Join Pre-Sale Now</button>
+          <button className="automation-btn secondary" onClick={() => {
+    const link = document.createElement("a");
+    link.href = "/XIKS Chain - Whitepaper.pdf"; // file in public folder
+    link.download = "whitepaper.pdf"; // force download with filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }}>Whitepaper</button>
         </div>
       </div>
     </div>

@@ -138,9 +138,9 @@
     width: 150px;
   }
   
-  .ghost-scroll {
+  /* .ghost-scroll {
     width: 100vw;
-  }
+  } */
 
   .stage {
     display: flex;
@@ -212,7 +212,13 @@
     left: 16%; }
   .timeline-card { left:96%; font-size:clamp(18px,3.8vw,52px); }
 }
-
+@media (min-width: 2400px) and (max-width: 25072px) {
+  .timeline-svg {
+    top: 72%;
+    width: 99%;
+    left: 15.7%;
+  }
+}
 @media (min-width:2560px) {
   .timeline-scroll-wrapper { margin:120px; height:68vh; }
   .thumbnails-track { padding:0 260px; }

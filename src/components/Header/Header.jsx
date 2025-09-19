@@ -12,30 +12,40 @@ const routeContent = {
   "/": {
     title: (
       <>
-        Join the Future of <br />
-        <span>Autonomous Blockchain</span>
+        The First Self-Evolving <br />
+        <span>Blockchain - Powered by AI </span>
       </>
     ),
     subtitle:
-      "Unlock the next evolution of decentralized infrastructure with self-upgrading, AI-powered smart chains.",
+      "An intelligent, autonomous network that upgrades, scales, and secures itself — while providing contributors with access to network functionality on every block.",
     buttons: ["Join Pre-Sale Now", "Whitepaper"],
   },
   "/tokenomics": {
-    title: "Tokenomics Breakdown",
-    subtitle: "Understand how tokens are distributed, burned, and earned.",
-    buttons: ["Explore Tokenomics", "Download Report"],
+    title: (
+      <>
+        Transparent. Sustainable. <br />
+        <span>  Decentralized. </span>
+      </>
+    ), 
+    subtitle: "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
+    buttons: ["Join Pre-Sale", "Connect Wallet"],
   },
   "/about": {
-    title: "Who We Are",
+    title: (
+      <>
+       The AI-Driven Blockchain of <br />
+        <span>  Tomorrow </span>
+      </>
+    ), 
     subtitle:
-      "Meet the team behind XIK and our mission to decentralize innovation.",
-    buttons: ["Our Vision", "Team"], // target button here
+      "XIK is an autonomous Layer 1 blockchain governed by intelligent agents. Built for scalability, security, and decentralized intelligence — this is where AI meets the core of Web3.",
+      buttons: ["Join Pre-Sale", "Contact Us"],
   },
   "/contact": {
-    title: "Let’s Get in Touch",
+    title: "Get in touch",
     subtitle:
-      "We’re here to answer questions, support you, and build together.",
-    buttons: ["Email Us", "Join Telegram"],
+      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
+    buttons: ["Join Pre-Sale", "Contact Us"],
   },
   "/features": {
     title: "Powerful Features",
@@ -43,16 +53,20 @@ const routeContent = {
     buttons: ["Explore Features", "Use Cases"],
   },
   "/pre-sale": {
-    title: "Secure Your Allocation",
-    subtitle:
-      "Join the limited-time pre-sale and reserve your spot in the XIK ecosystem.",
-    buttons: ["Buy Now", "Know More"],
+    title: (
+      <>
+        Join the Future of <br />
+        <span> Autonomous Blockchain </span>
+      </>
+    ), 
+    subtitle: "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem.By joining the pre-sale, you’re getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    buttons: ["IDO price $1", "Listing price $2"],
     showCountdown: true,
   },
   "/announcement": {
     title: "Announcement",
     subtitle:
-      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem. ",
+      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.  ",
     buttons: ["Join Pre-Sale", "Contact Us"],
   },
 };
@@ -126,11 +140,18 @@ const Header = () => {
         doc.offsetHeight
       );
       const maxScrollTop = docHeight - window.innerHeight;
-      const targetTop = Math.max(0, maxScrollTop - 2200); // ~2200px from bottom
+      const targetTop = Math.max(0, maxScrollTop - 2200);
       window.scrollTo({ top: targetTop, behavior: "smooth" });
       return;
     }
-
+    if (/buy now/i.test(label)) {
+      window.scrollTo({ top: 700, behavior: "smooth" });
+      return;
+    }
+    if (/whitepaper/i.test(label)) {
+      window.open("/XIKS Chain - Whitepaper.pdf", "_blank", "noopener,noreferrer");
+      return;
+    }
     // Email Us / Contact Us → open mail client
     if (/email/i.test(label) || /contact/i.test(label)) {
       window.location.href = `mailto:${EMAIL_TO}`;

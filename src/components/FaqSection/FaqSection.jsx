@@ -2,13 +2,38 @@ import React, { useState } from "react";
 import "./FaqSection.css";
 import video from '../../assets/bg.mp4'
 const faqs = [
-  "What is XIK, and how does it work?",
-  "How is blockchain related to cryptocurrency?",
-  "Is Blockchain technology secure?",
-  "How does blockchain enhance security?",
-  "Can blockchain be hacked?",
-  "How can I implement blockchain in my industry?"
+  {
+    question: "What is XIK, and how does it work?",
+    answer:
+      "XIK is a decentralized blockchain ecosystem run by AI agents.",
+  },
+  {
+    question: "How is blockchain related to cryptocurrency?",
+    answer:
+      "Blockchain is the underlying technology that powers cryptocurrencies. It acts as a distributed ledger where transactions are securely recorded and verified, making decentralized currencies like Bitcoin and XIK possible.",
+  },
+  {
+    question: "Is Blockchain technology secure?",
+    answer:
+      "Yes. Blockchain uses advanced cryptography, distributed consensus, and immutability of records to ensure security. Transactions are verified by multiple participants, making data tampering extremely difficult.",
+  },
+  {
+    question: "How does blockchain enhance security?",
+    answer:
+      "Blockchain enhances security by storing data across a decentralized network, using encryption to protect transactions, and applying consensus mechanisms that prevent unauthorized changes. This eliminates single points of failure.",
+  },
+  {
+    question: "Can blockchain be hacked?",
+    answer:
+      "While no system is 100% immune, hacking a blockchain is highly impractical. An attacker would need to control over 51% of the network’s computing power simultaneously, which is extremely costly and nearly impossible for large networks.",
+  },
+  {
+    question: "How can I implement blockchain in my industry?",
+    answer:
+      "You can implement blockchain by identifying processes that need transparency, trust, and security—such as payments, supply chain management, healthcare records, or identity verification—and integrating blockchain platforms or solutions into them.",
+  },
 ];
+
 
 const FaqSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -33,19 +58,21 @@ const FaqSection = () => {
         </p>
 
         <div className="faq-list">
-          {faqs.map((question, index) => (
+        {faqs.map((item, index) => (
             <div
               key={index}
               className={`faq-item ${openIndex === index ? "open" : ""}`}
               onClick={() => toggleFAQ(index)}
             >
               <div className="faq-question">
-                {question}
-                <span className="faq-toggle">{openIndex === index ? "−" : "+"}</span>
+                {item.question}
+                <span className="faq-toggle">
+                  {openIndex === index ? "−" : "+"}
+                </span>
               </div>
               {openIndex === index && (
                 <div className="faq-answer">
-                  <p>This is a sample answer for: {question}</p>
+                  <p>{item.answer}</p>
                 </div>
               )}
             </div>

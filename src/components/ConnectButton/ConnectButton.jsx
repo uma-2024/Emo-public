@@ -35,7 +35,7 @@ export default function ConnectButton({
     typeof labelConnected === "function"
       ? labelConnected(address)
       : showAddress && address
-      ? `${labelConnected} ${shorten(address)}`
+      ? `${shorten(address)}`
       : labelConnected;
 
   return (
