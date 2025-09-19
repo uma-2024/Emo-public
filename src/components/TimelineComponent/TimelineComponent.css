@@ -4,7 +4,7 @@
     height:60vh;
     overflow: hidden;
     border-radius: 20px;
-    margin: 80px;
+    margin: 120px;
     z-index: 1;
     border: 1px solid #5CFFB1;
     border-top: 2px solid #fff;
@@ -130,7 +130,12 @@
     color: white;
     margin-bottom: 8px;
   }
-  
+  .timeline-card .subtitle {
+    font-size: 12px;
+    font-weight: 500;
+    color: #5CFFB1; /* highlight the second line */
+    margin-bottom: 0px;
+  }
   .desc {
     font-size: 11px;
     color: #ccc;
@@ -269,7 +274,7 @@
   }
 }
 @media (min-width:2560px) {
-  .timeline-scroll-wrapper { margin:120px; height:68vh; }
+  .timeline-scroll-wrapper { margin:80px; height:68vh; }
   .thumbnails-track { padding:0 260px; }
   .thumbnails { gap:240px; padding-top:280px; }
   .timeline-svg { top:74%; width:108%; left:26%; }

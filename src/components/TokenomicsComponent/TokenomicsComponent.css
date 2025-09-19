@@ -6,7 +6,7 @@
   flex-direction: row;
   /* justify-content: space-between; */
   gap: 20px;
-  padding: 0px 80px;
+  padding: 0px 120px;
   overflow: hidden;
 }
 
@@ -53,8 +53,8 @@
 .card-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 0px;
+  margin-bottom: 6px;
 }
 
 .tokenomics-wrapper {
@@ -71,22 +71,33 @@
   border-radius: 12px;
   background: #1a1a1a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 300px;
+  height: 450px;
 }
 
 .card-header {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: baseline;
+  gap: 0px;
+  flex-direction: column;
 }
 
 .card-description {
   margin-top: 10px;
   color: #a6a6a6;
 }
+.card-description {
+  margin-top: 10px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
 
+.card-description strong {
+  color: #fff;
+  font-weight: 600;
+}
 .pulse-icon {
-  width: 20%;
+  width: 10%;
 }
 
 .pulse-icon2 {

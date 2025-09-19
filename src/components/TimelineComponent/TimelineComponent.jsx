@@ -24,46 +24,55 @@ import video from "../../assets/bg.mp4";
 const roadmap = [
   {
     quarter: "Q1",
-    title: "19% Sold",
+    title1: "10% Sold",
+    title2: "Early Community Rewards",
     description:
-      "10 NFT Owners will be randomly selected and gifted 500 USDC each.",
+      "At 10%, 5 NFT holders will receive 200 USDC. Early ecosystem development begins.",
     image: imgQ1,
   },
   {
     quarter: "Q2",
-    title: "35% Sold",
+    title1: "19% Sold",
+    title2: "Engagement and DApp Development",
     description:
-      "5 NFT owners will be randomly selected and gifted 1,000 USDC + 1 NFT. The Utility integration begins with multiple Dapps being developed around the NFTs.",
+      "At 19%, 10 NFT holders will receive 500 USDC. DApp development kicks off.",
     image: imgQ2,
   },
   {
     quarter: "Q3",
-    title: "50% Sold",
-    description: "1 NFT owner will be gifted 5,000 USDC (Mega).",
+    title1: "35% Sold",
+    title2: "Expanded Utility",
+    description:
+      "At 35%, 5 NFT holders will receive 1,000 USDC and an additional NFT. New utilities and features are integrated.",
     image: imgQ3,
   },
   {
     quarter: "Q4",
-    title: "100% Sold",
+    title1: "50% Sold",
+    title2: "Major Utility Unlock",
     description:
-      "Final utility unlock and DAO formation for roadmap governance begins.",
+      "At 50%, one holder wins 5,000 USDC. Enhanced utilities and DApps are activated.",
     image: imgQ4,
   },
   {
     quarter: "Q5",
-    title: "100% Sold",
+    title1: "75% Sold",
+    title2: "DAO Governance Integration",
     description:
-      "Final utility unlock and DAO formation for roadmap governance begins.",
+      "At 75%, DAO governance is activated, allowing NFT holders to influence key protocol decisions.",
     image: imgQ5,
   },
   {
     quarter: "Q6",
-    title: "100% Sold",
+    title1: "100% Sold",
+    title2: "Full Ecosystem Launch",
     description:
-      "Final utility unlock and DAO formation for roadmap governance begins.",
+      "At 100%, full DAO governance and all ecosystem utilities, including staking and rewards, go live.",
     image: imgQ6,
   },
 ];
+
+
 
 const TimelineComponent = () => {
   const scrollRef = useRef(null);
@@ -114,20 +123,17 @@ const TimelineComponent = () => {
     stiffness: 100,
   });
 
-
-
-  const svgTotalW = 4533; 
+  const svgTotalW = 4533;
   const circles = [
-    { cx: 9,    cy: 9 },
-    { cx: 900,  cy: 9 },
-    { cx: 1800,  cy: 9 },
+    { cx: 9, cy: 9 },
+    { cx: 900, cy: 9 },
+    { cx: 1800, cy: 9 },
     { cx: 2684, cy: 10 },
     { cx: 3575, cy: 11 },
     { cx: 4525, cy: 9 },
- 
   ];
-  
-  const WINDOW = 2; 
+
+  const WINDOW = 2;
   const circleOpacities = circles.map(({ cx }) => {
     const t = cx / svgTotalW;
     return useTransform(lineProgress, [Math.max(0, t - WINDOW), t], [0, 1]);
@@ -202,53 +208,76 @@ const TimelineComponent = () => {
               style={{ pathLength: lineProgress }}
             />
           </svg> */}
-<svg
-  className="timeline-svg"
-  viewBox="0 0 4533 20"         // match the coordinates you pasted
-  preserveAspectRatio="none"
->
-  {/* Base (dim) line */}
-  <line
-    x1="8" y1="9.5" x2="4533" y2="9.5"
-    stroke="white" strokeWidth="3" opacity="0.2"
-    vectorEffect="non-scaling-stroke"
-  />
+          <svg
+            className="timeline-svg"
+            viewBox="0 0 4533 20" // match the coordinates you pasted
+            preserveAspectRatio="none"
+          >
+            {/* Base (dim) line */}
+            <line
+              x1="8"
+              y1="9.5"
+              x2="4533"
+              y2="9.5"
+              stroke="white"
+              strokeWidth="3"
+              opacity="0.2"
+              vectorEffect="non-scaling-stroke"
+            />
 
-  {/* Animated green line */}
-  <motion.line
-    x1="8" y1="9.5" x2="4533" y2="9.5"
-    stroke="#39FF88" strokeWidth="3"
-    vectorEffect="non-scaling-stroke"
-    pathLength={1}
-    style={{ pathLength: lineProgress }}
-  />
+            {/* Animated green line */}
+            <motion.line
+              x1="8"
+              y1="9.5"
+              x2="4533"
+              y2="9.5"
+              stroke="#39FF88"
+              strokeWidth="3"
+              vectorEffect="non-scaling-stroke"
+              pathLength={1}
+              style={{ pathLength: lineProgress }}
+            />
 
-  <g>
-    {circles.map(({ cx, cy }, i) => (
-      <g key={i}>
-       
-        <circle cx={cx} cy={cy} r="9" fill="#6A6E6C" fillOpacity="0.78" />
-        <circle cx={cx} cy={cy} r="9" fill="#6A6E6C" />
+            <g>
+              {circles.map(({ cx, cy }, i) => (
+                <g key={i}>
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r="9"
+                    fill="#6A6E6C"
+                    fillOpacity="0.78"
+                  />
+                  <circle cx={cx} cy={cy} r="9" fill="#6A6E6C" />
 
-    
-        <motion.circle
-          cx={cx} cy={cy} r="9" fill="#5CFFB1" fillOpacity="0.72"
-          style={{ opacity: circleOpacities[i], scale: circleScales[i] }}
-          transformOrigin={`${cx}px ${cy}px`}
-        />
-        <motion.circle
-          cx={cx} cy={cy} r="9" fill="#5CFFB1"
-          style={{ opacity: circleOpacities[i] }}
-          transformOrigin={`${cx}px ${cy}px`}
-        />
-      </g>
-    ))}
-  </g>
-</svg>
+                  <motion.circle
+                    cx={cx}
+                    cy={cy}
+                    r="9"
+                    fill="#5CFFB1"
+                    fillOpacity="0.72"
+                    style={{
+                      opacity: circleOpacities[i],
+                      scale: circleScales[i],
+                    }}
+                    transformOrigin={`${cx}px ${cy}px`}
+                  />
+                  <motion.circle
+                    cx={cx}
+                    cy={cy}
+                    r="9"
+                    fill="#5CFFB1"
+                    style={{ opacity: circleOpacities[i] }}
+                    transformOrigin={`${cx}px ${cy}px`}
+                  />
+                </g>
+              ))}
+            </g>
+          </svg>
 
           <div className="thumbnails">
             {roadmap.map((item, index) => {
-              const badge = String(index + 1).padStart(2, "0"); 
+              const badge = String(index + 1).padStart(2, "0");
               return (
                 <div className="stage" key={index}>
                   <div className="vector-wrap">
@@ -258,7 +287,8 @@ const TimelineComponent = () => {
                       className={`vector-image vector-image${index + 1}`}
                     />
                     <div className={`timeline-card timeline-card${index + 1}`}>
-                      <h3 className="title">{item.title}</h3>
+                      <h3 className="title">{item.title1}</h3>
+                      {/* <h4 className="subtitle">{item.title2}</h4> */}
                       <p className="desc">{item.description}</p>
                     </div>
                   </div>
