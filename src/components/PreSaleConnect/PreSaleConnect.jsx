@@ -142,11 +142,23 @@ export default function PreSaleConnect() {
               labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
             />
           ) : active === "wallet" ? (
-            <button className="connect-btn">Choose Plan</button>
+            <ConnectButton
+            className="connect-btn"
+            labelDisconnected="Connect Now"
+            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+          />
           ) : active === "dollar" ? (
-            <button className="connect-btn">Pay Now</button>
+            <ConnectButton
+            className="connect-btn"
+            labelDisconnected="Connect Now"
+            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+          />
           ) : (
-            <button className="connect-btn">View Status</button>
+            <ConnectButton
+              className="connect-btn"
+              labelDisconnected="Connect Now"
+              labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+            />
           )}
         </div>
         </div>

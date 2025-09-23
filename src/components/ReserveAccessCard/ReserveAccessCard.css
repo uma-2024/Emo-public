@@ -98,6 +98,178 @@
   color: #aaa;
   text-align: center;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,255,174,0.4);
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.confirm-btn, .cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background: #1effa2;
+  color: #000;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #444;
+  color: #fff;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-row__label {
+  font-size: 0.95rem;
+  color: #ccc;
+  text-align: left;
+}
+.form-row__input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.form-row__icon{
+  width: 10%;
+}
+.form___input1 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form___input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-row__receive-amount {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.dropdown {
+  position: relative;
+  background: #222;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+
+
+
+
+.dropdown {
+  position: relative;
+  min-width: 130px;
+}
+
+.dropdown-toggle {
+  background: #222;
+  border: none;
+  border-radius: 6px;
+ 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.dropdown-toggle span {
+  margin-left: 6px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #333;
+  border-radius: 6px;
+  margin-top: 4px;
+  padding: 6px 0;
+  list-style: none;
+  width: 100%;
+  z-index: 20;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-menu li {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.dropdown-menu li:hover {
+  background: #1effa2;
+  color: #000;
+}
+
+.token-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @media screen and (max-width: 768px) {
   .reserve-card {

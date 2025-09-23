@@ -36,11 +36,14 @@ const Navbar = () => {
       </div>
 
       <nav className={`navbar-links ${menuOpen ? "active" : ""}`}>
+        <div className="nav-inner">
         <NavLink to="/" className="nav-item" end>Home</NavLink>
         <NavLink to="/pre-sale" className="nav-item">Pre-Sale</NavLink>
         <NavLink to="/tokenomics" className="nav-item">Tokenomics</NavLink>
         <NavLink to="/about" className="nav-item">About Us</NavLink>
         <NavLink to="/contact" className="nav-item">Contact Us</NavLink>
+        </div>
+     
       </nav>
 
       <div className="bell-button">

@@ -1,5 +1,5 @@
 .token-sale-section {
-    padding: 60px 120px;
+    padding: 60px 12%;
     overflow: hidden;
     color: white;
   }
@@ -58,3 +58,10 @@
     z-index: 1;
   }
   
+
+  @media (max-width: 768px) {
+    .token-sale-section {
+      padding: 40px 16px;
+    }
+    
+  }

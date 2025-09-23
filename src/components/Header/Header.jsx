@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 import video from "../../assets/bg.mp4";
+import ConnectButton from "../ConnectButton/ConnectButton";
+
 
 // Configure real links (or use .env)
 const EMAIL_TO = import.meta.env.VITE_CONTACT_EMAIL || "support@example.com";
@@ -24,22 +26,23 @@ const routeContent = {
     title: (
       <>
         Transparent. Sustainable. <br />
-        <span>  Decentralized. </span>
+        <span> Decentralized. </span>
       </>
-    ), 
-    subtitle: "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
+    ),
+    subtitle:
+      "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
     buttons: ["Join Pre-Sale", "Connect Wallet"],
   },
   "/about": {
     title: (
       <>
-       The AI-Driven Blockchain of <br />
-        <span>  Tomorrow </span>
+        The AI-Driven Blockchain of <br />
+        <span> Tomorrow </span>
       </>
-    ), 
+    ),
     subtitle:
       "XIK is an autonomous Layer 1 blockchain governed by intelligent agents. Built for scalability, security, and decentralized intelligence — this is where AI meets the core of Web3.",
-      buttons: ["Join Pre-Sale", "Contact Us"],
+    buttons: ["Join Pre-Sale", "Contact Us"],
   },
   "/contact": {
     title: "Get in touch",
@@ -58,23 +61,24 @@ const routeContent = {
         Join the Future of <br />
         <span> Autonomous Blockchain </span>
       </>
-    ), 
-    subtitle: "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem.By joining the pre-sale, you’re getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    ),
+    subtitle:
+      "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you’re getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
     buttons: ["IDO price $1", "Listing price $2"],
     showCountdown: true,
   },
   "/announcement": {
     title: "Announcement",
     subtitle:
-      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.  ",
+      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
     buttons: ["Join Pre-Sale", "Contact Us"],
   },
 };
 
 const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  // Normalize pathname (remove trailing slashes). Fall back to "/"
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
   const content = routeContent[normalizedPath] ?? routeContent["/"];
 
@@ -85,7 +89,6 @@ const Header = () => {
     seconds: "00",
   });
 
-  // Keep target timestamp stable (IST: UTC+05:30)
   const targetTs = useMemo(
     () => new Date("2025-12-01T00:00:00+05:30").getTime(),
     []
@@ -93,7 +96,6 @@ const Header = () => {
 
   useEffect(() => {
     if (!content?.showCountdown) return;
-
     let intervalId;
 
     const tick = () => {
@@ -106,10 +108,10 @@ const Header = () => {
         return;
       }
 
-      const d = Math.floor(distance / 86400000); // 24*60*60*1000
-      const h = Math.floor((distance % 86400000) / 3600000); // 60*60*1000
-      const m = Math.floor((distance % 3600000) / 60000); // 60*1000
-      const s = Math.floor((distance % 60000) / 1000); // 1000
+      const d = Math.floor(distance / 86400000);
+      const h = Math.floor((distance % 86400000) / 3600000);
+      const m = Math.floor((distance % 3600000) / 60000);
+      const s = Math.floor((distance % 60000) / 1000);
 
       setCountdown({
         days: String(d).padStart(2, "0"),
@@ -119,17 +121,21 @@ const Header = () => {
       });
     };
 
-    // Initial paint + start interval
     tick();
     intervalId = setInterval(tick, 1000);
-
     return () => clearInterval(intervalId);
   }, [content?.showCountdown, targetTs]);
 
-  // Handle header button actions
   const handleHeaderButtonClick = (label) => {
-    // Our Vision → smooth scroll to ~2200px above the bottom
-    if (label === "Our Vision") {
+    if (/join pre-sale/i.test(label)) {
+      navigate("/pre-sale");
+      return;
+    }
+    if (/contact/i.test(label)) {
+      navigate("/contact");
+      return;
+    }
+    if (/our vision/i.test(label)) {
       const doc = document.documentElement;
       const body = document.body;
       const docHeight = Math.max(
@@ -149,22 +155,21 @@ const Header = () => {
       return;
     }
     if (/whitepaper/i.test(label)) {
-      window.open("/XIKS Chain - Whitepaper.pdf", "_blank", "noopener,noreferrer");
+      window.open(
+        "/XIKS Chain - Whitepaper.pdf",
+        "_blank",
+        "noopener,noreferrer"
+      );
       return;
     }
-    // Email Us / Contact Us → open mail client
-    if (/email/i.test(label) || /contact/i.test(label)) {
+    if (/email/i.test(label)) {
       window.location.href = `mailto:${EMAIL_TO}`;
       return;
     }
-
-    // Join Telegram → open Telegram in new tab
     if (/telegram/i.test(label)) {
       window.open(TELEGRAM_URL, "_blank", "noopener,noreferrer");
       return;
     }
-
-    // Other labels: keep as no-op for now
   };
 
   if (!content) return null;
@@ -179,6 +184,7 @@ const Header = () => {
         playsInline
         src={video}
       />
+  
       <div className="header-content">
         {content.showCountdown && (
           <div className="countdown-timer">
@@ -205,15 +211,19 @@ const Header = () => {
         <p className="header-subtitle">{content.subtitle}</p>
 
         <div className="header-buttons">
-          {content.buttons.map((label, idx) => (
-            <button
-              key={idx}
-              className={idx === 0 ? "wallet-btn" : "secondary-btn"}
-              onClick={() => handleHeaderButtonClick(label)}
-            >
-              {label}
-            </button>
-          ))}
+          {content.buttons.map((label, idx) =>
+            /connect wallet/i.test(label) ? (
+              <ConnectButton key={idx} className="secondary-btn" />
+            ) : (
+              <button
+                key={idx}
+                className={idx === 0 ? "wallet-btn" : "secondary-btn"}
+                onClick={() => handleHeaderButtonClick(label)}
+              >
+                {label}
+              </button>
+            )
+          )}
         </div>
       </div>
     </div>
@@ -221,3 +231,4 @@ const Header = () => {
 };
 
 export default Header;
+

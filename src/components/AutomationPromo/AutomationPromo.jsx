@@ -1,8 +1,10 @@
 import React from "react";
 import "./AutomationPromo.css";
 import video from '../../assets/bg.mp4'
+import { useNavigate } from "react-router-dom";
 
 const AutomationPromo = () => {
+  const navigate = useNavigate();
   return (
     <div className="automation-promo-wrapper">
       <video
@@ -26,7 +28,12 @@ const AutomationPromo = () => {
           to own the currency powering the intelligent automation revolution.
         </p>
         <div className="automation-buttons">
-          <button className="automation-btn primary" >Join Pre-Sale Now</button>
+        <button
+      className="automation-btn primary"
+      onClick={() => navigate("/pre-sale")}
+    >
+      Join Pre-Sale Now
+    </button>
           <button className="automation-btn secondary" onClick={() => {
     const link = document.createElement("a");
     link.href = "/XIKS Chain - Whitepaper.pdf"; // file in public folder

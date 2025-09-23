@@ -1,13 +1,22 @@
+
 .navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 60px;
+  color: white;
+  position: sticky; 
+  top: 0; 
+  z-index: 1000; 
+  background: rgba(2, 9, 1, 0.40); 
+
+}
+
+
+  .nav-inner{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* background: rgba(2, 9, 1, 0.40); */
-        padding: 16px 60px;
-    color: white;
-    position: relative;
+   gap: 50px;
   }
-  
   .navbar-logo {
     display: flex;
     align-items: center;
@@ -114,11 +123,11 @@
       top: 60px;
       left: 0;
       right: 0;
-      background: #111;
+      background: rgba(2, 9, 1, 0.90);
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      padding: 20px 0;
+      padding: 50px 0;
       display: none;
     }
   
@@ -140,6 +149,10 @@
       justify-content: space-between;
       background: rgba(2, 9, 1, 0.40);
       padding: 16px 16px;
+    }
+    .nav-inner{
+      flex-direction: column;
+     gap: 30px;
     }
   }
   
