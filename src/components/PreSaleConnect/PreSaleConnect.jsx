@@ -129,10 +129,10 @@ export default function PreSaleConnect() {
           </h3>
 
           <p className="info">
-            {icons[activeIdx].label === "rocket" && "Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
-             {icons[activeIdx].label === "wallet" && "Pick the best tier for you mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
-            {icons[activeIdx].label === "dollar" && "Enter payment details mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
-            {icons[activeIdx].label === "globe"  && "You’re all set! View on explorer mobile mining, and quantum-resistant security to create the world’s first autonomous blockchain economy."}
+            {icons[activeIdx].label === "rocket" && "Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
+             {icons[activeIdx].label === "wallet" && "Pick the best tier for you mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
+            {icons[activeIdx].label === "dollar" && "Enter payment details mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
+            {icons[activeIdx].label === "globe"  && "You're all set! View on explorer mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
           </p>
 
           {active === "rocket" ? (

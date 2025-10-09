@@ -1,0 +1,347 @@
+.claim-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.claim-container {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.2);
+  overflow: hidden;
+}
+
+.claim-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  border-radius: 20px;
+}
+
+.claim-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.claim-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #00e676, #00c853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.claim-subtitle {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.claim-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.claim-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 230, 118, 0.2);
+}
+
+.stat-card.claimable {
+  background: rgba(0, 230, 118, 0.1);
+  border-color: #00e676;
+  animation: pulse-glow 2s infinite;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 230, 118, 0.2);
+  border-radius: 50%;
+}
+
+.stat-info h3 {
+  color: #fff;
+  font-size: 0.7rem;
+  margin: 0 0 5px 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  color: #00e676;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.claim-form {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+}
+
+.claim-amount-display {
+  margin-bottom: 25px;
+}
+
+.claim-amount-box {
+  background: rgba(0, 230, 118, 0.1);
+  border: 2px solid #00e676;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.token-icon2 {
+  width: 40px;
+  height: 40px;
+}
+
+.amount-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-label {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.amount-value {
+  color: #00e676;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.next-claim-info {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.next-claim-info p {
+  color: #ffc107;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.claim-button {
+  background: linear-gradient(45deg, #00e676, #00c853);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.claim-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
+}
+
+.claim-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.claim-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.connect-warning,
+.no-tokens-warning {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.warning-icon {
+  font-size: 1rem;
+}
+
+.referral-info {
+  color: #00e676;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.referral-warning {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.vesting-info {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.vesting-info h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.vesting-details {
+  display: grid;
+  gap: 15px;
+}
+
+.vesting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vesting-item:last-child {
+  border-bottom: none;
+}
+
+.vesting-label {
+  color: #ccc;
+  font-weight: 500;
+}
+
+.vesting-value {
+  color: #00e676;
+  font-weight: bold;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .claim-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .claim-title {
+    font-size: 2rem;
+  }
+
+  .claim-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .claim-amount-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .vesting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 import video from "../../assets/bg.mp4";
 import ConnectButton from "../ConnectButton/ConnectButton";
+import { WalletContext } from "../WalletConnect/WalletConnect";
+import { usePresaleContract } from "../../hooks/usePresaleContract";
 
 
 // Configure real links (or use .env)
@@ -78,6 +80,8 @@ const routeContent = {
 const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { provider, address } = useContext(WalletContext);
+  const { phaseData } = usePresaleContract(provider, address);
 
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
   const content = routeContent[normalizedPath] ?? routeContent["/"];
@@ -87,15 +91,27 @@ const Header = () => {
     hours: "00",
     minutes: "00",
     seconds: "00",
+    isLoading: true,
   });
 
-  const targetTs = useMemo(
-    () => new Date("2025-12-01T00:00:00+05:30").getTime(),
-    []
-  );
+  // Get target timestamp from contract phase data
+  const targetTs = useMemo(() => {
+    if (!phaseData || !phaseData.endTime) {
+      return null;
+    }
+    // Convert from seconds to milliseconds
+    return Number(phaseData.endTime) * 1000;
+  }, [phaseData]);
 
   useEffect(() => {
     if (!content?.showCountdown) return;
+    
+    // If no contract data yet, show loading state
+    if (!targetTs) {
+      setCountdown(prev => ({ ...prev, isLoading: true }));
+      return;
+    }
+
     let intervalId;
 
     const tick = () => {
@@ -103,7 +119,13 @@ const Header = () => {
       const distance = targetTs - now;
 
       if (distance <= 0) {
-        setCountdown({ days: "00", hours: "00", minutes: "00", seconds: "00" });
+        setCountdown({ 
+          days: "00", 
+          hours: "00", 
+          minutes: "00", 
+          seconds: "00",
+          isLoading: false 
+        });
         if (intervalId) clearInterval(intervalId);
         return;
       }
@@ -118,6 +140,7 @@ const Header = () => {
         hours: String(h).padStart(2, "0"),
         minutes: String(m).padStart(2, "0"),
         seconds: String(s).padStart(2, "0"),
+        isLoading: false,
       });
     };
 
@@ -189,19 +212,27 @@ const Header = () => {
         {content.showCountdown && (
           <div className="countdown-timer">
             <div className="countdown-box">
-              <div>{countdown.days}</div>
+              <div className={countdown.isLoading ? "loading-spinner" : ""}>
+                {countdown.isLoading ? "" : countdown.days}
+              </div>
               <span>DAYS</span>
             </div>
             <div className="countdown-box">
-              <div>{countdown.hours}</div>
+              <div className={countdown.isLoading ? "loading-spinner" : ""}>
+                {countdown.isLoading ? "" : countdown.hours}
+              </div>
               <span>HOURS</span>
             </div>
             <div className="countdown-box">
-              <div>{countdown.minutes}</div>
+              <div className={countdown.isLoading ? "loading-spinner" : ""}>
+                {countdown.isLoading ? "" : countdown.minutes}
+              </div>
               <span>MINUTES</span>
             </div>
             <div className="countdown-box">
-              <div>{countdown.seconds}</div>
+              <div className={countdown.isLoading ? "loading-spinner" : ""}>
+                {countdown.isLoading ? "" : countdown.seconds}
+              </div>
               <span>SECONDS</span>
             </div>
           </div>

@@ -9,6 +9,7 @@ import Tokenomics from "./components/Tokenomics/Tokenomics";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import AnnouncementSection from "./components/AnnouncementSection/AnnouncementSection";
+import Claim from "./components/Claim/Claim";
 import ScrollToTop from "./ScrollToTop";
 
 function App() {

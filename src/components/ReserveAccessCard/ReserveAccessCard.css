@@ -81,6 +81,91 @@
   font-size: 0.9rem;
 }
 
+.private-bonus {
+  background: linear-gradient(135deg, #00e676, #00c853);
+  color: black;
+  font-weight: bold;
+  border: 1px solid #00e676;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+  }
+}
+
+.amount-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.amount-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.referral-input {
+
+  color: white;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+  font-family: monospace;
+  border: none;
+  background-color: transparent;
+}
+
+.referral-input:disabled {
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: not-allowed;
+  text-align: left;
+}
+
+.referral-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.referral-info {
+  font-size: 0.8rem;
+  color: #00e676;
+  margin-top: 5px;
+  text-align: center;
+  font-style: italic;
+}
+
+.price-display {
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.price-display p {
+  margin: 5px 0;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.bonus-info {
+  color: #00e676 !important;
+  font-weight: bold;
+}
+
 .buy-button {
   padding: 12px 24px;
   background: linear-gradient(90deg, #ff00cc, #333399);
@@ -113,7 +198,7 @@
 
 .modal-content {
   background: #111;
-  padding: 30px;
+  padding: 0;
   border-radius: 12px;
   max-width: 400px;
   width: 90%;
@@ -122,30 +207,81 @@
   box-shadow: 0 0 20px rgba(0,255,174,0.4);
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px 10px 30px;
+  border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ff6b6b;
+  transform: scale(1.1);
+}
+
+.modal-close-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-body {
+  padding: 20px 30px 30px 30px;
+}
+
 .modal-actions {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.confirm-btn, .cancel-btn {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+  justify-content: center;
 }
 
 .confirm-btn {
+  padding: 12px 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
   background: #1effa2;
   color: #000;
   font-weight: bold;
+  font-size: 1.1rem;
+  min-width: 120px;
+  transition: all 0.3s ease;
 }
 
-.cancel-btn {
-  background: #444;
-  color: #fff;
+.confirm-btn:hover:not(:disabled) {
+  background: #00e676;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 255, 162, 0.3);
+}
+
+.confirm-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 .form-row {
   display: flex;
@@ -180,6 +316,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .form-row__receive-amount {
