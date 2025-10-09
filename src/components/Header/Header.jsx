@@ -106,9 +106,15 @@ const Header = () => {
   useEffect(() => {
     if (!content?.showCountdown) return;
     
-    // If no contract data yet, show loading state
+    // If no contract data yet, show "00" after initial loading
     if (!targetTs) {
-      setCountdown(prev => ({ ...prev, isLoading: true }));
+      setCountdown({ 
+        days: "00", 
+        hours: "00", 
+        minutes: "00", 
+        seconds: "00",
+        isLoading: false 
+      });
       return;
     }
 
