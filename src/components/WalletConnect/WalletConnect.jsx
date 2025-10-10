@@ -170,34 +170,9 @@ export const WalletProvider = ({ children }) => {
         console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, try Web3Modal first, then WalletConnect as fallback
-        console.log("🔄 [Wallet] Mobile detected, trying Web3Modal first...");
-        try {
-          await open({ view: 'Connect' });
-          
-          // Wait for connection to be established
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          const { ethereum } = window;
-          if (ethereum) {
-            const provider = new ethers.BrowserProvider(ethereum);
-            setProvider(provider);
-            
-            const signer = await provider.getSigner();
-            setSigner(signer);
-            
-            const userAddress = await signer.getAddress();
-            setAddress(userAddress);
-            
-            console.log('✅ [Wallet] Mobile Web3Modal connected:', userAddress);
-            toast.success("Wallet connected using Web3Modal");
-          } else {
-            throw new Error("No ethereum provider found");
-          }
-        } catch (web3ModalError) {
-          console.log("⚠️ [Wallet] Web3Modal failed, trying WalletConnect...", web3ModalError);
-          await initWalletConnectProvider();
-        }
+        // On mobile, use WalletConnect
+        console.log("🔄 [Wallet] Mobile detected, using WalletConnect");
+        await initWalletConnectProvider();
       } else {
         // If no extension is available and on desktop, show error
         console.error("No wallet extension detected on desktop");
