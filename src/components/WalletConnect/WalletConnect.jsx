@@ -40,7 +40,7 @@ const WalletProvider = ({ children }) => {
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
-  // WalletConnect fallback if window.ethereum is not available
+  // WalletConnect for mobile MetaMask connection
   const initWalletConnectProvider = async () => {
     try {
       const wcProvider = await EthereumProvider.init({
@@ -52,23 +52,64 @@ const WalletProvider = ({ children }) => {
           icons: ["https://defipredictor.com/icon.png"],
         },
         showQrModal: true,
-        optionalChains: [56], // BNB Mainnet chain ID
+        chains: [56], // BNB Mainnet chain ID
         rpcMap: {
           56: 'https://bsc-dataseed.binance.org/', // BNB Mainnet RPC URL
         },
+        methods: [
+          'eth_sendTransaction',
+          'eth_signTransaction', 
+          'eth_sign',
+          'personal_sign',
+          'eth_signTypedData',
+        ],
+        events: ['chainChanged', 'accountsChanged'],
+        qrModalOptions: {
+          themeMode: 'light',
+        },
       });
-      //https://go.getblock.io/0fb0008a25194d81bfaa0de2a23e3b0c
+
+      // Set up event listeners
+      wcProvider.on('accountsChanged', (accounts) => {
+        console.log('Accounts changed:', accounts);
+        if (accounts.length > 0) {
+          setAddress(accounts[0]);
+        } else {
+          setAddress("");
+          setProvider(null);
+          setSigner(null);
+        }
+      });
+
+      wcProvider.on('chainChanged', (chainId) => {
+        console.log('Chain changed:', chainId);
+      });
+
+      wcProvider.on('disconnect', () => {
+        console.log('WalletConnect disconnected');
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
+      });
+
       await wcProvider.connect();
+      
       const provider = new ethers.providers.Web3Provider(wcProvider);
       setProvider(provider);
+      
       const signer = provider.getSigner();
       setSigner(signer);
+      
       const userAddress = await signer.getAddress();
       setAddress(userAddress);
-      toast.success("Wallet connected using WalletConnect");
+      
+      toast.success("MetaMask connected via WalletConnect");
+      
+      return provider;
     } catch (error) {
       console.error("Error initializing WalletConnect:", error);
-      toast.error("Failed to connect via WalletConnect");
+      toast.error("Failed to connect via WalletConnect: " + error.message);
+      throw error;
     }
   };
   const switchNetwork = async (provider) => {
@@ -153,22 +194,18 @@ const WalletProvider = ({ children }) => {
     try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       
-      if (!isMobile) {
+      if (isMobile) {
+        // On mobile, always use WalletConnect to connect with MetaMask mobile app
+        console.log("Mobile detected, connecting with MetaMask via WalletConnect");
+        await initWalletConnectProvider();
+      } else {
         // Use MetaMask or any web3 browser extension on desktop
-        console.log("Web provider available, using MetaMask or web extension");
+        console.log("Desktop detected, using MetaMask or web extension");
         await open({ view: 'Connect' });
         
         // Don't try to get signer immediately - let wagmi handle the connection
         // The useEffect will update the address when wagmiAddress changes
         toast.info("Please complete the connection in your wallet");
-      } else if (isMobile) {
-        // On mobile, use WalletConnect
-        console.log("Mobile detected, using WalletConnect");
-        await initWalletConnectProvider();
-      } else {
-        // If no extension is available and on desktop, show error
-        console.error("No wallet extension detected on desktop");
-        toast.error("Please install a wallet extension like MetaMask.");
       }
     } catch (err) {
       console.error("Error connecting wallet:", err);
@@ -179,12 +216,30 @@ const WalletProvider = ({ children }) => {
       }
     }
   };
-  const disconnectWallet = () => {
-    disconnect();
-    setAddress("");
-    setProvider(null);
-    setSigner(null);
-    toast.success("Wallet disconnected");
+  const disconnectWallet = async () => {
+    try {
+      // Disconnect from WalletConnect if it's the current provider
+      if (provider && provider.provider && provider.provider.disconnect) {
+        await provider.provider.disconnect();
+      }
+      
+      // Disconnect from wagmi
+      disconnect();
+      
+      // Reset state
+      setAddress("");
+      setProvider(null);
+      setSigner(null);
+      
+      toast.success("Wallet disconnected");
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+      // Still reset state even if disconnect fails
+      setAddress("");
+      setProvider(null);
+      setSigner(null);
+      toast.success("Wallet disconnected");
+    }
   };
   useEffect(() => {
     if (wagmiAddress) {
