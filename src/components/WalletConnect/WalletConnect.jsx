@@ -56,6 +56,7 @@ export const WalletProvider = ({ children }) => {
       console.log('🔍 [Wallet] Project ID:', PROJECT_ID);
       console.log('🔍 [Wallet] App URL:', appUrl);
       
+      // Use a simpler configuration to avoid compatibility issues
       const wcProvider = await EthereumProvider.init({
         projectId: PROJECT_ID,
         metadata: {
@@ -65,13 +66,6 @@ export const WalletProvider = ({ children }) => {
           icons: [`${appUrl}/icon.png`],
         },
         showQrModal: true,
-        chains: [97], // BSC Testnet chain ID
-        optionalChains: [97],
-        rpcMap: {
-          97: 'https://bsc-testnet.publicnode.com', // Alternative BSC Testnet RPC URL
-        },
-        methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'eth_signTypedData'],
-        events: ['chainChanged', 'accountsChanged'],
       });
 
       console.log('🔄 [Wallet] WalletConnect provider initialized, connecting...');
@@ -170,9 +164,29 @@ export const WalletProvider = ({ children }) => {
         console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, use WalletConnect
-        console.log("🔄 [Wallet] Mobile detected, using WalletConnect");
-        await initWalletConnectProvider();
+        // On mobile, use Web3Modal (which includes WalletConnect support)
+        console.log("🔄 [Wallet] Mobile detected, using Web3Modal");
+        await open({ view: 'Connect' });
+        
+        // Wait for connection to be established
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        const { ethereum } = window;
+        if (!ethereum) {
+          throw new Error("No Ethereum provider found");
+        }
+        
+        const provider = new ethers.BrowserProvider(ethereum);
+        setProvider(provider);
+        
+        const signer = await provider.getSigner();
+        setSigner(signer);
+        
+        const userAddress = await signer.getAddress();
+        setAddress(userAddress);
+        
+        console.log('✅ [Wallet] Mobile Web3Modal connected:', userAddress);
+        toast.success("Wallet connected using Web3Modal");
       } else {
         // If no extension is available and on desktop, show error
         console.error("No wallet extension detected on desktop");
