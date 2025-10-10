@@ -15,7 +15,7 @@
     "@walletconnect/ethereum-provider": "^2.22.2",
     "@walletconnect/universal-provider": "^2.22.2",
     "@web3modal/wagmi": "^5.1.11",
-    "ethers": "^6.15.0",
+    "ethers": "^5.7.0",
     "framer-motion": "^12.18.1",
     "jquery": "^3.7.1",
     "react": "^19.1.0",
