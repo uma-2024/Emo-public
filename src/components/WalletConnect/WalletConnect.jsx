@@ -4,9 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { WagmiConfig, useAccount, useDisconnect } from 'wagmi';
+import { WagmiConfig, useAccount, useDisconnect, useConnect, useWalletClient } from 'wagmi';
 import { mainnet } from 'wagmi/chains'; // Import Ethereum Mainnet
-import Provider from "@walletconnect/universal-provider";
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 // Hardcoded WalletConnect Project ID and Metadata
@@ -49,10 +48,17 @@ export const WalletProvider = ({ children }) => {
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
+  const { connectors } = useConnect();
+  const { data: walletClient } = useWalletClient();
 
   // WalletConnect fallback if window.ethereum is not available
   const initWalletConnectProvider = async () => {
     try {
+      console.log('🔄 [Wallet] Initializing WalletConnect for mobile...');
+      console.log('🔍 [Wallet] Project ID:', PROJECT_ID);
+      console.log('🔍 [Wallet] App URL:', appUrl);
+      
+      // Use a simpler configuration to avoid compatibility issues
       const wcProvider = await EthereumProvider.init({
         projectId: PROJECT_ID,
         metadata: {
@@ -62,29 +68,82 @@ export const WalletProvider = ({ children }) => {
           icons: [`${appUrl}/icon.png`],
         },
         showQrModal: true,
-        optionalChains: [1], // Ethereum Mainnet chain ID
-        rpcMap: {
-          1: 'https://eth-mainnet.g.alchemy.com/v2/demo', // Ethereum Mainnet RPC URL
-        },
       });
 
+      console.log('🔄 [Wallet] WalletConnect provider initialized, connecting...');
       await wcProvider.connect();
-      const provider = new ethers.providers.Web3Provider(wcProvider);
-      setProvider(provider);
-      const signer = provider.getSigner();
-      setSigner(signer);
-      const userAddress = await signer.getAddress();
-      setAddress(userAddress);
-      toast.success("Wallet connected using WalletConnect");
+      
+      // Add event listeners for WalletConnect
+      wcProvider.on("accountsChanged", (accounts) => {
+        console.log("🔄 [Wallet] Accounts changed:", accounts);
+        if (accounts.length > 0) {
+          setAddress(accounts[0]);
+        }
+      });
+
+      wcProvider.on("chainChanged", (chainId) => {
+        console.log("🔄 [Wallet] Chain changed:", chainId);
+      });
+
+      wcProvider.on("disconnect", () => {
+        console.log("🔄 [Wallet] WalletConnect disconnected");
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
+        toast.success("Wallet disconnected");
+      });
+
+      // Wait for connection to be established
+      if (wcProvider.connected) {
+        console.log('🔄 [Wallet] Creating ethers provider...');
+        
+        try {
+          // Try BrowserProvider first (ethers v6)
+          const provider = new ethers.BrowserProvider(wcProvider, "any");
+          console.log('✅ [Wallet] BrowserProvider created successfully');
+          
+          setProvider(provider);
+          const signer = await provider.getSigner();
+          setSigner(signer);
+          
+          const userAddress = await signer.getAddress();
+          setAddress(userAddress);
+          
+          console.log('✅ [Wallet] WalletConnect connected:', userAddress);
+          toast.success("Wallet connected using WalletConnect");
+        } catch (browserProviderError) {
+          console.log('⚠️ [Wallet] BrowserProvider failed, trying fallback approach:', browserProviderError);
+          
+          // Fallback: Use JsonRpcProvider with a public RPC
+          try {
+            const fallbackProvider = new ethers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+            console.log('✅ [Wallet] Fallback JsonRpcProvider created');
+            
+            setProvider(fallbackProvider);
+            
+            // For fallback, we can't get a signer, so we'll rely on wagmi for signing
+            console.log('⚠️ [Wallet] Using fallback provider - signing will be handled by wagmi');
+            toast.success("Wallet connected using WalletConnect (fallback mode)");
+          } catch (fallbackError) {
+            console.error('❌ [Wallet] Both BrowserProvider and fallback failed:', fallbackError);
+            throw new Error("Failed to create provider for WalletConnect");
+          }
+        }
+      } else {
+        throw new Error("WalletConnect connection not established");
+      }
     } catch (error) {
-      console.error("Error initializing WalletConnect:", error);
-      toast.error("Failed to connect via WalletConnect");
+      console.error("❌ [Wallet] Error initializing WalletConnect:", error);
+      console.error("❌ [Wallet] Error details:", error.message);
+      console.error("❌ [Wallet] Error stack:", error.stack);
+      toast.error("Failed to connect via WalletConnect: " + error.message);
     }
   };
 
   const switchNetwork = async (provider) => {
     const ethereumMainnetChainId = "0x1"; // Hexadecimal chain ID for Ethereum Mainnet
     const currentNetwork = await provider.getNetwork();
+    
     if (currentNetwork.chainId !== parseInt(ethereumMainnetChainId, 16)) {
       try {
         await window.ethereum.request({
@@ -125,26 +184,77 @@ export const WalletProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      console.log('🔍 [Wallet] Connect wallet called');
+      console.log('🔍 [Wallet] Is mobile:', isMobile);
+      console.log('🔍 [Wallet] Current wagmi address:', wagmiAddress);
       
       if (!isMobile) {
         // Use MetaMask or any web3 browser extension on desktop
-        console.log("Web provider available, using MetaMask or web extension");
+        console.log("🔄 [Wallet] Desktop detected, using MetaMask or web extension");
         await open({ view: 'Connect' });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        
+        // Wait for connection to be established
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        const { ethereum } = window;
+        if (!ethereum) {
+          throw new Error("No Ethereum provider found");
+        }
+        
+        const provider = new ethers.BrowserProvider(ethereum);
         setProvider(provider);
         await switchNetwork(provider);
+        
+        const signer = await provider.getSigner();
+        setSigner(signer);
+        
+        const userAddress = await signer.getAddress();
+        setAddress(userAddress);
+        
+        console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, use WalletConnect
-        await initWalletConnectProvider();
+        // On mobile, use Web3Modal directly
+        console.log("🔄 [Wallet] Mobile detected, using Web3Modal");
+        
+        try {
+          // Open Web3Modal
+          console.log("🔄 [Wallet] Opening Web3Modal...");
+          await open({ view: 'Connect' });
+          
+          // Give Web3Modal time to establish connection
+          console.log("🔄 [Wallet] Waiting for Web3Modal to establish connection...");
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          
+          // Check if we have a connection now
+          if (wagmiAddress) {
+            console.log("✅ [Wallet] Wagmi connection detected:", wagmiAddress);
+            setAddress(wagmiAddress);
+            
+            // For mobile, we don't need to create a separate provider
+            // Wagmi handles the provider internally
+            console.log('✅ [Wallet] Mobile connection established via Web3Modal');
+            toast.success("Wallet connected via Web3Modal");
+            return;
+          }
+          
+          // If no wagmi connection, try EthereumProvider fallback
+          console.log("⚠️ [Wallet] No wagmi connection, trying EthereumProvider fallback...");
+          await initWalletConnectProvider();
+          
+        } catch (error) {
+          console.error("❌ [Wallet] Mobile connection error:", error);
+          toast.error("Failed to connect wallet on mobile: " + error.message);
+          throw error;
+        }
       } else {
         // If no extension is available and on desktop, show error
         console.error("No wallet extension detected on desktop");
         toast.error("Please install a wallet extension like MetaMask.");
       }
     } catch (err) {
-      console.error("Error connecting wallet:", err);
-      toast.error("Failed to connect wallet");
+      console.error("❌ [Wallet] Error connecting wallet:", err);
+      toast.error("Failed to connect wallet: " + err.message);
     }
   };
 
@@ -156,19 +266,121 @@ export const WalletProvider = ({ children }) => {
     toast.success("Wallet disconnected");
   };
 
+  // Mobile detection and initialization
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    console.log('🔍 [Wallet] User Agent:', navigator.userAgent);
+    console.log('🔍 [Wallet] Mobile detected:', isMobile);
+    if (isMobile) {
+      console.log('📱 [Wallet] Mobile device detected');
+    }
+  }, []);
+
+  // Restore wallet connection on page load
+  useEffect(() => {
+    const restoreConnection = async () => {
+      try {
+        const { ethereum } = window;
+        if (!ethereum) {
+          console.log('❌ [Wallet] No ethereum provider found');
+          return;
+        }
+
+        console.log('🔄 [Wallet] Checking for existing connection...');
+        
+        // Check if wallet is already connected
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        console.log('🔍 [Wallet] Found accounts:', accounts);
+        
+        if (accounts.length > 0) {
+          console.log('🔄 [Wallet] Restoring connection for:', accounts[0]);
+          
+          const provider = new ethers.BrowserProvider(ethereum);
+          const signer = await provider.getSigner();
+          const userAddress = await signer.getAddress();
+
+          setProvider(provider);
+          setSigner(signer);
+          setAddress(userAddress);
+          console.log('✅ [Wallet] Connection restored for:', userAddress);
+        } else {
+          console.log('ℹ️ [Wallet] No existing connection found');
+        }
+      } catch (error) {
+        console.error('❌ [Wallet] Error restoring connection:', error);
+      }
+    };
+
+    // Add a delay for mobile devices
+    const timer = setTimeout(restoreConnection, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (wagmiAddress) {
       setAddress(wagmiAddress);
+      
+      // If we have a wagmi address but no provider, try to create one
+      if (wagmiAddress && !provider) {
+        const createProviderFromWagmi = async () => {
+          try {
+            // For mobile, try to get provider from walletClient first
+            if (walletClient) {
+              console.log('🔄 [Wallet] Creating provider from walletClient for mobile');
+              
+              try {
+                // Try BrowserProvider first
+                const ethersProvider = new ethers.BrowserProvider(walletClient, "any");
+                const ethersSigner = await ethersProvider.getSigner();
+                setProvider(ethersProvider);
+                setSigner(ethersSigner);
+                console.log('✅ [Wallet] Provider created from walletClient');
+                return;
+              } catch (browserProviderError) {
+                console.log('⚠️ [Wallet] BrowserProvider failed for walletClient, using fallback:', browserProviderError);
+                
+                // Fallback: Use JsonRpcProvider
+                const fallbackProvider = new ethers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+                setProvider(fallbackProvider);
+                console.log('✅ [Wallet] Fallback provider created from walletClient');
+                return;
+              }
+            }
+            
+            // Fallback: try window.ethereum (for desktop)
+            const { ethereum } = window;
+            if (ethereum) {
+              console.log('🔄 [Wallet] Creating provider from window.ethereum');
+              const web3Provider = new ethers.BrowserProvider(ethereum);
+              const web3Signer = await web3Provider.getSigner();
+              setProvider(web3Provider);
+              setSigner(web3Signer);
+              console.log('✅ [Wallet] Provider created from window.ethereum');
+            } else {
+              console.log('⚠️ [Wallet] No provider source available');
+            }
+          } catch (error) {
+            console.log('⚠️ [Wallet] Could not create provider from wagmi:', error);
+          }
+        };
+        createProviderFromWagmi();
+      }
+    } else {
+      // If wagmi address is cleared, clear our local state too
+      if (address && !wagmiAddress) {
+        console.log('🔄 [Wallet] Wagmi disconnected, clearing local state');
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
+      }
     }
-  }, [wagmiAddress]);
+  }, [wagmiAddress, provider, address, walletClient]);
 
   console.log('🔍 [Wallet] Current address:', address);
 
   return (
-    <WagmiConfig config={config}>
-      <WalletContext.Provider value={{ address, connectWallet, disconnectWallet, signer, provider }}>
-        {children}
-      </WalletContext.Provider>
-    </WagmiConfig>
+    <WalletContext.Provider value={{ address, connectWallet, disconnectWallet, signer, provider }}>
+      {children}
+    </WalletContext.Provider>
   );
 };

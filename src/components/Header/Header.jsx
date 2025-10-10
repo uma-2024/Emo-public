@@ -244,6 +244,34 @@ const Header = () => {
           </div>
         )}
 
+        {/* Debug Provider Information */}
+        <div className="debug-provider" style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+          background: 'rgba(0, 0, 0, 0.8)',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '5px',
+          fontSize: '12px',
+          zIndex: 1000,
+          maxWidth: '300px',
+          wordBreak: 'break-all'
+        }}>
+          <div><strong>Debug Info:</strong></div>
+          <div>Address: {address || 'Not connected'}</div>
+          <div>Provider: {provider ? provider.constructor.name : 'No provider'}</div>
+          <div>Provider Type: {provider ? typeof provider : 'N/A'}</div>
+          {provider && (
+            <>
+              <div>Has getSigner: {typeof provider.getSigner === 'function' ? 'Yes' : 'No'}</div>
+              <div>Has getNetwork: {typeof provider.getNetwork === 'function' ? 'Yes' : 'No'}</div>
+              <div>Has send: {typeof provider.send === 'function' ? 'Yes' : 'No'}</div>
+              <div>Provider URL: {provider.connection?.url || 'N/A'}</div>
+            </>
+          )}
+        </div>
+
         <h1 className="header-title">{content.title}</h1>
         <p className="header-subtitle">{content.subtitle}</p>
 
