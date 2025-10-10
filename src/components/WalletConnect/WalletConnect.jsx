@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { WagmiConfig, useAccount, useDisconnect, useConnect } from 'wagmi';
+import { WagmiConfig, useAccount, useDisconnect, useConnect, useWalletClient } from 'wagmi';
 import { mainnet } from 'wagmi/chains'; // Import Ethereum Mainnet
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
@@ -49,6 +49,7 @@ export const WalletProvider = ({ children }) => {
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
   const { connectors } = useConnect();
+  const { data: walletClient } = useWalletClient();
 
   // WalletConnect fallback if window.ethereum is not available
   const initWalletConnectProvider = async () => {
@@ -178,27 +179,16 @@ export const WalletProvider = ({ children }) => {
           
           // Give Web3Modal time to establish connection
           console.log("🔄 [Wallet] Waiting for Web3Modal to establish connection...");
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          await new Promise(resolve => setTimeout(resolve, 3000));
           
           // Check if we have a connection now
           if (wagmiAddress) {
             console.log("✅ [Wallet] Wagmi connection detected:", wagmiAddress);
             setAddress(wagmiAddress);
             
-            // Try to create provider
-            try {
-              const { ethereum } = window;
-              if (ethereum) {
-                const provider = new ethers.BrowserProvider(ethereum);
-                const signer = await provider.getSigner();
-                setProvider(provider);
-                setSigner(signer);
-                console.log('✅ [Wallet] Provider created from Web3Modal connection');
-              }
-            } catch (providerError) {
-              console.log('⚠️ [Wallet] Could not create provider:', providerError);
-            }
-            
+            // For mobile, we don't need to create a separate provider
+            // Wagmi handles the provider internally
+            console.log('✅ [Wallet] Mobile connection established via Web3Modal');
             toast.success("Wallet connected via Web3Modal");
             return;
           }
@@ -289,13 +279,28 @@ export const WalletProvider = ({ children }) => {
       if (wagmiAddress && !provider) {
         const createProviderFromWagmi = async () => {
           try {
+            // For mobile, try to get provider from walletClient first
+            if (walletClient) {
+              console.log('🔄 [Wallet] Creating provider from walletClient for mobile');
+              const ethersProvider = new ethers.BrowserProvider(walletClient);
+              const ethersSigner = await ethersProvider.getSigner();
+              setProvider(ethersProvider);
+              setSigner(ethersSigner);
+              console.log('✅ [Wallet] Provider created from walletClient');
+              return;
+            }
+            
+            // Fallback: try window.ethereum (for desktop)
             const { ethereum } = window;
             if (ethereum) {
+              console.log('🔄 [Wallet] Creating provider from window.ethereum');
               const web3Provider = new ethers.BrowserProvider(ethereum);
               const web3Signer = await web3Provider.getSigner();
               setProvider(web3Provider);
               setSigner(web3Signer);
-              console.log('✅ [Wallet] Provider created from wagmi connection');
+              console.log('✅ [Wallet] Provider created from window.ethereum');
+            } else {
+              console.log('⚠️ [Wallet] No provider source available');
             }
           } catch (error) {
             console.log('⚠️ [Wallet] Could not create provider from wagmi:', error);
@@ -312,7 +317,7 @@ export const WalletProvider = ({ children }) => {
         setSigner(null);
       }
     }
-  }, [wagmiAddress, provider, address]);
+  }, [wagmiAddress, provider, address, walletClient]);
 
   console.log('🔍 [Wallet] Current address:', address);
 
