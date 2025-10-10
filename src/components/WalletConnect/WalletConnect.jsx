@@ -53,10 +53,36 @@ const WalletProvider = ({ children }) => {
           icons: ["https://defipredictor.com/icon.png"],
         },
         showQrModal: true,
-        optionalChains: [56], // BNB Mainnet chain ID
+        chains: [56], // BNB Mainnet chain ID
         rpcMap: {
           56: 'https://bsc-dataseed.binance.org/', // BNB Mainnet RPC URL
         },
+        methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'eth_signTypedData'],
+        events: ['chainChanged', 'accountsChanged'],
+        qrModalOptions: {
+          themeMode: 'light',
+        },
+      });
+      
+      // Set up event listeners before connecting
+      wcProvider.on('accountsChanged', (accounts) => {
+        console.log('Accounts changed:', accounts);
+        if (accounts.length === 0) {
+          setAddress("");
+          setProvider(null);
+          setSigner(null);
+        }
+      });
+
+      wcProvider.on('chainChanged', (chainId) => {
+        console.log('Chain changed:', chainId);
+      });
+
+      wcProvider.on('disconnect', () => {
+        console.log('WalletConnect disconnected');
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
       });
       
       await wcProvider.connect();
@@ -84,84 +110,6 @@ const WalletProvider = ({ children }) => {
       throw error; // Re-throw to handle in calling function
     }
   };
-  const switchNetwork = async (provider) => {
-    const bnbMainnetChainId = "0x38"; // Hexadecimal chain ID for BNB Mainnet
-    const currentNetwork = await provider.getNetwork();
-    if (currentNetwork.chainId !== parseInt(bnbMainnetChainId, 16)) {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: bnbMainnetChainId }],
-        });
-        toast.success("Switched to BNB Mainnet");
-      } catch (switchError) {
-        if (switchError.code === 4902) {
-          try {
-            await window.ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [{
-                chainId: bnbMainnetChainId,
-                chainName: "Binance Smart Chain Mainnet",
-                rpcUrls: ["https://rpc.ankr.com/bsc"],
-                nativeCurrency: {
-                  name: "BNB",
-                  symbol: "BNB",
-                  decimals: 18,
-                },
-                blockExplorerUrls: ["https://bscscan.com"],
-              }],
-            });
-            toast.success("BNB Mainnet added and switched");
-          } catch (addError) {
-            console.error(addError);
-            toast.error("Failed to add BNB Mainnet");
-          }
-        } else {
-          console.error(switchError);
-          toast.error("Failed to switch to BNB Mainnet");
-        }
-      }
-    }
-  };
-  // const switchNetwork = async (provider) => {
-  //   const bscTestnetChainId = "0x61"; // Hexadecimal chain ID for BSC Testnet
-  //   const currentNetwork = await provider.getNetwork();
-  //   if (currentNetwork.chainId !== parseInt(bscTestnetChainId, 16)) {
-  //     try {
-  //       await window.ethereum.request({
-  //         method: 'wallet_switchEthereumChain',
-  //         params: [{ chainId: bscTestnetChainId }],
-  //       });
-  //       toast.success("Switched to BSC Testnet");
-  //     } catch (switchError) {
-  //       if (switchError.code === 4902) {
-  //         try {
-  //           await window.ethereum.request({
-  //             method: 'wallet_addEthereumChain',
-  //             params: [{
-  //               chainId: bscTestnetChainId,
-  //               chainName: "Binance Smart Chain Testnet",
-  //               rpcUrls: ["https://data-seed-prebsc-1-s3.binance.org:8545/"],
-  //               nativeCurrency: {
-  //                 name: "BNB",
-  //                 symbol: "BNB",
-  //                 decimals: 18,
-  //               },
-  //               blockExplorerUrls: ["https://testnet.bscscan.com"],
-  //             }],
-  //           });
-  //           toast.success("BSC Testnet added and switched");
-  //         } catch (addError) {
-  //           console.error(addError);
-  //           toast.error("Failed to add BSC Testnet");
-  //         }
-  //       } else {
-  //         console.error(switchError);
-  //         toast.error("Failed to switch to BSC Testnet");
-  //       }
-  //     }
-  //   }
-  // };
   const connectWallet = async () => {
     if (isConnecting) {
       console.log("Connection already in progress");
@@ -181,7 +129,6 @@ const WalletProvider = ({ children }) => {
         if (window.ethereum) {
           const provider = new BrowserProvider(window.ethereum);
           setProvider(provider);
-          await switchNetwork(provider);
           
           const signer = await provider.getSigner();
           setSigner(signer);
@@ -195,11 +142,7 @@ const WalletProvider = ({ children }) => {
       } else if (isMobile) {
         // On mobile, use WalletConnect
         console.log("Mobile detected, using WalletConnect");
-        const provider = await initWalletConnectProvider();
-        
-        if (provider) {
-          await switchNetwork(provider);
-        }
+        await initWalletConnectProvider();
       } else {
         // If no extension is available and on desktop, show error
         console.error("No wallet extension detected on desktop");
@@ -212,19 +155,48 @@ const WalletProvider = ({ children }) => {
       setIsConnecting(false);
     }
   };
-  const disconnectWallet = () => {
-    disconnect();
-    setAddress("");
-    setProvider(null);
-    setSigner(null);
-    setIsConnecting(false);
-    toast.success("Wallet disconnected");
+  const disconnectWallet = async () => {
+    try {
+      // Disconnect from WalletConnect if it's the current provider
+      if (provider && provider.provider && provider.provider.disconnect) {
+        await provider.provider.disconnect();
+      }
+      
+      // Disconnect from wagmi
+      disconnect();
+      
+      // Reset state
+      setAddress("");
+      setProvider(null);
+      setSigner(null);
+      setIsConnecting(false);
+      
+      toast.success("Wallet disconnected");
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+      // Still reset state even if disconnect fails
+      setAddress("");
+      setProvider(null);
+      setSigner(null);
+      setIsConnecting(false);
+      toast.success("Wallet disconnected");
+    }
   };
   useEffect(() => {
     if (wagmiAddress) {
       setAddress(wagmiAddress);
     }
   }, [wagmiAddress]);
+
+  // Cleanup effect
+  useEffect(() => {
+    return () => {
+      // Cleanup WalletConnect provider on unmount
+      if (provider && provider.provider && provider.provider.disconnect) {
+        provider.provider.disconnect().catch(console.error);
+      }
+    };
+  }, [provider]);
   console.log(address);
   return (
     <WagmiConfig config={config}>
