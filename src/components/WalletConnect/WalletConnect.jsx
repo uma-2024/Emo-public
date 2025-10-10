@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { WagmiConfig, useAccount, useDisconnect } from 'wagmi';
+import { WagmiConfig, useAccount, useDisconnect, useConnect } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains'; // Import BNB Mainnet chain
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
@@ -48,6 +48,7 @@ export const WalletProvider = ({ children }) => {
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
+  const { connectors } = useConnect();
 
   // WalletConnect fallback if window.ethereum is not available
   const initWalletConnectProvider = async () => {
@@ -137,6 +138,9 @@ export const WalletProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      console.log('🔍 [Wallet] Connect wallet called');
+      console.log('🔍 [Wallet] Is mobile:', isMobile);
+      console.log('🔍 [Wallet] Current wagmi address:', wagmiAddress);
       
       if (!isMobile) {
         // Use MetaMask or any web3 browser extension on desktop
@@ -164,78 +168,49 @@ export const WalletProvider = ({ children }) => {
         console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, try Web3Modal first, then fallback to EthereumProvider
-        console.log("🔄 [Wallet] Mobile detected, trying Web3Modal first");
+        // On mobile, use Web3Modal directly
+        console.log("🔄 [Wallet] Mobile detected, using Web3Modal");
         
         try {
-          // Try Web3Modal first
+          // Open Web3Modal
+          console.log("🔄 [Wallet] Opening Web3Modal...");
           await open({ view: 'Connect' });
           
-          // Wait for connection with better timeout handling
-          console.log("🔄 [Wallet] Waiting for Web3Modal connection...");
+          // Give Web3Modal time to establish connection
+          console.log("🔄 [Wallet] Waiting for Web3Modal to establish connection...");
+          await new Promise(resolve => setTimeout(resolve, 2000));
           
-          // Create a promise that resolves when wagmi gets an address
-          const waitForConnection = new Promise((resolve, reject) => {
-            let attempts = 0;
-            const maxAttempts = 20; // 10 seconds max wait
+          // Check if we have a connection now
+          if (wagmiAddress) {
+            console.log("✅ [Wallet] Wagmi connection detected:", wagmiAddress);
+            setAddress(wagmiAddress);
             
-            const checkConnection = () => {
-              attempts++;
-              
-              if (wagmiAddress) {
-                console.log("✅ [Wallet] Wagmi detected connection:", wagmiAddress);
-                resolve(wagmiAddress);
-                return;
+            // Try to create provider
+            try {
+              const { ethereum } = window;
+              if (ethereum) {
+                const provider = new ethers.BrowserProvider(ethereum);
+                const signer = await provider.getSigner();
+                setProvider(provider);
+                setSigner(signer);
+                console.log('✅ [Wallet] Provider created from Web3Modal connection');
               }
-              
-              if (attempts >= maxAttempts) {
-                reject(new Error("Web3Modal connection timeout"));
-                return;
-              }
-              
-              // Check again in 500ms
-              setTimeout(checkConnection, 500);
-            };
-            
-            checkConnection();
-          });
-          
-          // Wait for the connection to be established
-          const connectedAddress = await waitForConnection;
-          
-          // Set the address
-          setAddress(connectedAddress);
-          
-          // Try to create provider from window.ethereum (if available after Web3Modal)
-          try {
-            const { ethereum } = window;
-            if (ethereum) {
-              const provider = new ethers.BrowserProvider(ethereum);
-              const signer = await provider.getSigner();
-              setProvider(provider);
-              setSigner(signer);
-              console.log('✅ [Wallet] Provider created from Web3Modal connection');
-            } else {
-              console.log('⚠️ [Wallet] No ethereum provider available, but wagmi connection is active');
+            } catch (providerError) {
+              console.log('⚠️ [Wallet] Could not create provider:', providerError);
             }
-          } catch (providerError) {
-            console.log('⚠️ [Wallet] Could not create provider, but wagmi connection is active:', providerError);
+            
+            toast.success("Wallet connected via Web3Modal");
+            return;
           }
           
-          toast.success("Wallet connected via Web3Modal");
+          // If no wagmi connection, try EthereumProvider fallback
+          console.log("⚠️ [Wallet] No wagmi connection, trying EthereumProvider fallback...");
+          await initWalletConnectProvider();
           
-        } catch (web3ModalError) {
-          console.log("⚠️ [Wallet] Web3Modal failed, trying EthereumProvider fallback:", web3ModalError);
-          
-          // Fallback to EthereumProvider
-          try {
-            console.log('🔄 [Wallet] Trying EthereumProvider fallback...');
-            await initWalletConnectProvider();
-          } catch (fallbackError) {
-            console.error("❌ [Wallet] Both Web3Modal and EthereumProvider failed:", fallbackError);
-            toast.error("Failed to connect wallet. Please try again.");
-            throw fallbackError;
-          }
+        } catch (error) {
+          console.error("❌ [Wallet] Mobile connection error:", error);
+          toast.error("Failed to connect wallet on mobile: " + error.message);
+          throw error;
         }
       } else {
         // If no extension is available and on desktop, show error
@@ -259,6 +234,8 @@ export const WalletProvider = ({ children }) => {
   // Mobile detection and initialization
   useEffect(() => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    console.log('🔍 [Wallet] User Agent:', navigator.userAgent);
+    console.log('🔍 [Wallet] Mobile detected:', isMobile);
     if (isMobile) {
       console.log('📱 [Wallet] Mobile device detected');
     }
