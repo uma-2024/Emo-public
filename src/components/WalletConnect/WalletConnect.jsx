@@ -169,11 +169,23 @@ export const WalletProvider = ({ children }) => {
         await open({ view: 'Connect' });
         
         // Wait for connection to be established
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
+        // Check if ethereum provider is available after Web3Modal connection
         const { ethereum } = window;
         if (!ethereum) {
-          throw new Error("No Ethereum provider found");
+          console.log("⚠️ [Wallet] No ethereum provider found, this is normal on mobile");
+          console.log("🔄 [Wallet] Web3Modal should have handled the connection");
+          
+          // Check if wagmi has the address (Web3Modal might have connected via wagmi)
+          if (wagmiAddress) {
+            console.log("✅ [Wallet] Found wagmi address, using that:", wagmiAddress);
+            setAddress(wagmiAddress);
+            toast.success("Wallet connected via Web3Modal");
+            return;
+          } else {
+            throw new Error("Please complete the wallet connection in the Web3Modal");
+          }
         }
         
         const provider = new ethers.BrowserProvider(ethereum);
@@ -249,8 +261,27 @@ export const WalletProvider = ({ children }) => {
   useEffect(() => {
     if (wagmiAddress) {
       setAddress(wagmiAddress);
+      
+      // If we have a wagmi address but no provider, try to create one
+      if (wagmiAddress && !provider) {
+        const createProviderFromWagmi = async () => {
+          try {
+            const { ethereum } = window;
+            if (ethereum) {
+              const web3Provider = new ethers.BrowserProvider(ethereum);
+              const web3Signer = await web3Provider.getSigner();
+              setProvider(web3Provider);
+              setSigner(web3Signer);
+              console.log('✅ [Wallet] Provider created from wagmi connection');
+            }
+          } catch (error) {
+            console.log('⚠️ [Wallet] Could not create provider from wagmi:', error);
+          }
+        };
+        createProviderFromWagmi();
+      }
     }
-  }, [wagmiAddress]);
+  }, [wagmiAddress, provider]);
 
   console.log('🔍 [Wallet] Current address:', address);
 
