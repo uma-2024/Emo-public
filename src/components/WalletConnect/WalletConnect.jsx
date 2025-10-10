@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { WagmiConfig, useAccount, useDisconnect, useConnect } from 'wagmi';
-import { bsc, bscTestnet } from 'wagmi/chains'; // Import BNB Mainnet chain
+import { mainnet } from 'wagmi/chains'; // Import Ethereum Mainnet
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 // Hardcoded WalletConnect Project ID and Metadata
@@ -25,7 +25,7 @@ const metadata = {
 export const WalletContext = createContext();
 
 // WAGMI configuration
-const chains = [bscTestnet]; // Using BSC Testnet for development
+const chains = [mainnet]; // Using Ethereum Mainnet
 export const config = defaultWagmiConfig({
   chains,
   projectId: PROJECT_ID,
@@ -95,41 +95,41 @@ export const WalletProvider = ({ children }) => {
   };
 
   const switchNetwork = async (provider) => {
-    const bscTestnetChainId = "0x61"; // Hexadecimal chain ID for BSC Testnet
+    const ethereumMainnetChainId = "0x1"; // Hexadecimal chain ID for Ethereum Mainnet
     const currentNetwork = await provider.getNetwork();
     
-    if (currentNetwork.chainId !== parseInt(bscTestnetChainId, 16)) {
+    if (currentNetwork.chainId !== parseInt(ethereumMainnetChainId, 16)) {
       try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: bscTestnetChainId }],
+          params: [{ chainId: ethereumMainnetChainId }],
         });
-        toast.success("Switched to BSC Testnet");
+        toast.success("Switched to Ethereum Mainnet");
       } catch (switchError) {
         if (switchError.code === 4902) {
           try {
             await window.ethereum.request({
               method: 'wallet_addEthereumChain',
               params: [{
-                chainId: bscTestnetChainId,
-                chainName: "Binance Smart Chain Testnet",
-                rpcUrls: ["https://data-seed-prebsc-1-s3.binance.org:8545/"],
+                chainId: ethereumMainnetChainId,
+                chainName: "Ethereum Mainnet",
+                rpcUrls: ["https://eth-mainnet.g.alchemy.com/v2/demo"],
                 nativeCurrency: {
-                  name: "BNB",
-                  symbol: "BNB",
+                  name: "Ether",
+                  symbol: "ETH",
                   decimals: 18,
                 },
-                blockExplorerUrls: ["https://testnet.bscscan.com"],
+                blockExplorerUrls: ["https://etherscan.io"],
               }],
             });
-            toast.success("BSC Testnet added and switched");
+            toast.success("Ethereum Mainnet added and switched");
           } catch (addError) {
             console.error(addError);
-            toast.error("Failed to add BSC Testnet");
+            toast.error("Failed to add Ethereum Mainnet");
           }
         } else {
           console.error(switchError);
-          toast.error("Failed to switch to BSC Testnet");
+          toast.error("Failed to switch to Ethereum Mainnet");
         }
       }
     }
