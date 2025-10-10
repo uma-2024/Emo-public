@@ -90,9 +90,124 @@ export function WalletProvider({ children }) {
     toast.info("Wallet disconnected");
   };
 
+  // Restore wallet connection on page load
+  useEffect(() => {
+    const restoreConnection = async () => {
+      try {
+        const { ethereum } = window;
+        if (!ethereum) {
+          console.log('❌ [Wallet] No ethereum provider found');
+          return;
+        }
+
+        console.log('🔄 [Wallet] Checking for existing connection...');
+        
+        // Check if wallet is already connected
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        console.log('🔍 [Wallet] Found accounts:', accounts);
+        
+        if (accounts.length > 0) {
+          console.log('🔄 [Wallet] Restoring connection for:', accounts[0]);
+          
+          // Create provider and signer
+          const web3Provider = ethers.providers?.Web3Provider
+            ? new ethers.providers.Web3Provider(ethereum, "any")
+            : new ethers.BrowserProvider(ethereum);
+
+          const web3Signer = web3Provider.getSigner
+            ? web3Provider.getSigner()
+            : await web3Provider.getSigner();
+
+          const userAddress = typeof web3Signer.getAddress === "function"
+            ? await web3Signer.getAddress()
+            : (await web3Signer).address;
+
+          console.log('🔄 [Wallet] Setting provider and signer...');
+          setProvider(web3Provider);
+          setSigner(web3Signer);
+          setAddress(userAddress);
+          console.log('✅ [Wallet] Connection restored for:', userAddress);
+        } else {
+          console.log('ℹ️ [Wallet] No existing connection found');
+        }
+      } catch (error) {
+        console.error('❌ [Wallet] Error restoring connection:', error);
+      }
+    };
+
+    // Add a small delay to ensure window.ethereum is available
+    const timer = setTimeout(restoreConnection, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Also try to restore from wagmi
+  useEffect(() => {
+    if (wagmiAddress && !address) {
+      console.log('🔄 [Wallet] Wagmi address found, restoring connection:', wagmiAddress);
+      const restoreFromWagmi = async () => {
+        try {
+          const { ethereum } = window;
+          if (ethereum) {
+            const web3Provider = ethers.providers?.Web3Provider
+              ? new ethers.providers.Web3Provider(ethereum, "any")
+              : new ethers.BrowserProvider(ethereum);
+
+            const web3Signer = web3Provider.getSigner
+              ? web3Provider.getSigner()
+              : await web3Provider.getSigner();
+
+            setProvider(web3Provider);
+            setSigner(web3Signer);
+            setAddress(wagmiAddress);
+            console.log('✅ [Wallet] Connection restored from wagmi for:', wagmiAddress);
+          }
+        } catch (error) {
+          console.error('❌ [Wallet] Error restoring from wagmi:', error);
+        }
+      };
+      restoreFromWagmi();
+    }
+  }, [wagmiAddress, address]);
+
   useEffect(() => {
     if (wagmiAddress) setAddress(wagmiAddress);
   }, [wagmiAddress]);
+
+  // Listen for account changes
+  useEffect(() => {
+    const { ethereum } = window;
+    if (!ethereum) return;
+
+    const handleAccountsChanged = (accounts) => {
+      if (accounts.length === 0) {
+        // User disconnected
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
+        console.log('🔌 [Wallet] User disconnected');
+      } else {
+        // User switched accounts or reconnected
+        console.log('🔄 [Wallet] Account changed to:', accounts[0]);
+        setAddress(accounts[0]);
+      }
+    };
+
+    const handleChainChanged = (chainId) => {
+      console.log('🔗 [Wallet] Chain changed to:', chainId);
+      // Optionally reload the page to ensure proper network handling
+      window.location.reload();
+    };
+
+    // Add event listeners
+    ethereum.on('accountsChanged', handleAccountsChanged);
+    ethereum.on('chainChanged', handleChainChanged);
+
+    // Cleanup
+    return () => {
+      ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      ethereum.removeListener('chainChanged', handleChainChanged);
+    };
+  }, []);
 
   return (
     <WalletContext.Provider

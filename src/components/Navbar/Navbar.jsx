@@ -43,7 +43,15 @@ const Navbar = () => {
         <NavLink to="/about" className="nav-item">About Us</NavLink>
         <NavLink to="/contact" className="nav-item">Contact Us</NavLink>
         </div>
-     
+        
+        {/* Mobile Wallet Connect Button */}
+        <div className="mobile-wallet-container">
+          <ConnectButton
+            className="mobile-wallet-btn"
+            labelDisconnected="Connect Wallet"
+            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+          />
+        </div>
       </nav>
 
       <div className="bell-button">

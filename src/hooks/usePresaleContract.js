@@ -16,19 +16,24 @@ export const usePresaleContract = (provider, address) => {
   // Initialize contract
   useEffect(() => {
     if (provider && address) {
+      console.log('🔄 [Contract Hook] Initializing contract for address:', address);
+      
       const initContract = async () => {
         try {
           setLoading(true);
           setError(null);
           
+          console.log('🔄 [Contract Hook] Creating PresaleContract instance...');
           const presaleContract = new PresaleContract(provider);
           await presaleContract.init();
           setContract(presaleContract);
           
+          console.log('🔄 [Contract Hook] Loading initial data...');
           // Load initial data
           await loadContractData(presaleContract);
+          console.log('✅ [Contract Hook] Contract initialized successfully');
         } catch (err) {
-          console.error('Failed to initialize contract:', err);
+          console.error('❌ [Contract Hook] Failed to initialize contract:', err);
           setError(err.message);
         } finally {
           setLoading(false);
@@ -36,25 +41,41 @@ export const usePresaleContract = (provider, address) => {
       };
 
       initContract();
+    } else {
+      console.log('ℹ️ [Contract Hook] Provider or address not available:', { 
+        hasProvider: !!provider, 
+        hasAddress: !!address 
+      });
     }
   }, [provider, address]);
 
   // Load contract data
   const loadContractData = useCallback(async (contractInstance) => {
-    if (!contractInstance) return;
+    if (!contractInstance) {
+      console.log('ℹ️ [Contract Hook] No contract instance provided');
+      return;
+    }
 
     try {
+      console.log('🔄 [Contract Hook] Loading contract data...');
+      
       const [phase, user, funds] = await Promise.all([
         contractInstance.getCurrentPhase(),
         contractInstance.getUserInfo(address),
         contractInstance.getFundsRaised()
       ]);
 
+      console.log('✅ [Contract Hook] Contract data loaded:', {
+        phase: phase ? 'loaded' : 'null',
+        user: user ? 'loaded' : 'null', 
+        funds: funds ? 'loaded' : 'null'
+      });
+
       setPhaseData(phase);
       setUserInfo(user);
       setFundsRaised(funds);
     } catch (err) {
-      console.error('Failed to load contract data:', err);
+      console.error('❌ [Contract Hook] Failed to load contract data:', err);
       setError(err.message);
     }
   }, [address]);
