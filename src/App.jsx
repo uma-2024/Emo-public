@@ -10,7 +10,6 @@ import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import AnnouncementSection from "./components/AnnouncementSection/AnnouncementSection";
 import Claim from "./components/Claim/Claim";
-import Debug from "./components/Debug/Debug";
 import ScrollToTop from "./ScrollToTop";
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
         <Route path="/claim" element={<Claim />} />
       </Routes>
 
-      <Debug />
       <Footer />
     </>
   );

@@ -1,105 +1,176 @@
-// src/components/WalletConnect/WalletConnect.jsx
-import React, { createContext, useEffect, useState } from "react";
-import { useAccount, useDisconnect } from "wagmi";
-import { createWeb3Modal, defaultWagmiConfig, useWeb3Modal } from "@web3modal/wagmi/react";
-import { bscTestnet } from "wagmi/chains";
-import { ethers } from "ethers";
+import React, { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ethers } from "ethers";
+import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
+import { WagmiConfig, useAccount, useDisconnect } from 'wagmi';
+import { bsc, bscTestnet } from 'wagmi/chains'; // Import BNB Mainnet chain
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
-// ---- Web3Modal + wagmi config (exported) ----
+// Hardcoded WalletConnect Project ID and Metadata
 const PROJECT_ID = "9aced30cb7c70da7e0a7b4129fbd0a8f";
 
 // Use the real origin in dev to avoid the metadata URL warning
 const appUrl = typeof window !== "undefined" ? window.location.origin : "http://localhost:5173";
 
-export const wagmiConfig = defaultWagmiConfig({
-  chains: [bscTestnet],
+const metadata = {
+  name: "XIK Presale",
+  description: "XIK Token Presale Platform",
+  url: appUrl,
+  icons: [`${appUrl}/icon.png`],
+};
+
+// Create the context
+export const WalletContext = createContext();
+
+// WAGMI configuration
+const chains = [bscTestnet]; // Using BSC Testnet for development
+export const config = defaultWagmiConfig({
+  chains,
   projectId: PROJECT_ID,
-  metadata: {
-    name: "YSN",
-    description: "YSN broker dealer",
-    url: appUrl,
-    icons: [`${appUrl}/icon.png`], // change path if needed
-  },
+  metadata,
 });
 
-// Initialize Web3Modal once at module load
+// Initialize Web3Modal
 createWeb3Modal({
-  wagmiConfig,
+  wagmiConfig: config,
   projectId: PROJECT_ID,
-  themeMode: "light",
+  metadata,
   enableAnalytics: true,
+  themeMode: 'light',
 });
 
-// ---- Wallet context ----
-export const WalletContext = createContext({
-  address: "",
-  provider: null,
-  signer: null,
-  connectWallet: async () => {},
-  disconnectWallet: () => {},
-});
-
-export function WalletProvider({ children }) {
+export const WalletProvider = ({ children }) => {
   const [address, setAddress] = useState("");
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
-
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
 
-  const connectWallet = async () => {
+  // WalletConnect fallback if window.ethereum is not available
+  const initWalletConnectProvider = async () => {
     try {
-      console.log('🔄 [Wallet] Starting wallet connection...');
+      console.log('🔄 [Wallet] Initializing WalletConnect for mobile...');
       
-      // First try Web3Modal
-      await open();
+      const wcProvider = await EthereumProvider.init({
+        projectId: PROJECT_ID,
+        metadata: {
+          name: "XIK Presale",
+          description: "XIK Token Presale Platform",
+          url: appUrl,
+          icons: [`${appUrl}/icon.png`],
+        },
+        showQrModal: true,
+        optionalChains: [97], // BSC Testnet chain ID
+        rpcMap: {
+          97: 'https://data-seed-prebsc-1-s3.binance.org:8545/', // BSC Testnet RPC URL
+        },
+      });
+
+      await wcProvider.connect();
+      const provider = new ethers.BrowserProvider(wcProvider);
       
-      // Wait a bit for the connection to be established
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const { ethereum } = window;
-      if (!ethereum) {
-        console.error('❌ [Wallet] No ethereum provider found');
-        throw new Error("No Ethereum provider found");
-      }
-
-      console.log('🔄 [Wallet] Requesting accounts...');
-      await ethereum.request({ method: "eth_requestAccounts" });
-
-      // Get accounts to verify connection
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-      if (accounts.length === 0) {
-        throw new Error("No accounts found");
-      }
-
-      console.log('🔄 [Wallet] Creating provider and signer...');
-      // ethers v5 (fallback to v6 if installed)
-      const web3Provider =
-        ethers.providers?.Web3Provider
-          ? new ethers.providers.Web3Provider(ethereum, "any")
-          : new ethers.BrowserProvider(ethereum);
-
-      const web3Signer = web3Provider.getSigner
-        ? web3Provider.getSigner()
-        : await web3Provider.getSigner(); // v6
-
-      const userAddress =
-        typeof web3Signer.getAddress === "function"
-          ? await web3Signer.getAddress()
-          : (await web3Signer).address; // v6
-
-      console.log('🔄 [Wallet] Setting provider and signer...');
-      setProvider(web3Provider);
-      setSigner(web3Signer);
+      console.log('✅ [Wallet] WalletConnect provider created');
+      setProvider(provider);
+      
+      const signer = await provider.getSigner();
+      setSigner(signer);
+      
+      const userAddress = await signer.getAddress();
       setAddress(userAddress);
       
-      console.log('✅ [Wallet] Wallet connected successfully:', userAddress);
-      toast.success("Wallet connected");
+      console.log('✅ [Wallet] WalletConnect connected:', userAddress);
+      toast.success("Wallet connected using WalletConnect");
+    } catch (error) {
+      console.error("❌ [Wallet] Error initializing WalletConnect:", error);
+      toast.error("Failed to connect via WalletConnect");
+    }
+  };
+
+  const switchNetwork = async (provider) => {
+    const bscTestnetChainId = "0x61"; // Hexadecimal chain ID for BSC Testnet
+    const currentNetwork = await provider.getNetwork();
+    
+    if (currentNetwork.chainId !== parseInt(bscTestnetChainId, 16)) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: bscTestnetChainId }],
+        });
+        toast.success("Switched to BSC Testnet");
+      } catch (switchError) {
+        if (switchError.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: bscTestnetChainId,
+                chainName: "Binance Smart Chain Testnet",
+                rpcUrls: ["https://data-seed-prebsc-1-s3.binance.org:8545/"],
+                nativeCurrency: {
+                  name: "BNB",
+                  symbol: "BNB",
+                  decimals: 18,
+                },
+                blockExplorerUrls: ["https://testnet.bscscan.com"],
+              }],
+            });
+            toast.success("BSC Testnet added and switched");
+          } catch (addError) {
+            console.error(addError);
+            toast.error("Failed to add BSC Testnet");
+          }
+        } else {
+          console.error(switchError);
+          toast.error("Failed to switch to BSC Testnet");
+        }
+      }
+    }
+  };
+
+  const connectWallet = async () => {
+    try {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (!isMobile) {
+        // Use MetaMask or any web3 browser extension on desktop
+        console.log("🔄 [Wallet] Desktop detected, using MetaMask or web extension");
+        await open({ view: 'Connect' });
+        
+        // Wait for connection to be established
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        const { ethereum } = window;
+        if (!ethereum) {
+          throw new Error("No Ethereum provider found");
+        }
+        
+        const provider = new ethers.BrowserProvider(ethereum);
+        setProvider(provider);
+        await switchNetwork(provider);
+        
+        const signer = await provider.getSigner();
+        setSigner(signer);
+        
+        const userAddress = await signer.getAddress();
+        setAddress(userAddress);
+        
+        console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
+        toast.success("Wallet connected using MetaMask or another desktop wallet");
+      } else if (isMobile) {
+        // On mobile, use WalletConnect
+        console.log("🔄 [Wallet] Mobile detected, using WalletConnect");
+        await initWalletConnectProvider();
+      } else {
+        // If no extension is available and on desktop, show error
+        console.error("No wallet extension detected on desktop");
+        toast.error("Please install a wallet extension like MetaMask.");
+      }
     } catch (err) {
-      console.error("❌ [Wallet] connectWallet error:", err);
-      toast.error("Connection failed: " + err.message);
+      console.error("❌ [Wallet] Error connecting wallet:", err);
+      toast.error("Failed to connect wallet: " + err.message);
     }
   };
 
@@ -108,7 +179,7 @@ export function WalletProvider({ children }) {
     setAddress("");
     setProvider(null);
     setSigner(null);
-    toast.info("Wallet disconnected");
+    toast.success("Wallet disconnected");
   };
 
   // Restore wallet connection on page load
@@ -130,32 +201,14 @@ export function WalletProvider({ children }) {
         if (accounts.length > 0) {
           console.log('🔄 [Wallet] Restoring connection for:', accounts[0]);
           
-          // Create provider and signer
-          const web3Provider = ethers.providers?.Web3Provider
-            ? new ethers.providers.Web3Provider(ethereum, "any")
-            : new ethers.BrowserProvider(ethereum);
+          const provider = new ethers.BrowserProvider(ethereum);
+          const signer = await provider.getSigner();
+          const userAddress = await signer.getAddress();
 
-          const web3Signer = web3Provider.getSigner
-            ? web3Provider.getSigner()
-            : await web3Provider.getSigner();
-
-          const userAddress = typeof web3Signer.getAddress === "function"
-            ? await web3Signer.getAddress()
-            : (await web3Signer).address;
-
-          console.log('🔄 [Wallet] Setting provider and signer...');
-          setProvider(web3Provider);
-          setSigner(web3Signer);
+          setProvider(provider);
+          setSigner(signer);
           setAddress(userAddress);
           console.log('✅ [Wallet] Connection restored for:', userAddress);
-          
-          // Test the provider by getting network info
-          try {
-            const network = await web3Provider.getNetwork();
-            console.log('🌐 [Wallet] Network info:', network);
-          } catch (networkError) {
-            console.warn('⚠️ [Wallet] Could not get network info:', networkError);
-          }
         } else {
           console.log('ℹ️ [Wallet] No existing connection found');
         }
@@ -164,106 +217,22 @@ export function WalletProvider({ children }) {
       }
     };
 
-    // Add a longer delay for mobile devices
+    // Add a delay for mobile devices
     const timer = setTimeout(restoreConnection, 500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Also try to restore from wagmi
   useEffect(() => {
-    if (wagmiAddress && !address) {
-      console.log('🔄 [Wallet] Wagmi address found, restoring connection:', wagmiAddress);
-      const restoreFromWagmi = async () => {
-        try {
-          const { ethereum } = window;
-          if (ethereum) {
-            console.log('🔄 [Wallet] Creating provider from wagmi connection...');
-            const web3Provider = ethers.providers?.Web3Provider
-              ? new ethers.providers.Web3Provider(ethereum, "any")
-              : new ethers.BrowserProvider(ethereum);
-
-            const web3Signer = web3Provider.getSigner
-              ? web3Provider.getSigner()
-              : await web3Provider.getSigner();
-
-            // Verify the signer address matches wagmi address
-            const signerAddress = typeof web3Signer.getAddress === "function"
-              ? await web3Signer.getAddress()
-              : (await web3Signer).address;
-
-            if (signerAddress.toLowerCase() === wagmiAddress.toLowerCase()) {
-              setProvider(web3Provider);
-              setSigner(web3Signer);
-              setAddress(wagmiAddress);
-              console.log('✅ [Wallet] Connection restored from wagmi for:', wagmiAddress);
-              
-              // Test the provider
-              try {
-                const network = await web3Provider.getNetwork();
-                console.log('🌐 [Wallet] Wagmi network info:', network);
-              } catch (networkError) {
-                console.warn('⚠️ [Wallet] Could not get wagmi network info:', networkError);
-              }
-            } else {
-              console.warn('⚠️ [Wallet] Signer address mismatch:', signerAddress, 'vs', wagmiAddress);
-            }
-          }
-        } catch (error) {
-          console.error('❌ [Wallet] Error restoring from wagmi:', error);
-        }
-      };
-      
-      // Add delay to ensure wagmi is fully initialized
-      const timer = setTimeout(restoreFromWagmi, 200);
-      return () => clearTimeout(timer);
+    if (wagmiAddress) {
+      setAddress(wagmiAddress);
     }
-  }, [wagmiAddress, address]);
-
-  useEffect(() => {
-    if (wagmiAddress) setAddress(wagmiAddress);
   }, [wagmiAddress]);
 
-  // Listen for account changes
-  useEffect(() => {
-    const { ethereum } = window;
-    if (!ethereum) return;
-
-    const handleAccountsChanged = (accounts) => {
-      if (accounts.length === 0) {
-        // User disconnected
-        setAddress("");
-        setProvider(null);
-        setSigner(null);
-        console.log('🔌 [Wallet] User disconnected');
-      } else {
-        // User switched accounts or reconnected
-        console.log('🔄 [Wallet] Account changed to:', accounts[0]);
-        setAddress(accounts[0]);
-      }
-    };
-
-    const handleChainChanged = (chainId) => {
-      console.log('🔗 [Wallet] Chain changed to:', chainId);
-      // Optionally reload the page to ensure proper network handling
-      window.location.reload();
-    };
-
-    // Add event listeners
-    ethereum.on('accountsChanged', handleAccountsChanged);
-    ethereum.on('chainChanged', handleChainChanged);
-
-    // Cleanup
-    return () => {
-      ethereum.removeListener('accountsChanged', handleAccountsChanged);
-      ethereum.removeListener('chainChanged', handleChainChanged);
-    };
-  }, []);
+  console.log('🔍 [Wallet] Current address:', address);
 
   return (
-    <WalletContext.Provider
-      value={{ address, provider, signer, connectWallet, disconnectWallet }}
-    >
+    <WalletContext.Provider value={{ address, connectWallet, disconnectWallet, signer, provider }}>
       {children}
     </WalletContext.Provider>
   );
-}
+};

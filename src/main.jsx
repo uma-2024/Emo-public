@@ -7,7 +7,7 @@ import "./index.css";
 
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WalletProvider, wagmiConfig } from "./components/WalletConnect/WalletConnect.jsx";
+import { WalletProvider, config } from "./components/WalletConnect/WalletConnect.jsx";
 import { PresaleProvider } from "./contexts/PresaleContext.jsx";
 
 import { ToastContainer } from "react-toastify";
@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <WagmiProvider config={wagmiConfig}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <PresaleProvider>
           <WalletProvider>
