@@ -45,8 +45,20 @@ export const usePresaleContract = (provider, address) => {
           console.error('❌ [Contract Hook] Failed to initialize contract:', err);
           setError(err.message);
           
-          // Retry after a delay if it's a provider issue
-          if (err.message.includes('provider') || err.message.includes('network')) {
+          // Don't retry for certain types of errors that are likely to persist
+          const isRetryableError = !(
+            err.message.includes('circuit breaker') ||
+            err.message.includes('Execution prevented') ||
+            err.message.includes('CALL_EXCEPTION') ||
+            err.message.includes('missing revert data') ||
+            err.message.includes('bad address checksum') ||
+            err.message.includes('INVALID_ARGUMENT') ||
+            err.message.includes('No contract deployed') ||
+            err.message.includes('contract is not deployed')
+          );
+          
+          // Only retry for network/provider issues, not contract or MetaMask issues
+          if (isRetryableError && (err.message.includes('provider') || err.message.includes('network'))) {
             console.log('🔄 [Contract Hook] Retrying contract initialization in 2 seconds...');
             setTimeout(() => {
               if (provider && address) {
@@ -54,6 +66,8 @@ export const usePresaleContract = (provider, address) => {
                 initContract();
               }
             }, 2000);
+          } else {
+            console.log('ℹ️ [Contract Hook] Not retrying due to non-retryable error type');
           }
         } finally {
           setLoading(false);

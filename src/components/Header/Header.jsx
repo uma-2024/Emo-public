@@ -81,7 +81,7 @@ const Header = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { provider, address } = useContext(WalletContext);
-  const { phaseData } = usePresaleContract(provider, address);
+  const { phaseData, loading, error } = usePresaleContract(provider, address);
 
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
   const content = routeContent[normalizedPath] ?? routeContent["/"];
@@ -103,10 +103,32 @@ const Header = () => {
     return Number(phaseData.endTime) * 1000;
   }, [phaseData]);
 
+  // Determine if we should show loading state
+  const shouldShowLoading = useMemo(() => {
+    // Show loading if:
+    // 1. We're on the pre-sale page
+    // 2. AND (contract is loading OR no wallet connected OR contract has error)
+    if (!content?.showCountdown) return false;
+    
+    return loading || !address || error || !phaseData;
+  }, [content?.showCountdown, loading, address, error, phaseData]);
+
   useEffect(() => {
     if (!content?.showCountdown) return;
     
-    // If no contract data yet, show "00" after initial loading
+    // If we should show loading state, show "00" with loading spinner
+    if (shouldShowLoading) {
+      setCountdown({ 
+        days: "00", 
+        hours: "00", 
+        minutes: "00", 
+        seconds: "00",
+        isLoading: true 
+      });
+      return;
+    }
+
+    // If no contract data yet, show "00" without loading
     if (!targetTs) {
       setCountdown({ 
         days: "00", 
@@ -153,7 +175,7 @@ const Header = () => {
     tick();
     intervalId = setInterval(tick, 1000);
     return () => clearInterval(intervalId);
-  }, [content?.showCountdown, targetTs]);
+  }, [content?.showCountdown, targetTs, shouldShowLoading]);
 
   const handleHeaderButtonClick = (label) => {
     if (/join pre-sale/i.test(label)) {
@@ -244,39 +266,6 @@ const Header = () => {
           </div>
         )}
 
-        {/* Debug Provider Information */}
-        <div className="debug-provider" style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          background: 'rgba(0, 0, 0, 0.8)',
-          color: 'white',
-          padding: '10px',
-          borderRadius: '5px',
-          fontSize: '12px',
-          zIndex: 1000,
-          maxWidth: '350px',
-          wordBreak: 'break-all'
-        }}>
-          <div><strong>Debug Info:</strong></div>
-          <div>Address: {address || 'Not connected'}</div>
-          <div>Provider: {provider ? provider.constructor.name : 'No provider'}</div>
-          <div>Provider Type: {provider ? typeof provider : 'N/A'}</div>
-          <div>Has window.ethereum: {window.ethereum ? 'Yes' : 'No'}</div>
-          <div>User Agent: {navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}</div>
-          {provider && (
-            <>
-              <div>Has getSigner: {typeof provider.getSigner === 'function' ? 'Yes' : 'No'}</div>
-              <div>Has getNetwork: {typeof provider.getNetwork === 'function' ? 'Yes' : 'No'}</div>
-              <div>Has send: {typeof provider.send === 'function' ? 'Yes' : 'No'}</div>
-              <div>Provider URL: {provider.connection?.url || 'N/A'}</div>
-              <div>Provider Ready: {provider._isProvider ? 'Yes' : 'No'}</div>
-            </>
-          )}
-          <div style={{marginTop: '5px', fontSize: '10px', color: '#ccc'}}>
-            Check console for detailed logs
-          </div>
-        </div>
 
         <h1 className="header-title">{content.title}</h1>
         <p className="header-subtitle">{content.subtitle}</p>
