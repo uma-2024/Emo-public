@@ -51,12 +51,30 @@ export function WalletProvider({ children }) {
 
   const connectWallet = async () => {
     try {
+      console.log('🔄 [Wallet] Starting wallet connection...');
+      
+      // First try Web3Modal
       await open();
+      
+      // Wait a bit for the connection to be established
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       const { ethereum } = window;
-      if (!ethereum) throw new Error("No Ethereum provider found");
+      if (!ethereum) {
+        console.error('❌ [Wallet] No ethereum provider found');
+        throw new Error("No Ethereum provider found");
+      }
+
+      console.log('🔄 [Wallet] Requesting accounts...');
       await ethereum.request({ method: "eth_requestAccounts" });
 
+      // Get accounts to verify connection
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length === 0) {
+        throw new Error("No accounts found");
+      }
+
+      console.log('🔄 [Wallet] Creating provider and signer...');
       // ethers v5 (fallback to v6 if installed)
       const web3Provider =
         ethers.providers?.Web3Provider
@@ -72,13 +90,16 @@ export function WalletProvider({ children }) {
           ? await web3Signer.getAddress()
           : (await web3Signer).address; // v6
 
+      console.log('🔄 [Wallet] Setting provider and signer...');
       setProvider(web3Provider);
       setSigner(web3Signer);
       setAddress(userAddress);
+      
+      console.log('✅ [Wallet] Wallet connected successfully:', userAddress);
       toast.success("Wallet connected");
     } catch (err) {
-      console.error("connectWallet error:", err);
-      toast.error("Connection failed");
+      console.error("❌ [Wallet] connectWallet error:", err);
+      toast.error("Connection failed: " + err.message);
     }
   };
 
@@ -127,6 +148,14 @@ export function WalletProvider({ children }) {
           setSigner(web3Signer);
           setAddress(userAddress);
           console.log('✅ [Wallet] Connection restored for:', userAddress);
+          
+          // Test the provider by getting network info
+          try {
+            const network = await web3Provider.getNetwork();
+            console.log('🌐 [Wallet] Network info:', network);
+          } catch (networkError) {
+            console.warn('⚠️ [Wallet] Could not get network info:', networkError);
+          }
         } else {
           console.log('ℹ️ [Wallet] No existing connection found');
         }
@@ -135,8 +164,8 @@ export function WalletProvider({ children }) {
       }
     };
 
-    // Add a small delay to ensure window.ethereum is available
-    const timer = setTimeout(restoreConnection, 100);
+    // Add a longer delay for mobile devices
+    const timer = setTimeout(restoreConnection, 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -148,6 +177,7 @@ export function WalletProvider({ children }) {
         try {
           const { ethereum } = window;
           if (ethereum) {
+            console.log('🔄 [Wallet] Creating provider from wagmi connection...');
             const web3Provider = ethers.providers?.Web3Provider
               ? new ethers.providers.Web3Provider(ethereum, "any")
               : new ethers.BrowserProvider(ethereum);
@@ -156,16 +186,36 @@ export function WalletProvider({ children }) {
               ? web3Provider.getSigner()
               : await web3Provider.getSigner();
 
-            setProvider(web3Provider);
-            setSigner(web3Signer);
-            setAddress(wagmiAddress);
-            console.log('✅ [Wallet] Connection restored from wagmi for:', wagmiAddress);
+            // Verify the signer address matches wagmi address
+            const signerAddress = typeof web3Signer.getAddress === "function"
+              ? await web3Signer.getAddress()
+              : (await web3Signer).address;
+
+            if (signerAddress.toLowerCase() === wagmiAddress.toLowerCase()) {
+              setProvider(web3Provider);
+              setSigner(web3Signer);
+              setAddress(wagmiAddress);
+              console.log('✅ [Wallet] Connection restored from wagmi for:', wagmiAddress);
+              
+              // Test the provider
+              try {
+                const network = await web3Provider.getNetwork();
+                console.log('🌐 [Wallet] Wagmi network info:', network);
+              } catch (networkError) {
+                console.warn('⚠️ [Wallet] Could not get wagmi network info:', networkError);
+              }
+            } else {
+              console.warn('⚠️ [Wallet] Signer address mismatch:', signerAddress, 'vs', wagmiAddress);
+            }
           }
         } catch (error) {
           console.error('❌ [Wallet] Error restoring from wagmi:', error);
         }
       };
-      restoreFromWagmi();
+      
+      // Add delay to ensure wagmi is fully initialized
+      const timer = setTimeout(restoreFromWagmi, 200);
+      return () => clearTimeout(timer);
     }
   }, [wagmiAddress, address]);
 

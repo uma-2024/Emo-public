@@ -23,6 +23,15 @@ export const usePresaleContract = (provider, address) => {
           setLoading(true);
           setError(null);
           
+          // Test provider before using it
+          console.log('🔄 [Contract Hook] Testing provider...');
+          try {
+            const network = await provider.getNetwork();
+            console.log('🌐 [Contract Hook] Provider network:', network);
+          } catch (networkError) {
+            console.warn('⚠️ [Contract Hook] Provider network test failed:', networkError);
+          }
+          
           console.log('🔄 [Contract Hook] Creating PresaleContract instance...');
           const presaleContract = new PresaleContract(provider);
           await presaleContract.init();
@@ -35,6 +44,17 @@ export const usePresaleContract = (provider, address) => {
         } catch (err) {
           console.error('❌ [Contract Hook] Failed to initialize contract:', err);
           setError(err.message);
+          
+          // Retry after a delay if it's a provider issue
+          if (err.message.includes('provider') || err.message.includes('network')) {
+            console.log('🔄 [Contract Hook] Retrying contract initialization in 2 seconds...');
+            setTimeout(() => {
+              if (provider && address) {
+                console.log('🔄 [Contract Hook] Retry attempt...');
+                initContract();
+              }
+            }, 2000);
+          }
         } finally {
           setLoading(false);
         }
