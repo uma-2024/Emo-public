@@ -1,13 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ethers } from "ethers";
+import { ethers, BrowserProvider } from "ethers";
 import { createWeb3Modal, useWeb3Modal } from '@web3modal/wagmi/react';
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { WagmiConfig, useAccount, useDisconnect } from 'wagmi';
+import { WagmiConfig, useAccount, useDisconnect, useWalletClient } from 'wagmi';
 import { bsc,bscTestnet } from 'wagmi/chains'; // Import BNB Mainnet chain
-import Provider from "@walletconnect/universal-provider";
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
+import { getAccount, getWalletClient } from '@wagmi/core';
 // Hardcoded WalletConnect Project ID and Metadata
 const PROJECT_ID = "9aced30cb7c70da7e0a7b4129fbd0a8f";
 const metadata = {
@@ -37,6 +37,7 @@ const WalletProvider = ({ children }) => {
   const [address, setAddress] = useState("");
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
+  const [isConnecting, setIsConnecting] = useState(false);
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
@@ -57,24 +58,30 @@ const WalletProvider = ({ children }) => {
           56: 'https://bsc-dataseed.binance.org/', // BNB Mainnet RPC URL
         },
       });
-      //https://go.getblock.io/0fb0008a25194d81bfaa0de2a23e3b0c
+      
       await wcProvider.connect();
-      const provider = new ethers.providers.Web3Provider(wcProvider);
-  //    console.log(" wc provider---",provider);
-    //  alert("phoneprovider")
-    //  alert(provider)
-     // alert(address)
+      
+      // Use BrowserProvider for ethers v6
+      const provider = new BrowserProvider(wcProvider);
+      console.log("WalletConnect provider created:", provider);
+      
       setProvider(provider);
-      const signer = provider.getSigner();
-    // console.log("signer--",signer);
+      
+      const signer = await provider.getSigner();
+      console.log("WalletConnect signer created:", signer);
       setSigner(signer);
-     const userAddress = await signer.getAddress();
-   //  console.log("useraddresss",userAddress);
-     setAddress(userAddress);
+      
+      const userAddress = await signer.getAddress();
+      console.log("WalletConnect user address:", userAddress);
+      setAddress(userAddress);
+      
       toast.success("Wallet connected using WalletConnect");
+      
+      return provider; // Return the provider for further use
     } catch (error) {
       console.error("Error initializing WalletConnect:", error);
-      toast.error("Failed to connect via WalletConnect");
+      toast.error("Failed to connect via WalletConnect: " + error.message);
+      throw error; // Re-throw to handle in calling function
     }
   };
   const switchNetwork = async (provider) => {
@@ -156,33 +163,53 @@ const WalletProvider = ({ children }) => {
   //   }
   // };
   const connectWallet = async () => {
+    if (isConnecting) {
+      console.log("Connection already in progress");
+      return;
+    }
+    
+    setIsConnecting(true);
+    
     try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-if (!isMobile ) {
-  // Use MetaMask or any web3 browser extension on desktop
-  console.log("Web provider available, using MetaMask or web extension");
-  await open({ view: 'Connect' });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  setProvider(provider);
-  await switchNetwork(provider);
-  // const signer = provider.getSigner();
-  // setSigner(signer);
-  // const userAddress = await signer.getAddress();
-  // setAddress(userAddress);
-  toast.success("Wallet connected using MetaMask or another desktop wallet");
-} else if (isMobile) {
-  // On mobile, use WalletConnect
- // console.log("Mobile detected, using WalletConnect");
- // alert("mobileee")
-  await initWalletConnectProvider();
-} else {
-  // If no extension is available and on desktop, show error
-  console.error("No wallet extension detected on desktop");
-  toast.error("Please install a wallet extension like MetaMask.");
-}
+      
+      if (!isMobile) {
+        // Use MetaMask or any web3 browser extension on desktop
+        console.log("Web provider available, using MetaMask or web extension");
+        await open({ view: 'Connect' });
+        
+        if (window.ethereum) {
+          const provider = new BrowserProvider(window.ethereum);
+          setProvider(provider);
+          await switchNetwork(provider);
+          
+          const signer = await provider.getSigner();
+          setSigner(signer);
+          const userAddress = await signer.getAddress();
+          setAddress(userAddress);
+          
+          toast.success("Wallet connected using MetaMask or another desktop wallet");
+        } else {
+          throw new Error("No wallet extension detected");
+        }
+      } else if (isMobile) {
+        // On mobile, use WalletConnect
+        console.log("Mobile detected, using WalletConnect");
+        const provider = await initWalletConnectProvider();
+        
+        if (provider) {
+          await switchNetwork(provider);
+        }
+      } else {
+        // If no extension is available and on desktop, show error
+        console.error("No wallet extension detected on desktop");
+        toast.error("Please install a wallet extension like MetaMask.");
+      }
     } catch (err) {
       console.error("Error connecting wallet:", err);
-      toast.error("Failed to connect wallet");
+      toast.error("Failed to connect wallet: " + err.message);
+    } finally {
+      setIsConnecting(false);
     }
   };
   const disconnectWallet = () => {
@@ -190,6 +217,7 @@ if (!isMobile ) {
     setAddress("");
     setProvider(null);
     setSigner(null);
+    setIsConnecting(false);
     toast.success("Wallet disconnected");
   };
   useEffect(() => {
@@ -200,7 +228,7 @@ if (!isMobile ) {
   console.log(address);
   return (
     <WagmiConfig config={config}>
-      <WalletContext.Provider value={{ address, connectWallet, disconnectWallet, signer, provider }}>
+      <WalletContext.Provider value={{ address, connectWallet, disconnectWallet, signer, provider, isConnecting }}>
         {children}
       </WalletContext.Provider>
     </WagmiConfig>
