@@ -20,7 +20,7 @@ const metadata = {
 const WalletContext = createContext();
 // WAGMI configuration
 const chains = [bsc];
-const config = defaultWagmiConfig({
+export const config = defaultWagmiConfig({
   chains,
   projectId: PROJECT_ID,
   metadata,
