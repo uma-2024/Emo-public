@@ -43,6 +43,9 @@ const WalletProvider = ({ children }) => {
   // WalletConnect for mobile MetaMask connection
   const initWalletConnectProvider = async () => {
     try {
+      console.log("Initializing WalletConnect provider...");
+      toast.info("🔄 Initializing WalletConnect...");
+      
       const wcProvider = await EthereumProvider.init({
         projectId: PROJECT_ID,
         metadata: {
@@ -69,20 +72,26 @@ const WalletProvider = ({ children }) => {
         },
       });
 
+      console.log("WalletConnect provider initialized, setting up event listeners...");
+      toast.info("✅ WalletConnect ready! Setting up listeners...");
+
       // Set up event listeners
       wcProvider.on('accountsChanged', (accounts) => {
         console.log('Accounts changed:', accounts);
         if (accounts.length > 0) {
           setAddress(accounts[0]);
+          toast.info("🔄 Account changed: " + accounts[0].substring(0, 6) + "...");
         } else {
           setAddress("");
           setProvider(null);
           setSigner(null);
+          toast.warning("⚠️ Account disconnected");
         }
       });
 
       wcProvider.on('chainChanged', (chainId) => {
         console.log('Chain changed:', chainId);
+        toast.info("🔄 Network changed: " + chainId);
       });
 
       wcProvider.on('disconnect', () => {
@@ -90,25 +99,65 @@ const WalletProvider = ({ children }) => {
         setAddress("");
         setProvider(null);
         setSigner(null);
+        toast.warning("⚠️ Wallet disconnected");
       });
 
+      console.log("Attempting to connect to WalletConnect...");
+      toast.info("🔗 Connecting to WalletConnect...");
       await wcProvider.connect();
+      console.log("WalletConnect connected successfully!");
+      toast.success("✅ WalletConnect connected!");
       
       const provider = new ethers.providers.Web3Provider(wcProvider);
+      console.log("Ethers provider created:", provider);
+      toast.info("🔧 Setting up provider...");
       setProvider(provider);
       
       const signer = provider.getSigner();
+      console.log("Signer created:", signer);
+      toast.info("🔐 Creating signer...");
       setSigner(signer);
       
       const userAddress = await signer.getAddress();
+      console.log("User address:", userAddress);
       setAddress(userAddress);
       
-      toast.success("MetaMask connected via WalletConnect");
+      toast.success("🎉 MetaMask connected via WalletConnect! Address: " + userAddress.substring(0, 6) + "...");
       
       return provider;
     } catch (error) {
-      console.error("Error initializing WalletConnect:", error);
-      toast.error("Failed to connect via WalletConnect: " + error.message);
+      console.error("Detailed WalletConnect error:", error);
+      console.error("Error stack:", error.stack);
+      console.error("Error message:", error.message);
+      console.error("Error code:", error.code);
+      
+      let errorMessage = "❌ Failed to connect via WalletConnect";
+      let toastMessage = "❌ Connection failed";
+      
+      if (error.message) {
+        errorMessage += ": " + error.message;
+        toastMessage += ": " + error.message;
+      } else if (error.code) {
+        errorMessage += " (Code: " + error.code + ")";
+        toastMessage += " (Code: " + error.code + ")";
+      }
+      
+      // Show detailed error in toast for mobile debugging
+      toast.error(toastMessage);
+      
+      // Also show specific error types
+      if (error.message && error.message.includes("User rejected")) {
+        toast.error("❌ User cancelled the connection");
+      } else if (error.message && error.message.includes("No wallet")) {
+        toast.error("❌ No wallet detected. Please install MetaMask.");
+      } else if (error.message && error.message.includes("network")) {
+        toast.error("❌ Network error. Check your internet connection.");
+      } else if (error.code === 4001) {
+        toast.error("❌ Connection rejected by user");
+      } else if (error.code === 4902) {
+        toast.error("❌ Network not found. Please add BSC network to MetaMask.");
+      }
+      
       throw error;
     }
   };
@@ -193,26 +242,51 @@ const WalletProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      console.log("Device type:", isMobile ? "Mobile" : "Desktop");
+      toast.info("🔍 Detected device: " + (isMobile ? "Mobile" : "Desktop"));
       
       if (isMobile) {
-        // On mobile, always use WalletConnect to connect with MetaMask mobile app
-        console.log("Mobile detected, connecting with MetaMask via WalletConnect");
-        await initWalletConnectProvider();
+        // On mobile, try WalletConnect first, fallback to Web3Modal
+        console.log("Mobile detected, trying WalletConnect first...");
+        toast.info("📱 Mobile detected! Trying WalletConnect...");
+        try {
+          await initWalletConnectProvider();
+        } catch (wcError) {
+          console.log("WalletConnect failed, trying Web3Modal as fallback...", wcError);
+          toast.warning("⚠️ WalletConnect failed, trying alternative method...");
+          await open({ view: 'Connect' });
+          toast.info("🔗 Please complete the connection in your wallet");
+        }
       } else {
         // Use MetaMask or any web3 browser extension on desktop
         console.log("Desktop detected, using MetaMask or web extension");
+        toast.info("💻 Desktop detected! Opening wallet connection...");
         await open({ view: 'Connect' });
         
         // Don't try to get signer immediately - let wagmi handle the connection
         // The useEffect will update the address when wagmiAddress changes
-        toast.info("Please complete the connection in your wallet");
+        toast.info("🔗 Please complete the connection in your wallet");
       }
     } catch (err) {
       console.error("Error connecting wallet:", err);
-      if (err.message === "User rejected the request.") {
-        toast.error("Connection cancelled by user");
+      console.error("Error details:", {
+        message: err.message,
+        code: err.code,
+        stack: err.stack
+      });
+      
+      // Show detailed error in toast for mobile debugging
+      if (err.message === "User rejected the request." || err.code === 4001) {
+        toast.error("❌ Connection cancelled by user");
+      } else if (err.message && err.message.includes("No wallet")) {
+        toast.error("❌ No wallet detected. Please install MetaMask.");
+      } else if (err.message && err.message.includes("network")) {
+        toast.error("❌ Network error. Check your internet connection.");
+      } else if (err.code === 4902) {
+        toast.error("❌ Network not found. Please add BSC network to MetaMask.");
       } else {
-        toast.error("Failed to connect wallet: " + err.message);
+        const errorMsg = err.message || "Unknown error occurred";
+        toast.error("❌ Failed to connect wallet: " + errorMsg);
       }
     }
   };
