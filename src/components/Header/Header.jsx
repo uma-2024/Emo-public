@@ -255,21 +255,27 @@ const Header = () => {
           borderRadius: '5px',
           fontSize: '12px',
           zIndex: 1000,
-          maxWidth: '300px',
+          maxWidth: '350px',
           wordBreak: 'break-all'
         }}>
           <div><strong>Debug Info:</strong></div>
           <div>Address: {address || 'Not connected'}</div>
           <div>Provider: {provider ? provider.constructor.name : 'No provider'}</div>
           <div>Provider Type: {provider ? typeof provider : 'N/A'}</div>
+          <div>Has window.ethereum: {window.ethereum ? 'Yes' : 'No'}</div>
+          <div>User Agent: {navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'}</div>
           {provider && (
             <>
               <div>Has getSigner: {typeof provider.getSigner === 'function' ? 'Yes' : 'No'}</div>
               <div>Has getNetwork: {typeof provider.getNetwork === 'function' ? 'Yes' : 'No'}</div>
               <div>Has send: {typeof provider.send === 'function' ? 'Yes' : 'No'}</div>
               <div>Provider URL: {provider.connection?.url || 'N/A'}</div>
+              <div>Provider Ready: {provider._isProvider ? 'Yes' : 'No'}</div>
             </>
           )}
+          <div style={{marginTop: '5px', fontSize: '10px', color: '#ccc'}}>
+            Check console for detailed logs
+          </div>
         </div>
 
         <h1 className="header-title">{content.title}</h1>

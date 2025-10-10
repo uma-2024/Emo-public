@@ -93,45 +93,45 @@ export const WalletProvider = ({ children }) => {
         toast.success("Wallet disconnected");
       });
 
-      // Wait for connection to be established
-      if (wcProvider.connected) {
-        console.log('🔄 [Wallet] Creating ethers provider...');
-        
-        try {
-          // Try BrowserProvider first (ethers v6)
-          const provider = new ethers.BrowserProvider(wcProvider, "any");
-          console.log('✅ [Wallet] BrowserProvider created successfully');
+        // Wait for connection to be established
+        if (wcProvider.connected) {
+          console.log('🔄 [Wallet] Creating ethers provider...');
           
-          setProvider(provider);
-          const signer = await provider.getSigner();
-          setSigner(signer);
-          
-          const userAddress = await signer.getAddress();
-          setAddress(userAddress);
-          
-          console.log('✅ [Wallet] WalletConnect connected:', userAddress);
-          toast.success("Wallet connected using WalletConnect");
-        } catch (browserProviderError) {
-          console.log('⚠️ [Wallet] BrowserProvider failed, trying fallback approach:', browserProviderError);
-          
-          // Fallback: Use JsonRpcProvider with a public RPC
           try {
-            const fallbackProvider = new ethers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
-            console.log('✅ [Wallet] Fallback JsonRpcProvider created');
+            // Use Web3Provider (ethers v5)
+            const provider = new ethers.providers.Web3Provider(wcProvider);
+            console.log('✅ [Wallet] Web3Provider created successfully');
             
-            setProvider(fallbackProvider);
+            setProvider(provider);
+            const signer = provider.getSigner();
+            setSigner(signer);
             
-            // For fallback, we can't get a signer, so we'll rely on wagmi for signing
-            console.log('⚠️ [Wallet] Using fallback provider - signing will be handled by wagmi');
-            toast.success("Wallet connected using WalletConnect (fallback mode)");
-          } catch (fallbackError) {
-            console.error('❌ [Wallet] Both BrowserProvider and fallback failed:', fallbackError);
-            throw new Error("Failed to create provider for WalletConnect");
+            const userAddress = await signer.getAddress();
+            setAddress(userAddress);
+            
+            console.log('✅ [Wallet] WalletConnect connected:', userAddress);
+            toast.success("Wallet connected using WalletConnect");
+          } catch (web3ProviderError) {
+            console.log('⚠️ [Wallet] Web3Provider failed, trying fallback approach:', web3ProviderError);
+            
+            // Fallback: Use JsonRpcProvider with a public RPC
+            try {
+              const fallbackProvider = new ethers.providers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+              console.log('✅ [Wallet] Fallback JsonRpcProvider created');
+              
+              setProvider(fallbackProvider);
+              
+              // For fallback, we can't get a signer, so we'll rely on wagmi for signing
+              console.log('⚠️ [Wallet] Using fallback provider - signing will be handled by wagmi');
+              toast.success("Wallet connected using WalletConnect (fallback mode)");
+            } catch (fallbackError) {
+              console.error('❌ [Wallet] Both Web3Provider and fallback failed:', fallbackError);
+              throw new Error("Failed to create provider for WalletConnect");
+            }
           }
+        } else {
+          throw new Error("WalletConnect connection not established");
         }
-      } else {
-        throw new Error("WalletConnect connection not established");
-      }
     } catch (error) {
       console.error("❌ [Wallet] Error initializing WalletConnect:", error);
       console.error("❌ [Wallet] Error details:", error.message);
@@ -201,11 +201,11 @@ export const WalletProvider = ({ children }) => {
           throw new Error("No Ethereum provider found");
         }
         
-        const provider = new ethers.BrowserProvider(ethereum);
+        const provider = new ethers.providers.Web3Provider(ethereum);
         setProvider(provider);
         await switchNetwork(provider);
         
-        const signer = await provider.getSigner();
+        const signer = provider.getSigner();
         setSigner(signer);
         
         const userAddress = await signer.getAddress();
@@ -295,13 +295,13 @@ export const WalletProvider = ({ children }) => {
         if (accounts.length > 0) {
           console.log('🔄 [Wallet] Restoring connection for:', accounts[0]);
           
-          const provider = new ethers.BrowserProvider(ethereum);
-          const signer = await provider.getSigner();
-          const userAddress = await signer.getAddress();
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const userAddress = await signer.getAddress();
 
-          setProvider(provider);
-          setSigner(signer);
-          setAddress(userAddress);
+        setProvider(provider);
+        setSigner(signer);
+        setAddress(userAddress);
           console.log('✅ [Wallet] Connection restored for:', userAddress);
         } else {
           console.log('ℹ️ [Wallet] No existing connection found');
@@ -317,30 +317,44 @@ export const WalletProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log('🔄 [Wallet] useEffect triggered - wagmiAddress:', wagmiAddress, 'provider:', !!provider, 'walletClient:', !!walletClient);
+    
     if (wagmiAddress) {
       setAddress(wagmiAddress);
       
       // If we have a wagmi address but no provider, try to create one
       if (wagmiAddress && !provider) {
+        console.log('🔄 [Wallet] Need to create provider for wagmi address:', wagmiAddress);
+        
         const createProviderFromWagmi = async () => {
           try {
+            console.log('🔄 [Wallet] Starting provider creation...');
+            console.log('🔄 [Wallet] walletClient available:', !!walletClient);
+            console.log('🔄 [Wallet] window.ethereum available:', !!window.ethereum);
+            
             // For mobile, try to get provider from walletClient first
             if (walletClient) {
               console.log('🔄 [Wallet] Creating provider from walletClient for mobile');
+              console.log('🔄 [Wallet] walletClient type:', typeof walletClient);
+              console.log('🔄 [Wallet] walletClient constructor:', walletClient.constructor.name);
               
               try {
-                // Try BrowserProvider first
-                const ethersProvider = new ethers.BrowserProvider(walletClient, "any");
-                const ethersSigner = await ethersProvider.getSigner();
+                // Try Web3Provider first (ethers v5)
+                console.log('🔄 [Wallet] Attempting Web3Provider with walletClient...');
+                const ethersProvider = new ethers.providers.Web3Provider(walletClient);
+                console.log('🔄 [Wallet] Web3Provider created, getting signer...');
+                const ethersSigner = ethersProvider.getSigner();
                 setProvider(ethersProvider);
                 setSigner(ethersSigner);
                 console.log('✅ [Wallet] Provider created from walletClient');
                 return;
-              } catch (browserProviderError) {
-                console.log('⚠️ [Wallet] BrowserProvider failed for walletClient, using fallback:', browserProviderError);
+              } catch (web3ProviderError) {
+                console.log('⚠️ [Wallet] Web3Provider failed for walletClient:', web3ProviderError);
+                console.log('⚠️ [Wallet] Error details:', web3ProviderError.message);
                 
                 // Fallback: Use JsonRpcProvider
-                const fallbackProvider = new ethers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+                console.log('🔄 [Wallet] Creating fallback JsonRpcProvider...');
+                const fallbackProvider = new ethers.providers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
                 setProvider(fallbackProvider);
                 console.log('✅ [Wallet] Fallback provider created from walletClient');
                 return;
@@ -351,16 +365,39 @@ export const WalletProvider = ({ children }) => {
             const { ethereum } = window;
             if (ethereum) {
               console.log('🔄 [Wallet] Creating provider from window.ethereum');
-              const web3Provider = new ethers.BrowserProvider(ethereum);
-              const web3Signer = await web3Provider.getSigner();
-              setProvider(web3Provider);
-              setSigner(web3Signer);
-              console.log('✅ [Wallet] Provider created from window.ethereum');
+              try {
+                const web3Provider = new ethers.providers.Web3Provider(ethereum);
+                const web3Signer = web3Provider.getSigner();
+                setProvider(web3Provider);
+                setSigner(web3Signer);
+                console.log('✅ [Wallet] Provider created from window.ethereum');
+              } catch (ethereumError) {
+                console.log('⚠️ [Wallet] window.ethereum provider creation failed:', ethereumError);
+                // Create a fallback provider
+                const fallbackProvider = new ethers.providers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+                setProvider(fallbackProvider);
+                console.log('✅ [Wallet] Fallback provider created from window.ethereum error');
+              }
             } else {
-              console.log('⚠️ [Wallet] No provider source available');
+              console.log('⚠️ [Wallet] No provider source available, creating fallback');
+              // Create a fallback provider when no other option is available
+              const fallbackProvider = new ethers.providers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+              setProvider(fallbackProvider);
+              console.log('✅ [Wallet] Fallback provider created as last resort');
             }
           } catch (error) {
-            console.log('⚠️ [Wallet] Could not create provider from wagmi:', error);
+            console.error('❌ [Wallet] Could not create provider from wagmi:', error);
+            console.error('❌ [Wallet] Error details:', error.message);
+            console.error('❌ [Wallet] Error stack:', error.stack);
+            
+            // Even if everything fails, create a fallback provider
+            try {
+              const fallbackProvider = new ethers.providers.JsonRpcProvider("https://eth-mainnet.g.alchemy.com/v2/demo");
+              setProvider(fallbackProvider);
+              console.log('✅ [Wallet] Emergency fallback provider created');
+            } catch (fallbackError) {
+              console.error('❌ [Wallet] Even fallback provider failed:', fallbackError);
+            }
           }
         };
         createProviderFromWagmi();
