@@ -53,6 +53,8 @@ export const WalletProvider = ({ children }) => {
   const initWalletConnectProvider = async () => {
     try {
       console.log('🔄 [Wallet] Initializing WalletConnect for mobile...');
+      console.log('🔍 [Wallet] Project ID:', PROJECT_ID);
+      console.log('🔍 [Wallet] App URL:', appUrl);
       
       const wcProvider = await EthereumProvider.init({
         projectId: PROJECT_ID,
@@ -63,13 +65,19 @@ export const WalletProvider = ({ children }) => {
           icons: [`${appUrl}/icon.png`],
         },
         showQrModal: true,
-        optionalChains: [97], // BSC Testnet chain ID
+        chains: [97], // BSC Testnet chain ID
+        optionalChains: [97],
         rpcMap: {
-          97: 'https://data-seed-prebsc-1-s3.binance.org:8545/', // BSC Testnet RPC URL
+          97: 'https://bsc-testnet.publicnode.com', // Alternative BSC Testnet RPC URL
         },
+        methods: ['eth_sendTransaction', 'eth_signTransaction', 'eth_sign', 'personal_sign', 'eth_signTypedData'],
+        events: ['chainChanged', 'accountsChanged'],
       });
 
+      console.log('🔄 [Wallet] WalletConnect provider initialized, connecting...');
       await wcProvider.connect();
+      
+      console.log('🔄 [Wallet] Creating ethers provider...');
       const provider = new ethers.BrowserProvider(wcProvider);
       
       console.log('✅ [Wallet] WalletConnect provider created');
@@ -85,7 +93,9 @@ export const WalletProvider = ({ children }) => {
       toast.success("Wallet connected using WalletConnect");
     } catch (error) {
       console.error("❌ [Wallet] Error initializing WalletConnect:", error);
-      toast.error("Failed to connect via WalletConnect");
+      console.error("❌ [Wallet] Error details:", error.message);
+      console.error("❌ [Wallet] Error stack:", error.stack);
+      toast.error("Failed to connect via WalletConnect: " + error.message);
     }
   };
 
@@ -160,9 +170,34 @@ export const WalletProvider = ({ children }) => {
         console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, use WalletConnect
-        console.log("🔄 [Wallet] Mobile detected, using WalletConnect");
-        await initWalletConnectProvider();
+        // On mobile, try Web3Modal first, then WalletConnect as fallback
+        console.log("🔄 [Wallet] Mobile detected, trying Web3Modal first...");
+        try {
+          await open({ view: 'Connect' });
+          
+          // Wait for connection to be established
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          const { ethereum } = window;
+          if (ethereum) {
+            const provider = new ethers.BrowserProvider(ethereum);
+            setProvider(provider);
+            
+            const signer = await provider.getSigner();
+            setSigner(signer);
+            
+            const userAddress = await signer.getAddress();
+            setAddress(userAddress);
+            
+            console.log('✅ [Wallet] Mobile Web3Modal connected:', userAddress);
+            toast.success("Wallet connected using Web3Modal");
+          } else {
+            throw new Error("No ethereum provider found");
+          }
+        } catch (web3ModalError) {
+          console.log("⚠️ [Wallet] Web3Modal failed, trying WalletConnect...", web3ModalError);
+          await initWalletConnectProvider();
+        }
       } else {
         // If no extension is available and on desktop, show error
         console.error("No wallet extension detected on desktop");
