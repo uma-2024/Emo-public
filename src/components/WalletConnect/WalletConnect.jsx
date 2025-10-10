@@ -73,20 +73,47 @@ export const WalletProvider = ({ children }) => {
       console.log('🔄 [Wallet] WalletConnect provider initialized, connecting...');
       await wcProvider.connect();
       
-      console.log('🔄 [Wallet] Creating ethers provider...');
-      const provider = new ethers.BrowserProvider(wcProvider);
-      
-      console.log('✅ [Wallet] WalletConnect provider created');
-      setProvider(provider);
-      
-      const signer = await provider.getSigner();
-      setSigner(signer);
-      
-      const userAddress = await signer.getAddress();
-      setAddress(userAddress);
-      
-      console.log('✅ [Wallet] WalletConnect connected:', userAddress);
-      toast.success("Wallet connected using WalletConnect");
+      // Add event listeners for WalletConnect
+      wcProvider.on("accountsChanged", (accounts) => {
+        console.log("🔄 [Wallet] Accounts changed:", accounts);
+        if (accounts.length > 0) {
+          setAddress(accounts[0]);
+        }
+      });
+
+      wcProvider.on("chainChanged", (chainId) => {
+        console.log("🔄 [Wallet] Chain changed:", chainId);
+      });
+
+      wcProvider.on("disconnect", () => {
+        console.log("🔄 [Wallet] WalletConnect disconnected");
+        setAddress("");
+        setProvider(null);
+        setSigner(null);
+        toast.success("Wallet disconnected");
+      });
+
+      // Wait for connection to be established
+      if (wcProvider.connected) {
+        console.log('🔄 [Wallet] Creating ethers provider...');
+        
+        // Use Web3Provider for WalletConnect (more reliable than BrowserProvider)
+        const provider = new ethers.providers.Web3Provider(wcProvider, "any");
+        
+        console.log('✅ [Wallet] WalletConnect provider created');
+        setProvider(provider);
+        
+        const signer = await provider.getSigner();
+        setSigner(signer);
+        
+        const userAddress = await signer.getAddress();
+        setAddress(userAddress);
+        
+        console.log('✅ [Wallet] WalletConnect connected:', userAddress);
+        toast.success("Wallet connected using WalletConnect");
+      } else {
+        throw new Error("WalletConnect connection not established");
+      }
     } catch (error) {
       console.error("❌ [Wallet] Error initializing WalletConnect:", error);
       console.error("❌ [Wallet] Error details:", error.message);
@@ -282,7 +309,8 @@ export const WalletProvider = ({ children }) => {
             // For mobile, try to get provider from walletClient first
             if (walletClient) {
               console.log('🔄 [Wallet] Creating provider from walletClient for mobile');
-              const ethersProvider = new ethers.BrowserProvider(walletClient);
+              // Use Web3Provider for better mobile compatibility
+              const ethersProvider = new ethers.providers.Web3Provider(walletClient, "any");
               const ethersSigner = await ethersProvider.getSigner();
               setProvider(ethersProvider);
               setSigner(ethersSigner);
