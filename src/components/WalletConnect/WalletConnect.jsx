@@ -7,7 +7,6 @@ import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { WagmiConfig, useAccount, useDisconnect } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains'; // Import BNB Mainnet chain
 import { EthereumProvider } from '@walletconnect/ethereum-provider';
-import UniversalProvider from "@walletconnect/universal-provider";
 
 // Hardcoded WalletConnect Project ID and Metadata
 const PROJECT_ID = "9aced30cb7c70da7e0a7b4129fbd0a8f";
@@ -46,53 +45,9 @@ export const WalletProvider = ({ children }) => {
   const [address, setAddress] = useState("");
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
-  const [universalProvider, setUniversalProvider] = useState(null);
   const { address: wagmiAddress } = useAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
-
-  // Initialize Universal Provider for mobile
-  const initUniversalProvider = async () => {
-    try {
-      console.log('🔄 [Wallet] Initializing Universal Provider for mobile...');
-      
-      const walletProvider = await UniversalProvider.init({
-        logger: "info",
-        relayUrl: "wss://relay.walletconnect.com",
-        projectId: PROJECT_ID,
-        metadata: {
-          name: "XIK Presale",
-          description: "XIK Token Presale Platform",
-          url: appUrl,
-          icons: [`${appUrl}/icon.png`],
-        },
-      });
-
-      // Set up event listeners
-      walletProvider.on("session_update", ({ params }) => {
-        const updatedAddress = params.namespaces.eip155.accounts[0].split(":")[2];
-        setAddress(updatedAddress);
-        console.log('✅ [Wallet] Session updated:', updatedAddress);
-        toast.success("Wallet session updated");
-      });
-
-      walletProvider.on("disconnect", () => {
-        setAddress("");
-        setProvider(null);
-        setSigner(null);
-        console.log('🔄 [Wallet] Universal Provider disconnected');
-        toast.success("Wallet disconnected");
-      });
-
-      setUniversalProvider(walletProvider);
-      console.log('✅ [Wallet] Universal Provider initialized');
-      return walletProvider;
-    } catch (error) {
-      console.error("❌ [Wallet] Error initializing Universal Provider:", error);
-      toast.error("Failed to initialize Universal Provider: " + error.message);
-      throw error;
-    }
-  };
 
   // WalletConnect fallback if window.ethereum is not available
   const initWalletConnectProvider = async () => {
@@ -209,53 +164,78 @@ export const WalletProvider = ({ children }) => {
         console.log('✅ [Wallet] Desktop wallet connected:', userAddress);
         toast.success("Wallet connected using MetaMask or another desktop wallet");
       } else if (isMobile) {
-        // On mobile, use Universal Provider
-        console.log("🔄 [Wallet] Mobile detected, using Universal Provider");
+        // On mobile, try Web3Modal first, then fallback to EthereumProvider
+        console.log("🔄 [Wallet] Mobile detected, trying Web3Modal first");
         
         try {
-          // Initialize Universal Provider if not already done
-          let walletProvider = universalProvider;
-          if (!walletProvider) {
-            walletProvider = await initUniversalProvider();
+          // Try Web3Modal first
+          await open({ view: 'Connect' });
+          
+          // Wait for connection with better timeout handling
+          console.log("🔄 [Wallet] Waiting for Web3Modal connection...");
+          
+          // Create a promise that resolves when wagmi gets an address
+          const waitForConnection = new Promise((resolve, reject) => {
+            let attempts = 0;
+            const maxAttempts = 20; // 10 seconds max wait
+            
+            const checkConnection = () => {
+              attempts++;
+              
+              if (wagmiAddress) {
+                console.log("✅ [Wallet] Wagmi detected connection:", wagmiAddress);
+                resolve(wagmiAddress);
+                return;
+              }
+              
+              if (attempts >= maxAttempts) {
+                reject(new Error("Web3Modal connection timeout"));
+                return;
+              }
+              
+              // Check again in 500ms
+              setTimeout(checkConnection, 500);
+            };
+            
+            checkConnection();
+          });
+          
+          // Wait for the connection to be established
+          const connectedAddress = await waitForConnection;
+          
+          // Set the address
+          setAddress(connectedAddress);
+          
+          // Try to create provider from window.ethereum (if available after Web3Modal)
+          try {
+            const { ethereum } = window;
+            if (ethereum) {
+              const provider = new ethers.BrowserProvider(ethereum);
+              const signer = await provider.getSigner();
+              setProvider(provider);
+              setSigner(signer);
+              console.log('✅ [Wallet] Provider created from Web3Modal connection');
+            } else {
+              console.log('⚠️ [Wallet] No ethereum provider available, but wagmi connection is active');
+            }
+          } catch (providerError) {
+            console.log('⚠️ [Wallet] Could not create provider, but wagmi connection is active:', providerError);
           }
           
-          // Connect using Universal Provider
-          const session = await walletProvider.connect({
-            namespaces: {
-              eip155: {
-                methods: [
-                  "eth_sendTransaction",
-                  "eth_signTransaction",
-                  "eth_sign",
-                  "personal_sign",
-                  "eth_signTypedData",
-                ],
-                chains: ["eip155:97"], // BSC Testnet
-                events: ["chainChanged", "accountsChanged"],
-                rpcMap: {
-                  97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
-                },
-              },
-            },
-          });
-
-          const connectedAddress = session.namespaces.eip155.accounts[0].split(":")[2];
-          setAddress(connectedAddress);
-
-          // Create ethers provider from Universal Provider
-          const web3Provider = new ethers.BrowserProvider(walletProvider);
-          const web3Signer = await web3Provider.getSigner();
+          toast.success("Wallet connected via Web3Modal");
           
-          setProvider(web3Provider);
-          setSigner(web3Signer);
-
-          console.log('✅ [Wallet] Universal Provider connected:', connectedAddress);
-          toast.success("Wallet connected using Universal Provider");
+        } catch (web3ModalError) {
+          console.log("⚠️ [Wallet] Web3Modal failed, trying EthereumProvider fallback:", web3ModalError);
           
-        } catch (modalError) {
-          console.error("❌ [Wallet] Universal Provider error:", modalError);
-          toast.error("Failed to connect wallet: " + modalError.message);
-          throw modalError;
+          // Fallback to EthereumProvider
+          try {
+            console.log('🔄 [Wallet] Trying EthereumProvider fallback...');
+            await initWalletConnectProvider();
+          } catch (fallbackError) {
+            console.error("❌ [Wallet] Both Web3Modal and EthereumProvider failed:", fallbackError);
+            toast.error("Failed to connect wallet. Please try again.");
+            throw fallbackError;
+          }
         }
       } else {
         // If no extension is available and on desktop, show error
@@ -273,24 +253,14 @@ export const WalletProvider = ({ children }) => {
     setAddress("");
     setProvider(null);
     setSigner(null);
-    
-    // Disconnect Universal Provider if connected
-    if (universalProvider) {
-      universalProvider.disconnect();
-      setUniversalProvider(null);
-    }
-    
     toast.success("Wallet disconnected");
   };
 
-  // Initialize Universal Provider on mount for mobile
+  // Mobile detection and initialization
   useEffect(() => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile && !universalProvider) {
-      console.log('🔄 [Wallet] Initializing Universal Provider on mount for mobile');
-      initUniversalProvider().catch(error => {
-        console.log('⚠️ [Wallet] Failed to initialize Universal Provider on mount:', error);
-      });
+    if (isMobile) {
+      console.log('📱 [Wallet] Mobile device detected');
     }
   }, []);
 
