@@ -111,18 +111,46 @@ const ReserveAccessCard = () => {
     } catch (error) {
       console.error('Purchase failed:', error);
       
-      // Handle specific error types with user-friendly messages
-      if (error.message && error.message.includes('bad address checksum')) {
-        toast.error("Invalid referral address format. Please check the address and try again.");
-      } else if (error.message && error.message.includes('INVALID_ARGUMENT')) {
-        toast.error("Invalid address format. Please check the referral address.");
-      } else if (error.message && error.message.includes('insufficient funds')) {
-        toast.error("Insufficient funds. Please check your wallet balance.");
-      } else if (error.message && error.message.includes('user rejected')) {
-        toast.error("Transaction was cancelled by user.");
-      } else {
-        toast.error(error.message || "Purchase failed. Please try again.");
+      // Extract clean error message
+      let errorMessage = "Purchase failed. Please try again.";
+      
+      if (error.message) {
+        const message = error.message.toLowerCase();
+        
+        // Handle specific error types with user-friendly messages
+        if (message.includes('bad address checksum') || message.includes('invalid address')) {
+          errorMessage = "Invalid address format. Please check the referral address.";
+        } else if (message.includes('invalid_argument')) {
+          errorMessage = "Invalid address format. Please check the referral address.";
+        } else if (message.includes('insufficient funds') || message.includes('insufficient balance')) {
+          errorMessage = "Insufficient funds. Please check your wallet balance.";
+        } else if (message.includes('user rejected') || message.includes('user denied')) {
+          errorMessage = "Transaction was cancelled by user.";
+        } else if (message.includes('execution reverted') || message.includes('revert')) {
+          errorMessage = "Transaction failed. Please check your inputs and try again.";
+        } else if (message.includes('gas') || message.includes('gas limit')) {
+          errorMessage = "Transaction failed due to gas issues. Please try again.";
+        } else if (message.includes('network') || message.includes('connection')) {
+          errorMessage = "Network error. Please check your connection and try again.";
+        } else if (message.includes('timeout')) {
+          errorMessage = "Transaction timed out. Please try again.";
+        } else {
+          // Extract just the essential part of the error message
+          const cleanMessage = error.message
+            .replace(/^Error:\s*/i, '')
+            .replace(/\([^)]*\)/g, '') // Remove parentheses content
+            .replace(/\[[^\]]*\]/g, '') // Remove square brackets content
+            .replace(/See:.*$/i, '') // Remove "See: ..." links
+            .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+            .trim();
+          
+          if (cleanMessage && cleanMessage.length > 0 && cleanMessage.length < 100) {
+            errorMessage = cleanMessage;
+          }
+        }
       }
+      
+      toast.error(errorMessage);
     } finally {
       setIsProcessing(false);
     }
