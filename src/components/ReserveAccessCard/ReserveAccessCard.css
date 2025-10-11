@@ -116,35 +116,6 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.referral-input {
-
-  color: white;
-  font-size: 0.9rem;
-  width: 100%;
-  text-align: center;
-  font-family: monospace;
-  border: none;
-  background-color: transparent;
-}
-
-.referral-input:disabled {
-  background: none;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: not-allowed;
-  text-align: left;
-}
-
-.referral-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.referral-info {
-  font-size: 0.8rem;
-  color: #00e676;
-  margin-top: 5px;
-  text-align: center;
-  font-style: italic;
-}
 
 .price-display {
   background: rgba(0, 230, 118, 0.1);

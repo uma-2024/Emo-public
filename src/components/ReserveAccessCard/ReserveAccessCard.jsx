@@ -348,23 +348,6 @@ const ReserveAccessCard = () => {
                 </div>
               </div>
 
-              {/* Referral Address */}
-              <div className="form-row">
-                <label className="form-row__label">Referral Address</label>
-                <div className="form-row__input-group">
-                  <div className="form___input">
-                    <input
-                      type="text"
-                      value={refAddress ? `${refAddress.slice(0, 8)}....${refAddress.slice(-8)}` : ""}
-                      placeholder="0x..."
-                      className="referral-input"
-                      disabled
-                      title="Referral address is automatically set from URL parameter"
-                    />
-                  </div>
-                </div>
-               
-              </div>
             </form>
 
               {/* Modal Actions */}
