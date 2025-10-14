@@ -67,6 +67,9 @@
   padding: 24px;
   color: #000;
   width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chart-header {

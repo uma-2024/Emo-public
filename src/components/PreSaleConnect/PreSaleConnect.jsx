@@ -100,6 +100,8 @@ export default function PreSaleConnect() {
   const [activeIdx, setActiveIdx] = useState(0);
   const active = icons[activeIdx].label;
 
+
+
   return (
     <div className="presale-wrapper">
       <video className="video-bg" autoPlay muted loop playsInline>
@@ -123,22 +125,22 @@ export default function PreSaleConnect() {
           <h2 className="heading">How to join the pre-sale</h2>
           <h3 className="subheading">
             {active === "rocket" && "Connect Wallet"}
-            {active === "wallet" && "Select Plan"}
+            {active === "wallet" && "Choose Amount"}
             {active === "dollar" && "Make Payment"}
-            {active === "globe"  && "Confirmation"}
+            {active === "globe"  && "Claim Tokens"}
           </h3>
 
           <p className="info">
-            {icons[activeIdx].label === "rocket" && "Explore how XIK combines AI, mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
-             {icons[activeIdx].label === "wallet" && "Pick the best tier for you mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
-            {icons[activeIdx].label === "dollar" && "Enter payment details mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
-            {icons[activeIdx].label === "globe"  && "You're all set! View on explorer mobile mining, and quantum-resistant security to create the world's first autonomous blockchain economy."}
+            {icons[activeIdx].label === "rocket" && "Connect your crypto wallet to participate in the XIK presale. Ensure you have sufficient funds for your desired investment amount."}
+            {icons[activeIdx].label === "wallet" && "Decide how much you want to invest in XIK tokens. Choose your investment amount and select your preferred payment method (USDT, USDC, or ETH)."}
+            {icons[activeIdx].label === "dollar" && "Complete your token purchase by confirming the transaction. Your XIK tokens will be allocated to your wallet address upon successful payment."}
+            {icons[activeIdx].label === "globe"  && "Claim your XIK tokens! Your purchased tokens are now available in your wallet and ready for trading when the presale ends."}
           </p>
 
           {active === "rocket" ? (
             <ConnectButton
               className="connect-btn"
-              labelDisconnected="Connect Now"
+              labelDisconnected="Connect Wallet"
               labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
             />
           ) : active === "wallet" ? (
@@ -153,13 +155,20 @@ export default function PreSaleConnect() {
             labelDisconnected="Connect Now"
             labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
           />
-          ) : (
-            <ConnectButton
-              className="connect-btn"
-              labelDisconnected="Connect Now"
-              labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
-            />
-          )}
+            ) : (
+              <button 
+                className="connect-btn" 
+                onClick={() => {
+                  // Scroll down 700px when Claim Tokens button is clicked
+                  window.scrollBy({
+                    top: 1200,
+                    behavior: 'smooth'
+                  });
+                }}
+              >
+                Claim Tokens
+              </button>
+            )}
         </div>
         </div>
         <div className="presale-image">

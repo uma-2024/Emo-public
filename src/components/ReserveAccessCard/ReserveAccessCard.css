@@ -149,6 +149,27 @@
   margin-bottom: 15px;
 }
 
+.refer-button {
+  padding: 12px 24px;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+  text-decoration: underline;
+  opacity: 0.5;
+}
+
+.refer-button:hover {
+  background: transparent;
+  transform: translateY(-2px);
+
+}
+
 .tooltip {
   font-size: 0.75rem;
   color: #aaa;
@@ -384,5 +405,186 @@
     width: 80%;
     max-width: 400px;
     padding: 30px;
+  }
+}
+
+/* Referral Modal Styles */
+.refer-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.refer-modal {
+  background: #111;
+  border-radius: 12px;
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.4);
+}
+
+.refer-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px 10px 30px;
+  border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+.refer-modal-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.refer-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refer-modal-close:hover {
+  color: #00e676;
+}
+
+.refer-modal-content {
+  padding: 20px 30px 30px 30px;
+}
+
+.refer-modal-content p {
+  margin-bottom: 20px;
+  color: #ccc;
+  text-align: center;
+}
+
+.refer-address {
+  margin-bottom: 25px;
+}
+
+.refer-address-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #00e676;
+}
+
+.refer-address-value {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.refer-address-value span {
+  flex: 1;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #fff;
+  word-break: break-all;
+  margin-right: 10px;
+}
+
+.copy-btn {
+  background: #00e676;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: #00c853;
+}
+
+.refer-share-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.share-btn.whatsapp {
+  background: #25d366;
+  color: white;
+}
+
+.share-btn.whatsapp:hover {
+  background: #128c7e;
+  transform: translateY(-2px);
+}
+
+.share-btn.telegram {
+  background: #0088cc;
+  color: white;
+}
+
+.share-btn.telegram:hover {
+  background: #006699;
+  transform: translateY(-2px);
+}
+
+.share-btn.twitter {
+  background: #1da1f2;
+  color: white;
+}
+
+.share-btn.twitter:hover {
+  background: #0d8bd9;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .refer-modal {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .refer-modal-header,
+  .refer-modal-content {
+    padding: 15px 20px;
+  }
+  
+  .refer-share-buttons {
+    flex-direction: column;
+  }
+  
+  .share-btn {
+    justify-content: center;
   }
 }

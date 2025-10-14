@@ -1,6 +1,6 @@
 import React from "react";
 import "./TokenInfoCard.css";
-import chartImage from '../../assets/images/Component 7.svg';
+import chartImage from '../../assets/images/logo.png';
 import video from '../../assets/bg.mp4' 
 import infoImage from '../../assets/images/info.gif'
 const TokenInfoCard = () => {
@@ -26,9 +26,12 @@ const TokenInfoCard = () => {
           <div className="token-info-text">
             <h2 className="token-info-title">Information Of Token</h2>
             <p><strong>Token Name:</strong> XIK</p>
-            <p><strong>Standard Max:</strong> </p>
-            <p><strong>Burn Mechanism:</strong> </p>
-            <p><strong>Supply:</strong> </p>
+           
+          
+         
+            <p><strong>Network:</strong> Ethereum</p>
+            <p><strong>Standard:</strong> ERC-20</p>
+          
           </div>
         </div>
       </div>
