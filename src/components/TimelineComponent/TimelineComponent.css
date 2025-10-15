@@ -754,34 +754,36 @@
     padding-top: 40px;
     text-align: center;
   }
-  .testimonial h1{
-    display: flex;
-    justify-content: space-between;
-    padding-left: 80px;
-    padding-right: 80px;
-    align-items: center;
-    color: #fff;
-  
-  font-family: Lato;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 1.6px;
-  margin-bottom: 24px;
+
+  .timeline-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px;
   }
-  .testimonial h5{
-  margin: auto;
-    color: #393E46;
-  text-align: center;
-  font-family: Lato;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.72px;
-  width: 915px;
-  
+
+  .timeline-title {
+    color: #fff;
+   
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.6px;
+    margin-bottom: 24px;
+ 
+  }
+
+  .timeline-description {
+    margin: auto;
+    color: #ccc;
+    text-align: center;
+    
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.72px;
+    max-width: 915px;
   }
   
   .swiper-container {
@@ -944,37 +946,25 @@
     width: 80vw;
   }
   .testimonial {
-  
     padding-top: 24px;
     padding-bottom: 24px;
   }
-  .testimonial h1{
-    color: #222831;
-    font-family: Lato;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+
+  .timeline-header {
+    margin-bottom: 40px;
+    padding: 0 16px;
+  }
+
+  .timeline-title {
+    font-size: 24px;
     letter-spacing: 0.8px;
-    padding-left: 16px;
-    padding-right: 16px;
     margin-bottom: 16px;
   }
-  .testimonial svg{
-    width: 63px;
-  }
-  .testimonial h5{
-    color: #393E46;
-  text-align: center;
-  font-family: Lato;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-bottom: 16px;
+
+  .timeline-description {
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 1.5;
   }
   .ContentHolder {
     padding: 10px;

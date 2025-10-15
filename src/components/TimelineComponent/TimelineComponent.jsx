@@ -71,6 +71,16 @@ const TimelineComponent = () => {
 
   return (
     <div className="testimonial">
+      {/* Title and Description Section */}
+      <div className="timeline-header">
+        <h1 className="timeline-title">Roadmap</h1>
+        <h5 className="timeline-description">
+          Follow our journey as we build the future of blockchain. Each milestone brings us closer to 
+          a fully decentralized ecosystem with enhanced utilities, governance, and community rewards.
+        </h5>
+      </div>
+
+      {/* Timeline Carousel */}
       <div id="craouselContainer" className="swiper-container">
         <div className="swiper-wrapper" id="slideHolder">
           {testimonialData.map((item, index) => (

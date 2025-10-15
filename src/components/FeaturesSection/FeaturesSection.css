@@ -1,12 +1,38 @@
+.features-container {
+  background-color: #000;
+  padding: 80px 0;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 0 20px;
+}
+
+.features-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+ 
+}
+
+.features-description {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .features-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: #000;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    padding: 120px;
+    padding: 0 120px;
     align-items: center;
     justify-items: center;
     width: 80%;
@@ -76,10 +102,29 @@
   }
   
   @media (max-width: 768px) {
+    .features-container {
+      padding: 40px 0;
+    }
+
+    .features-header {
+      margin-bottom: 40px;
+      padding: 0 16px;
+    }
+
+    .features-title {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .features-description {
+      font-size: 1rem;
+    }
+
     .features-section {
       flex-direction: column;
       align-items: center;
-      padding: 20px 16px;
+      padding: 0 16px;
+      width: 100%;
     }
   
     .feature-card {

@@ -27,14 +27,27 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <div className="features-section">
-      {features.map((feature, index) => (
-        <div className="feature-card" key={index}>
-          <img src={feature.icon} alt={feature.title} className="feature-icon" />
-          <h3 className="feature-title">{feature.title}</h3>
-          <p className="feature-description">{feature.description}</p>
-        </div>
-      ))}
+    <div className="features-container">
+      {/* Title and Description Section */}
+      <div className="features-header">
+        <h2 className="features-title">Why Choose XIK?</h2>
+        <p className="features-description">
+          Experience the future of blockchain with XIK's revolutionary features that combine 
+          artificial intelligence, autonomous governance, and human-centered design to create 
+          the world's first truly intelligent blockchain ecosystem.
+        </p>
+      </div>
+
+      {/* Features Grid */}
+      <div className="features-section">
+        {features.map((feature, index) => (
+          <div className="feature-card" key={index}>
+            <img src={feature.icon} alt={feature.title} className="feature-icon" />
+            <h3 className="feature-title">{feature.title}</h3>
+            <p className="feature-description">{feature.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
