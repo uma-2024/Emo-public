@@ -21,6 +21,26 @@
   height: 100%;
   object-fit: cover;
 }
+.bonus-info {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: left;
+}
+
+.bonus-tier-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.private-bonus-text,
+.total-bonus-text {
+  color: #00ff99;
+  font-weight: 500;
+  display: block;
+  margin-top: 4px;
+}
 
 .reserve-card-content {
   position: relative;
@@ -587,4 +607,58 @@
   .share-btn {
     justify-content: center;
   }
+}
+
+/* Bonus Tier Styles */
+.bonus-info {
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.bonus-tier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bonus-tier-name {
+  font-weight: bold;
+  color: #00e676;
+  font-size: 1rem;
+}
+
+.bonus-tier-percentage {
+  background: #00e676;
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.private-presale-bonus {
+  margin: 8px 0;
+}
+
+.private-bonus-text {
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.total-bonus {
+  border-top: 1px solid rgba(0, 230, 118, 0.3);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.total-bonus-text {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
 }

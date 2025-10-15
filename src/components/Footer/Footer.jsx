@@ -36,7 +36,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="footer-column">
+        {/* <div className="footer-column">
           <h4 className="footer-container-title">SUPPORT</h4>
           <ul>
             <li>Getting Started</li>
@@ -45,13 +45,30 @@ const Footer = () => {
             <li>Report a Bug</li>
             <li>Chat Support</li>
           </ul>
-        </div>
+        </div> */}
         <div className="footer-column">
-          <h4 className="footer-container-title">PRODUCTS</h4>
+          <h4 className="footer-container-title">RESOURCES</h4>
           <ul>
-            <li>Features</li>
-            <li>Review</li>
-            <li>Update</li>
+            <li>
+              <a 
+                href="/XIKS Chain - Whitepaper.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+               
+              >
+                Whitepaper
+              </a>
+            </li>
+            <li>
+              <Link to="/pre-sale" >
+                Join Presale
+              </Link>
+            </li>
+            <li>
+              <Link to="/tokenomics">
+                View Tokenomics
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="footer-column newsletter">

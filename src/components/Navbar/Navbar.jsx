@@ -40,17 +40,9 @@ const Navbar = () => {
         <NavLink to="/" className="nav-item" end>Home</NavLink>
         <NavLink to="/pre-sale" className="nav-item">Pre-Sale</NavLink>
         <NavLink to="/tokenomics" className="nav-item">Tokenomics</NavLink>
+        <NavLink to="/referral" className="nav-item">Referral</NavLink>
         <NavLink to="/about" className="nav-item">About Us</NavLink>
         <NavLink to="/contact" className="nav-item">Contact Us</NavLink>
-        </div>
-        
-        {/* Mobile Wallet Connect Button */}
-        <div className="mobile-wallet-container">
-          <ConnectButton
-            className="mobile-wallet-btn"
-            labelDisconnected="Connect Wallet"
-            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
-          />
         </div>
       </nav>
 
@@ -59,18 +51,19 @@ const Navbar = () => {
           <FaBell color="white" size={20} />
         </NavLink>
 
+        {/* Desktop Wallet Button */}
         <ConnectButton
-          className="wallet-btn"
+          className="wallet-btn desktop-wallet-btn"
           labelDisconnected="Connect Wallet"
           labelConnected={(addr) => ` ${addr?.slice(0,6)}…${addr?.slice(-4)}`}
         />
-        {/* <button
-          className={`wallet-btn ${address ? "connected" : ""}`}
-          onClick={handleWalletClick}
-          aria-pressed={!!address}
-        >
-          {address ? `${shorten(address)}` : "Connect Wallet"}
-        </button> */}
+
+        {/* Mobile Wallet Button */}
+        <ConnectButton
+          className="wallet-btn mobile-wallet-btn"
+          labelDisconnected="Connect"
+          labelConnected={(addr) => `${addr?.slice(0,4)}…${addr?.slice(-2)}`}
+        />
 
         <div
           className={`hamburger ${menuOpen ? "open" : ""}`}

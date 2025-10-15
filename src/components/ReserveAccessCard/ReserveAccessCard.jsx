@@ -10,6 +10,17 @@ import { WalletContext } from "../../components/WalletConnect/WalletConnect";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { useContext } from "react";
+// Bonus tiers based on purchase amount
+const bonusTiers = [
+  { minAmount: 0, maxAmount: 99, bonus: 0, name: "No Bonus" },
+  { minAmount: 100, maxAmount: 499, bonus: 5, name: "5% Bonus" },
+  { minAmount: 500, maxAmount: 999, bonus: 10, name: "10% Bonus" },
+  { minAmount: 1000, maxAmount: 4999, bonus: 15, name: "15% Bonus" },
+  { minAmount: 5000, maxAmount: 9999, bonus: 20, name: "20% Bonus" },
+  { minAmount: 10000, maxAmount: 49999, bonus: 25, name: "25% Bonus" },
+  { minAmount: 50000, maxAmount: 99999, bonus: 30, name: "30% Bonus" },
+  { minAmount: 100000, maxAmount: Infinity, bonus: 35, name: "35% Bonus" },
+];
 
 const ReserveAccessCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +31,8 @@ const ReserveAccessCard = () => {
   const [calculatedTokens, setCalculatedTokens] = useState("0");
   const { isPrivatePresale, refAddress, presaleType } = usePresale();
   const { provider, address } = useContext(WalletContext);
-  
+  const [currentBonusTier, setCurrentBonusTier] = useState(bonusTiers[0]);
+
   // Referral states
   const [showReferModal, setShowReferModal] = useState(false);
   const [referralAddress, setReferralAddress] = useState('');
@@ -61,36 +73,40 @@ const ReserveAccessCard = () => {
   // Calculate tokens to receive based on amount and phase data
   const calculateTokensToReceive = (usdAmount) => {
     if (!phaseData || !usdAmount) return "0";
-    
+  
     try {
-      console.log('Contract price:', phaseData.price.toString());
-      console.log('USD amount:', usdAmount);
-      
       // Convert USD amount to 6 decimals (USDT/USDC have 6 decimals)
       const usdAmountWei = ethers.parseUnits(usdAmount.toString(), 6);
-      console.log('USD amount in wei (6 decimals):', usdAmountWei.toString());
-      
+  
       // Calculate tokens: (USD amount * 10^18) / price
-      // This gives us the number of XIK tokens (which have 18 decimals)
-      const tokensToReceive = (usdAmountWei * BigInt(10**18)) / phaseData.price;
-      console.log('Tokens before bonus:', tokensToReceive.toString());
-      
-      // Apply private presale bonus if applicable
-      const bonusMultiplier = isPrivatePresale ? 120 : 100; // 20% bonus for private
-      const finalTokens = (tokensToReceive * BigInt(bonusMultiplier)) / BigInt(100);
-      console.log('Final tokens with bonus:', finalTokens.toString());
-      
+      const tokensToReceive = (usdAmountWei * BigInt(10 ** 18)) / phaseData.price;
+  
+      // Determine bonus tier
+      const bonusTier = getBonusTier(usdAmount);
+  
+      // Apply private presale bonus (20%) if applicable
+      const privatePresaleBonus = isPrivatePresale ? 20 : 0;
+  
+      // Combine both bonuses
+      const totalBonus = privatePresaleBonus + bonusTier.bonus;
+  
+      // Apply total bonus to tokens
+      const finalTokens = (tokensToReceive * BigInt(100 + totalBonus)) / BigInt(100);
+  
+      // Convert to readable format
       const formattedTokens = ethers.formatEther(finalTokens);
-      console.log('Formatted tokens:', formattedTokens);
-      
-      // Format to 4 decimal places
-      const tokensWithDecimals = parseFloat(formattedTokens).toFixed(4);
-      return tokensWithDecimals;
+      return parseFloat(formattedTokens).toFixed(4);
     } catch (error) {
-      console.error('Error calculating tokens:', error);
+      console.error("Error calculating tokens:", error);
       return "0";
     }
   };
+  
+// Get bonus tier based on purchase amount
+const getBonusTier = (usdAmount) => {
+  const amount = parseFloat(usdAmount) || 0;
+  return bonusTiers.find(tier => amount >= tier.minAmount && amount <= tier.maxAmount) || bonusTiers[0];
+};
 
   // Handle purchase
   const handlePurchase = async () => {
@@ -225,10 +241,16 @@ const ReserveAccessCard = () => {
     if (amount && phaseData) {
       const tokens = calculateTokensToReceive(amount);
       setCalculatedTokens(tokens);
+  
+      // Update current bonus tier
+      const bonusTier = getBonusTier(amount);
+      setCurrentBonusTier(bonusTier);
     } else {
       setCalculatedTokens("0");
+      setCurrentBonusTier(bonusTiers[0]);
     }
   }, [amount, phaseData, isPrivatePresale]);
+  
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -417,7 +439,26 @@ const ReserveAccessCard = () => {
               </div>
 
             </form>
-
+            {amount && parseFloat(amount) > 0 && (
+  <div className="bonus-info">
+    <div className="bonus-tier">
+      <span className="bonus-tier-name">{currentBonusTier.name}</span>
+      {currentBonusTier.bonus > 0 && (
+        <span className="bonus-tier-percentage">+{currentBonusTier.bonus}%</span>
+      )}
+    </div>
+    {isPrivatePresale && (
+      <div className="private-presale-bonus">
+        <span className="private-bonus-text">Private Presale Bonus: +20%</span>
+      </div>
+    )}
+    <div className="total-bonus">
+      <span className="total-bonus-text">
+        Total Bonus: +{isPrivatePresale ? currentBonusTier.bonus + 20 : currentBonusTier.bonus}%
+      </span>
+    </div>
+  </div>
+)}
               {/* Modal Actions */}
               <div className="modal-actions">
                 <button 
@@ -432,6 +473,7 @@ const ReserveAccessCard = () => {
           </div>
         </div>
       )}
+
 
       {/* Referral Modal */}
       {showReferModal && (

@@ -7,7 +7,7 @@ const Tokenomics = () => {
   return (
     <div>
       <TokenInfoCard/>
-      <DetailedStatistics/>
+      {/* <DetailedStatistics/> */}
       <AutomationPromo/>
     </div>
   )

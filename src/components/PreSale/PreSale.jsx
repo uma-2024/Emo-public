@@ -8,10 +8,12 @@ import Claim from '../Claim/Claim'
 const PreSale = () => {
   return (
     <div>
-      <ReserveAccessCard/>
+      
       <PreSaleConnect/>
-      <TokenSaleSection/>
+      <ReserveAccessCard/>
       <Claim/>
+      <TokenSaleSection/>
+      
       <TokenomicsComponent/>
     </div>
   )

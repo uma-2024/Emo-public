@@ -11,6 +11,7 @@ import Contact from "./components/Contact/Contact";
 import AnnouncementSection from "./components/AnnouncementSection/AnnouncementSection";
 import Claim from "./components/Claim/Claim";
 import ScrollToTop from "./ScrollToTop";
+import Referral from "./components/Referral/Referral";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/pre-sale" element={<PreSale />} />
         <Route path="/tokenomics" element={<Tokenomics />} />
         <Route path="/about" element={<About />} />
+        <Route path="/referral" element={<Referral />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/announcement" element={<AnnouncementSection />} />
         <Route path="/claim" element={<Claim />} />

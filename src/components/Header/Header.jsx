@@ -33,7 +33,7 @@ const routeContent = {
     ),
     subtitle:
       "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
-    buttons: ["Join Pre-Sale", "Connect Wallet"],
+    buttons: ["Join Pre-Sale", "Whitepaper"],
   },
   "/about": {
     title: (
@@ -65,9 +65,21 @@ const routeContent = {
       </>
     ),
     subtitle:
-      "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you’re getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-    buttons: ["IDO price $1", "Listing price $2"],
+      "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    buttons: ["Join Now", "Claim Now"],
     showCountdown: true,
+  },
+  "/referral": {
+    title: (
+      <>
+        Earn XIK Tokens by <br />
+        <span> Referring Friends </span>
+      </>
+    ),
+    subtitle:
+      "Join our referral program and earn up to 75,000 XIK tokens! Share your unique referral link with friends and earn rewards when they participate in the presale. The more you refer, the more you earn!",
+    buttons: ["Get Referral Link", "Join Pre-Sale"],
+    showCountdown: false,
   },
   "/announcement": {
     title: "Announcement",
@@ -182,6 +194,46 @@ const Header = () => {
       navigate("/pre-sale");
       return;
     }
+    if (/join now/i.test(label)) {
+      // Scroll to the presale section (ReserveAccessCard)
+      const presaleSection = document.querySelector('.reserve-card');
+      if (presaleSection) {
+        presaleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+    if (/claim now/i.test(label)) {
+      // Scroll to the claim section
+      const claimSection = document.querySelector('.claim-container');
+      if (claimSection) {
+        claimSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+    if (/get referral link/i.test(label)) {
+      // Scroll to bottom 20% of the page
+      const doc = document.documentElement;
+      const body = document.body;
+      const docHeight = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        doc.clientHeight,
+        doc.scrollHeight,
+        doc.offsetHeight
+      );
+      const maxScrollTop = docHeight - window.innerHeight;
+      const targetTop = Math.max(0, maxScrollTop * 0.8); // 80% down = bottom 20%
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+      return;
+    }
+    if (/view leaderboard/i.test(label)) {
+      // Scroll to the referral system section
+      const referralSection = document.querySelector('.referral-system');
+      if (referralSection) {
+        referralSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
     if (/contact/i.test(label)) {
       navigate("/contact");
       return;
@@ -277,7 +329,7 @@ const Header = () => {
             ) : (
               <button
                 key={idx}
-                className={idx === 0 ? "wallet-btn" : "secondary-btn"}
+                className={idx === 0 ? "wallet-btn2" : "secondary-btn"}
                 onClick={() => handleHeaderButtonClick(label)}
               >
                 {label}

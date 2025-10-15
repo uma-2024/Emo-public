@@ -1,15 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./TokenSaleSection.css";
 import bgVideo from "../../assets/bg.mp4";
-import btcImage from "../../assets/images/Chart.svg";
+import btcImage from "../../assets/images/Group 48095371.svg";
 import { usePresale } from "../../contexts/PresaleContext";
 import { usePresaleContract } from "../../hooks/usePresaleContract";
 import { WalletContext } from "../../components/WalletConnect/WalletConnect";
+import { FaCopy, FaCheck } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const TokenSaleSection = () => {
   const { isPrivatePresale } = usePresale();
   const { provider, address } = useContext(WalletContext);
   const { phaseData, fundsRaised, userInfo } = usePresaleContract(provider, address);
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = async () => {
+    if (!address) {
+      toast.error("No wallet address to copy");
+      return;
+    }
+    
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopied(true);
+      toast.success("Wallet address copied to clipboard!");
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      toast.error("Failed to copy wallet address");
+    }
+  };
+
+  const formatAddress = (addr) => {
+    if (!addr) return "Not Connected";
+    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+  };
   
   return (
     <div className="token-sale-section">
@@ -36,6 +61,17 @@ const TokenSaleSection = () => {
           <p><strong>Phase End Time:</strong> {phaseData ? new Date(Number(phaseData.endTime) * 1000).toLocaleString() : "Loading..."}</p>
           <p><strong>Total Supply:</strong> 1,000,000,000 XIK</p>
           <p><strong>Tokens Available:</strong> {phaseData ? `${(Number(phaseData.tokens) / 1e18).toLocaleString()} XIK` : "Loading..."}</p>
+          
+          <p><strong>Wallet Address:</strong>{" "} <span className="wallet-address-text">
+                {formatAddress(address)}
+              </span> {" "} {" "} <button 
+                // className="copy-address-btn" 
+                onClick={copyToClipboard}
+                disabled={!address}
+                title={address ? "Copy full address" : "Connect wallet first"}
+              >
+                {copied ? <FaCheck color="#000"/> : <FaCopy color="#000"/>}
+              </button></p>
           {/* {isPrivatePresale && (
             <p><strong>Private Bonus:</strong> +20% extra tokens</p>
           )} */}
