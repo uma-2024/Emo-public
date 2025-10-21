@@ -111,22 +111,33 @@ export default function TokenomicsComponent() {
   }, [activeIndex]);
   return (
     <div className="tokenomics-wrapper">
-      <div className="tokenomics-card">
-        <video className="bg-video" autoPlay muted loop playsInline>
-          <source src={video} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <div className="card-header">
-          <img src={image} className="pulse-icon" />
-          <h2 style={{margin:"0px"}}>{active.label}</h2>
-        </div>
-        <p className="card-description">
-          {active.description || "Hover over a segment to see more details."}
+      {/* Title and Description Section */}
+      <div className="tokenomics-header">
+        <h1 className="tokenomics-title">XIK Tokenomics</h1>
+        <p className="tokenomics-description">
+          Discover the comprehensive tokenomics structure of XIK, featuring a dual-token ecosystem with 
+          governance, staking rewards, liquidity management, and deflationary mechanisms designed for 
+          sustainable growth and community participation.
         </p>
       </div>
 
-      <div className="tokenomics-chart">
+      <div className="tokenomics-content">
+        <div className="tokenomics-card">
+          <video className="bg-video" autoPlay muted loop playsInline>
+            <source src={video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <div className="card-header">
+            <img src={image} className="pulse-icon" />
+            <h2 style={{margin:"0px"}}>{active.label}</h2>
+          </div>
+          <p className="card-description">
+            {active.description || "Hover over a segment to see more details."}
+          </p>
+        </div>
+
+        <div className="tokenomics-chart">
         <svg
           className="svg-circle"
           viewBox="0 0 849 490"
@@ -373,6 +384,7 @@ export default function TokenomicsComponent() {
             />
           </div>
         )}
+        </div>
       </div>
     </div>
   );

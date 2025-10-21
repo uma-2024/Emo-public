@@ -3,11 +3,41 @@
   color: white;
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  /* justify-content: space-between; */
-  gap: 20px;
-  padding: 0px 12%;
+  flex-direction: column;
+  gap: 40px;
+  padding: 60px 12% 0px 12%;
   overflow: hidden;
+}
+
+/* Title and Description Section */
+.tokenomics-header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.tokenomics-title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
+color: #fff;
+}
+
+.tokenomics-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #b0b0b0;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tokenomics-content {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }
 
 .tokenomics-card {
@@ -188,11 +218,25 @@
 
 @media (max-width: 768px) {
   .tokenomics-wrapper {
-    flex-direction: column;
-    padding: 0px 0px;
+    padding: 40px 16px 0px 16px;
   }
+  
+  .tokenomics-title {
+    font-size: 2.2rem;
+  }
+  
+  .tokenomics-description {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .tokenomics-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
   .tokenomics-card {
-    width: 80%;
+    width: 100%;
   }
   .tokenomics-chart {
     width: 100%;

@@ -21,26 +21,6 @@
   height: 100%;
   object-fit: cover;
 }
-.bonus-info {
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 10px;
-  text-align: left;
-}
-
-.bonus-tier-name {
-  font-weight: 600;
-  color: #fff;
-}
-
-.private-bonus-text,
-.total-bonus-text {
-  color: #00ff99;
-  font-weight: 500;
-  display: block;
-  margin-top: 4px;
-}
 
 .reserve-card-content {
   position: relative;
@@ -336,6 +316,69 @@
   color: #fff;
 }
 
+/* Bonus Information Styles */
+.bonus-info {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(92, 255, 177, 0.3);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bonus-tier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bonus-tier-name {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.bonus-tier-percentage {
+  color: #5CFFB1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(92, 255, 177, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.private-presale-bonus {
+  display: flex;
+  justify-content: center;
+}
+
+.private-bonus-text {
+  color: #d36fcf;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: rgba(211, 111, 207, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.total-bonus {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(92, 255, 177, 0.2);
+}
+
+.total-bonus-text {
+  color: #50fa7b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(80, 250, 123, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
 .dropdown {
   position: relative;
   background: #222;
@@ -407,6 +450,7 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  border-radius: 50px;
 }
 
 .arrow {
@@ -458,6 +502,11 @@
   align-items: center;
   padding: 20px 30px 10px 30px;
   border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+.referral-input{
+  background: transparent;
+  border: none;
 }
 
 .refer-modal-header h3 {
@@ -607,58 +656,4 @@
   .share-btn {
     justify-content: center;
   }
-}
-
-/* Bonus Tier Styles */
-.bonus-info {
-  background: rgba(0, 230, 118, 0.1);
-  border: 1px solid rgba(0, 230, 118, 0.3);
-  border-radius: 8px;
-  padding: 15px;
-  margin: 15px 0;
-  text-align: center;
-}
-
-.bonus-tier {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.bonus-tier-name {
-  font-weight: bold;
-  color: #00e676;
-  font-size: 1rem;
-}
-
-.bonus-tier-percentage {
-  background: #00e676;
-  color: #000;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.private-presale-bonus {
-  margin: 8px 0;
-}
-
-.private-bonus-text {
-  color: #ff6b6b;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.total-bonus {
-  border-top: 1px solid rgba(0, 230, 118, 0.3);
-  padding-top: 10px;
-  margin-top: 10px;
-}
-
-.total-bonus-text {
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.1rem;
 }
