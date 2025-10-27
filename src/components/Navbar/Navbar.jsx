@@ -53,9 +53,14 @@ const Navbar = () => {
       </nav>
 
       <div className="bell-button">
-        <NavLink to="/announcement" className="nav-item" aria-label="Announcements">
+      <NavLink to="/announcement" className="nav-item" aria-label="Announcements">
           <FaBell color="white" size={20} />
         </NavLink>
+        <div className="desktop-language-switcher">
+          <LanguageSwitcher />
+        </div>
+        
+      
 
         {/* Desktop Wallet Button */}
         <ConnectButton

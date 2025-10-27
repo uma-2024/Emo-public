@@ -73,6 +73,11 @@
   font-size: 14px;
 }
 
+/* Desktop Language Switcher */
+.desktop-language-switcher {
+  display: block;
+}
+
 /* Mobile Language Switcher */
 .mobile-language-switcher {
   display: none;
@@ -186,6 +191,11 @@
     /* Show mobile wallet button on mobile */
     .mobile-wallet-btn {
       display: block;
+    }
+
+    /* Hide desktop language switcher on mobile */
+    .desktop-language-switcher {
+      display: none;
     }
 
     /* Show mobile language switcher on mobile */
