@@ -73,6 +73,11 @@
   font-size: 14px;
 }
 
+/* Mobile Language Switcher */
+.mobile-language-switcher {
+  display: none;
+}
+
 .mobile-wallet-btn::after {
   content: '';
   width: 100%;
@@ -180,6 +185,11 @@
 
     /* Show mobile wallet button on mobile */
     .mobile-wallet-btn {
+      display: block;
+    }
+
+    /* Show mobile language switcher on mobile */
+    .mobile-language-switcher {
       display: block;
     }
 

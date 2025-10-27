@@ -1,34 +1,33 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./AnnouncementSection.css";
 
-const announcements = [
-  {
-    title: "Announcement 1",
-    message:
-      "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-  },
-  {
-    title: "Announcement 2",
-    message:
-      "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-  },
-  {
-    title: "Announcement 3",
-    message:
-      "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-  },
-  {
-    title: "Announcement 4",
-    message:
-      "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-  },
-];
-
 const AnnouncementSection = () => {
+  const { t } = useTranslation();
+  
+  const announcements = [
+    {
+      title: t('announcementSection.announcement1'),
+      message: t('announcementSection.message1'),
+    },
+    {
+      title: t('announcementSection.announcement2'),
+      message: t('announcementSection.message2'),
+    },
+    {
+      title: t('announcementSection.announcement3'),
+      message: t('announcementSection.message3'),
+    },
+    {
+      title: t('announcementSection.announcement4'),
+      message: t('announcementSection.message4'),
+    },
+  ];
+
   return (
     <div className="announcement-wrapper">
       <div className="announcement-container">
-        <h2 className="announcement-title">Announcement</h2>
+        <h2 className="announcement-title">{t('announcementSection.title')}</h2>
         <div className="announcement-list">
           {announcements.map((item, index) => (
             <div key={index} className="announcement-item">

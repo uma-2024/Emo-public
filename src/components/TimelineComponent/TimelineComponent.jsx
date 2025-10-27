@@ -1,42 +1,39 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import './TimelineComponent.css';
 
-const testimonialData = [
+const TimelineComponent = () => {
+  const { t, i18n } = useTranslation();
+
+  const testimonialData = [
   {
-    title: "10% Sold – Early Supporter Recognition",
-    description:
-      "At 10% of NFTs sold, 5 NFT holders will receive 200 USDC each. This phase marks the start of early community rewards and initial ecosystem development.",
+    title: t('timeline.milestones.ten.title'),
+    description: t('timeline.milestones.ten.description'),
   },
   {
-    title: "19% Sold – Community Engagement",
-    description:
-      "At 19%, 10 NFT holders will receive 500 USDC each. DApp development begins to expand the XIKS ecosystem and prepare for future utility features.",
+    title: t('timeline.milestones.nineteen.title'),
+    description: t('timeline.milestones.nineteen.description'),
   },
   {
-    title: "35% Sold – Utility Expansion",
-    description:
-      "At 35%, 5 NFT holders will receive 1,000 USDC and an additional NFT. New features and utilities will be integrated to enhance the XIKS ecosystem.",
+    title: t('timeline.milestones.thirtyfive.title'),
+    description: t('timeline.milestones.thirtyfive.description'),
   },
   {
-    title: "50% Sold – Mega Utility Unlock",
-    description:
-      "At 50%, one lucky NFT holder will win 5,000 USDC. We unlock advanced utilities, with enhanced DApps and features driving deeper ecosystem engagement.",
+    title: t('timeline.milestones.fifty.title'),
+    description: t('timeline.milestones.fifty.description'),
   },
   {
-    title: "75% Sold – DAO Governance Integration",
-    description:
-      "At 75%, we’ll activate DAO governance, empowering NFT holders to participate in key decisions on protocol upgrades, staking, and rewards.",
+    title: t('timeline.milestones.seventyfive.title'),
+    description: t('timeline.milestones.seventyfive.description'),
   },
   {
-    title: "100% Sold – Full Ecosystem Launch",
-    description:
-      "With all NFTs sold, full DAO governance will be activated. All ecosystem utilities, including staking, rewards, and advanced DApps, will go live, marking the completion of the roadmap.",
+    title: t('timeline.milestones.hundred.title'),
+    description: t('timeline.milestones.hundred.description'),
   },
 ];
 
-const TimelineComponent = () => {
   useEffect(() => {
     const swiper = new Swiper(".swiper-container", {
       grabCursor: true,
@@ -67,16 +64,15 @@ const TimelineComponent = () => {
       window.onresize = null;
       swiper.destroy(true, true);
     };
-  }, []);
+  }, [i18n.language]);
 
   return (
     <div className="testimonial">
       {/* Title and Description Section */}
       <div className="timeline-header">
-        <h1 className="timeline-title">Roadmap</h1>
+        <h1 className="timeline-title">{t('timeline.title')}</h1>
         <h5 className="timeline-description">
-          Follow our journey as we build the future of blockchain. Each milestone brings us closer to 
-          a fully decentralized ecosystem with enhanced utilities, governance, and community rewards.
+          {t('timeline.description')}
         </h5>
       </div>
 

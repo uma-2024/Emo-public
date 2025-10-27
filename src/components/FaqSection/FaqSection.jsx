@@ -1,42 +1,39 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./FaqSection.css";
 import video from '../../assets/bg.mp4'
-const faqs = [
-  {
-    question: "What is XIK, and how does it work?",
-    answer:
-      "XIK is a decentralized blockchain ecosystem run by AI agents.",
-  },
-  {
-    question: "How is blockchain related to cryptocurrency?",
-    answer:
-      "Blockchain is the underlying technology that powers cryptocurrencies. It acts as a distributed ledger where transactions are securely recorded and verified, making decentralized currencies like Bitcoin and XIK possible.",
-  },
-  {
-    question: "Is Blockchain technology secure?",
-    answer:
-      "Yes. Blockchain uses advanced cryptography, distributed consensus, and immutability of records to ensure security. Transactions are verified by multiple participants, making data tampering extremely difficult.",
-  },
-  {
-    question: "How does blockchain enhance security?",
-    answer:
-      "Blockchain enhances security by storing data across a decentralized network, using encryption to protect transactions, and applying consensus mechanisms that prevent unauthorized changes. This eliminates single points of failure.",
-  },
-  {
-    question: "Can blockchain be hacked?",
-    answer:
-      "While no system is 100% immune, hacking a blockchain is highly impractical. An attacker would need to control over 51% of the network’s computing power simultaneously, which is extremely costly and nearly impossible for large networks.",
-  },
-  {
-    question: "How can I implement blockchain in my industry?",
-    answer:
-      "You can implement blockchain by identifying processes that need transparency, trust, and security—such as payments, supply chain management, healthcare records, or identity verification—and integrating blockchain platforms or solutions into them.",
-  },
-];
 
 
 const FaqSection = () => {
+  const { t } = useTranslation();
   const [openIndex, setOpenIndex] = useState(null);
+  
+  const faqs = [
+    {
+      question: t('faq.question1'),
+      answer: t('faq.answer1'),
+    },
+    {
+      question: t('faq.question2'),
+      answer: t('faq.answer2'),
+    },
+    {
+      question: t('faq.question3'),
+      answer: t('faq.answer3'),
+    },
+    {
+      question: t('faq.question4'),
+      answer: t('faq.answer4'),
+    },
+    {
+      question: t('faq.question5'),
+      answer: t('faq.answer5'),
+    },
+    {
+      question: t('faq.question6'),
+      answer: t('faq.answer6'),
+    },
+  ];
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -50,11 +47,10 @@ const FaqSection = () => {
       </video>
 
       <div className="faq-container">
-        <h4 className="faq-subheading">FAQ</h4>
-        <h2 className="faq-heading">Get Answers To Common Questions</h2>
+        <h4 className="faq-subheading">{t('faq.subheading')}</h4>
+        <h2 className="faq-heading">{t('faq.heading')}</h2>
         <p className="faq-description">
-          From basics to advanced topics, find everything you need to know right here.
-          Let us help you simplify the process and find the clarity you're looking for.
+          {t('faq.description')}
         </p>
 
         <div className="faq-list">

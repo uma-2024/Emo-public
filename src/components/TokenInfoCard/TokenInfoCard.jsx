@@ -1,9 +1,11 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./TokenInfoCard.css";
 import chartImage from '../../assets/images/logo.png';
 import video from '../../assets/bg.mp4' 
 import infoImage from '../../assets/images/info.gif'
 const TokenInfoCard = () => {
+  const { t } = useTranslation();
   return (
     <div className="token-info-container">
       
@@ -24,23 +26,19 @@ const TokenInfoCard = () => {
            <img src={infoImage} alt="info"/>
           </div>
           <div className="token-info-text">
-            <h2 className="token-info-title">Information Of Token</h2>
-            <p><strong>Token Name:</strong> XIK</p>
-           
-          
-         
-            <p><strong>Network:</strong> Ethereum</p>
-            <p><strong>Standard:</strong> ERC-20</p>
-          
+            <h2 className="token-info-title">{t('tokenInfo.title')}</h2>
+            <p><strong>{t('tokenInfo.tokenNameLabel')}</strong> {t('tokenInfo.tokenNameValue')}</p>
+            <p><strong>{t('tokenInfo.networkLabel')}</strong> {t('tokenInfo.networkValue')}</p>
+            <p><strong>{t('tokenInfo.standardLabel')}</strong> {t('tokenInfo.standardValue')}</p>
           </div>
         </div>
       </div>
 
       <div className="token-info-chart">
         <div className="chart-header">
-          <span className="chart-title">Sale</span>
+          <span className="chart-title">{t('tokenInfo.sale')}</span>
           <span className="chart-year">2025</span>
-          <span className="chart-duration">7 days</span>
+          <span className="chart-duration">7 {t('tokenInfo.days')}</span>
         </div>
         <div className="chart-body">
           <img src={chartImage} alt="Token Chart" className="chart-image" />

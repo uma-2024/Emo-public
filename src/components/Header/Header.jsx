@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import "./Header.css";
 import video from "../../assets/bg.mp4";
 import ConnectButton from "../ConnectButton/ConnectButton";
@@ -12,91 +13,106 @@ const EMAIL_TO = import.meta.env.VITE_CONTACT_EMAIL || "support@example.com";
 const TELEGRAM_URL =
   import.meta.env.VITE_TELEGRAM_URL || "https://t.me/your_channel";
 
-const routeContent = {
-  "/": {
-    title: (
-      <>
-        The First Self-Evolving <br />
-        <span>Blockchain - Powered by AI </span>
-      </>
-    ),
-    subtitle:
-      "An intelligent, autonomous network that upgrades, scales, and secures itself — while providing contributors with access to network functionality on every block.",
-    buttons: ["Join Pre-Sale Now", "Whitepaper"],
-  },
-  "/tokenomics": {
-    title: (
-      <>
-        Transparent. Sustainable. <br />
-        <span> Decentralized. </span>
-      </>
-    ),
-    subtitle:
-      "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
-    buttons: ["Join Pre-Sale", "Whitepaper"],
-  },
-  "/about": {
-    title: (
-      <>
-        The AI-Driven Blockchain of <br />
-        <span> Tomorrow </span>
-      </>
-    ),
-    subtitle:
-      "XIK is an autonomous Layer 1 blockchain governed by intelligent agents. Built for scalability, security, and decentralized intelligence — this is where AI meets the core of Web3.",
-    buttons: ["Join Pre-Sale", "Contact Us"],
-  },
-  "/contact": {
-    title: "Get in touch",
-    subtitle:
-      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
-    buttons: ["Join Pre-Sale", "Contact Us"],
-  },
-  "/features": {
-    title: "Powerful Features",
-    subtitle: "AI-backed upgrades, smart governance, seamless scalability.",
-    buttons: ["Explore Features", "Use Cases"],
-  },
-  "/pre-sale": {
-    title: (
-      <>
-        Join the Future of <br />
-        <span> Autonomous Blockchain </span>
-      </>
-    ),
-    subtitle:
-      "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
-    buttons: ["Join Now", "Claim Now"],
-    showCountdown: true,
-  },
-  "/referral": {
-    title: (
-      <>
-        Earn XIK Tokens by <br />
-        <span> Referring Friends </span>
-      </>
-    ),
-    subtitle:
-      "Join our referral program and earn up to 75,000 XIK tokens! Share your unique referral link with friends and earn rewards when they participate in the presale. The more you refer, the more you earn!",
-    buttons: ["Get Referral Link", "Join Pre-Sale"],
-    showCountdown: false,
-  },
-  "/announcement": {
-    title: "Announcement",
-    subtitle:
-      "We offering you insights into the token’s supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
-    buttons: ["Join Pre-Sale", "Contact Us"],
-  },
-};
-
 const Header = () => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { provider, address } = useContext(WalletContext);
   const { phaseData, loading, error } = usePresaleContract(provider, address);
 
+  const getRouteContent = (path) => {
+    switch(path) {
+      case "/":
+        return {
+          title: (
+            <>
+              {t('header.homeTitle1')} <br />
+              <span>{t('header.homeTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.homeSubtitle'),
+          buttons: [t('header.joinPreSaleNow'), t('header.whitepaper')],
+        };
+      case "/tokenomics":
+        return {
+          title: (
+            <>
+              {t('header.tokenomicsTitle1')} <br />
+              <span>{t('header.tokenomicsTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.tokenomicsSubtitle'),
+          buttons: [t('header.joinPreSale'), t('header.whitepaper')],
+        };
+      case "/about":
+        return {
+          title: (
+            <>
+              {t('header.aboutTitle1')} <br />
+              <span>{t('header.aboutTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.aboutSubtitle'),
+          buttons: [t('header.joinPreSale'), t('header.contactUs')],
+        };
+      case "/contact":
+        return {
+          title: t('header.contactTitle'),
+          subtitle: t('header.contactSubtitle'),
+          buttons: [t('header.joinPreSale'), t('header.contactUs')],
+        };
+      case "/features":
+        return {
+          title: t('header.featuresTitle'),
+          subtitle: t('header.featuresSubtitle'),
+          buttons: [t('header.exploreFeatures'), t('header.useCases')],
+        };
+      case "/pre-sale":
+        return {
+          title: (
+            <>
+              {t('header.presaleTitle1')} <br />
+              <span>{t('header.presaleTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.presaleSubtitle'),
+          buttons: [t('header.joinNow'), t('header.claimNow')],
+          showCountdown: true,
+        };
+      case "/referral":
+        return {
+          title: (
+            <>
+              {t('header.referralTitle1')} <br />
+              <span>{t('header.referralTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.referralSubtitle'),
+          buttons: [t('header.getReferralLink'), t('header.joinPreSale')],
+          showCountdown: false,
+        };
+      case "/announcement":
+        return {
+          title: t('header.announcementTitle'),
+          subtitle: t('header.announcementSubtitle'),
+          buttons: [t('header.joinPreSale'), t('header.contactUs')],
+        };
+      default:
+        return {
+          title: (
+            <>
+              {t('header.homeTitle1')} <br />
+              <span>{t('header.homeTitle2')}</span>
+            </>
+          ),
+          subtitle: t('header.homeSubtitle'),
+          buttons: [t('header.joinPreSaleNow'), t('header.whitepaper')],
+        };
+    }
+  };
+
   const normalizedPath = pathname.replace(/\/+$/, "") || "/";
-  const content = routeContent[normalizedPath] ?? routeContent["/"];
+  const content = getRouteContent(normalizedPath);
 
   const [countdown, setCountdown] = useState({
     days: "00",

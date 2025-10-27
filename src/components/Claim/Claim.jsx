@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import "./Claim.css";
 import bgVideo from "../../assets/bg.mp4";
 import xikIcon from "../../assets/images/logo.png";
@@ -10,6 +11,7 @@ import { toast } from "react-toastify";
 import { FaCoins, FaCheckCircle, FaBullseye, FaWallet, FaExclamationTriangle } from "react-icons/fa";
 
 const Claim = () => {
+  const { t } = useTranslation();
   const [isClaiming, setIsClaiming] = useState(false);
   const [claimableAmount, setClaimableAmount] = useState("0");
   const [totalVested, setTotalVested] = useState("0");
@@ -144,16 +146,16 @@ const Claim = () => {
         </video>
         <div className="claim-header">
           <h2 className="claim-title">
-            {isPrivatePresale ? "Private Presale Claim" : "Token Claim"}
+            {isPrivatePresale ? t('claim.privatePresale') : t('claim.tokenClaim')}
           </h2>
           <p className="claim-subtitle">
-            Claim your vested XIK tokens. {isPrivatePresale && "Private presale participants get priority access."}
+            {isPrivatePresale ? t('claim.privateSubtitle') : t('claim.subtitle')}
           </p>
         
           {isPrivatePresale && !refAddress && (
             <p className="referral-warning">
               <FaExclamationTriangle className="warning-icon" />
-              Private presale requires a valid referrer address in the URL
+              {t('claim.referralWarning')}
             </p>
           )}
         </div>
@@ -166,7 +168,7 @@ const Claim = () => {
                 <FaCoins />
               </div>
               <div className="stat-info">
-                <h3>Base Tokens</h3>
+                <h3>{t('claim.baseTokens')}</h3>
                 <p className="stat-value">{userInfo ? parseFloat(ethers.formatEther(userInfo.base || 0)).toFixed(4) : "0.0000"} XIK</p>
               </div>
             </div>
@@ -176,7 +178,7 @@ const Claim = () => {
                 <FaCoins />
               </div>
               <div className="stat-info">
-                <h3>Total Vested</h3>
+                <h3>{t('claim.totalVested')}</h3>
                 <p className="stat-value">{parseFloat(totalVested).toFixed(4)} XIK</p>
               </div>
             </div> */}
@@ -186,7 +188,7 @@ const Claim = () => {
                 <FaCheckCircle />
               </div>
               <div className="stat-info">
-                <h3>Already Released</h3>
+                <h3>{t('claim.alreadyReleased')}</h3>
                 <p className="stat-value">{parseFloat(releasedAmount).toFixed(4)} XIK</p>
               </div>
             </div>
@@ -196,7 +198,7 @@ const Claim = () => {
                 <FaBullseye />
               </div>
               <div className="stat-info">
-                <h3>Available to Claim</h3>
+                <h3>{t('claim.availableToClaim')}</h3>
                 <p className="stat-value">{parseFloat(claimableAmount).toFixed(4)} XIK</p>
               </div>
             </div>
@@ -208,7 +210,7 @@ const Claim = () => {
               <div className="claim-amount-box">
                 <img src={xikIcon} alt="XIK" className="token-icon2" />
                 <div className="amount-info">
-                  <span className="amount-label">Claimable Amount</span>
+                  <span className="amount-label">{t('claim.claimableAmount')}</span>
                   <span className="amount-value">{parseFloat(claimableAmount).toFixed(4)} XIK</span>
                 </div>
               </div>
@@ -216,7 +218,7 @@ const Claim = () => {
 
             {nextClaimTime && (
               <div className="next-claim-info">
-                <p>Next claim available: <strong>{formatDate(nextClaimTime)}</strong></p>
+                <p>{t('claim.nextClaimAvailable')} <strong>{formatDate(nextClaimTime)}</strong></p>
               </div>
             )}
 
@@ -228,12 +230,12 @@ const Claim = () => {
               {isClaiming ? (
                 <>
                   <div className="claim-spinner"></div>
-                  Claiming...
+                  {t('claim.claiming')}
                 </>
               ) : (
                 <>
                   <FaBullseye />
-                  Claim Tokens
+                  {t('claim.claimTokens')}
                 </>
               )}
             </button>
@@ -241,21 +243,21 @@ const Claim = () => {
             {!address && (
               <p className="connect-warning">
                 <FaWallet className="warning-icon" />
-                Please connect your wallet to claim tokens
+                {t('claim.connectWalletWarning')}
               </p>
             )}
 
             {parseFloat(claimableAmount) <= 0 && address && (
               <p className="no-tokens-warning">
                 <FaExclamationTriangle className="warning-icon" />
-                No tokens available to claim at this time
+                {t('claim.noTokensWarning')}
               </p>
             )}
           </div>
 
           {/* Vesting Info */}
           <div className="vesting-info">
-            <h3>Vesting Information</h3>
+            <h3>{t('claim.vestingInformation')}</h3>
             <div className="vesting-details">
               {/* <div className="vesting-item">
                 <span className="vesting-label">Vesting Type:</span>
@@ -264,19 +266,19 @@ const Claim = () => {
                 </span>
               </div> */}
               <div className="vesting-item">
-                <span className="vesting-label">Base Tokens:</span>
+                <span className="vesting-label">{t('claim.baseTokens')}:</span>
                 <span className="vesting-value">{userInfo ? parseFloat(ethers.formatEther(userInfo.base || 0)).toFixed(4) : "0.0000"} XIK</span>
               </div>
               <div className="vesting-item">
-                <span className="vesting-label">Total Vested:</span>
+                <span className="vesting-label">{t('claim.totalVested')}:</span>
                 <span className="vesting-value">{parseFloat(totalVested).toFixed(4)} XIK</span>
               </div>
               <div className="vesting-item">
-                <span className="vesting-label">Released:</span>
+                <span className="vesting-label">{t('claim.released')}:</span>
                 <span className="vesting-value">{parseFloat(releasedAmount).toFixed(4)} XIK</span>
               </div>
               <div className="vesting-item">
-                <span className="vesting-label">Remaining:</span>
+                <span className="vesting-label">{t('claim.remaining')}:</span>
                 <span className="vesting-value">{parseFloat(claimableAmount).toFixed(4)} XIK</span>
               </div>
             </div>

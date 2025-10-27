@@ -1,0 +1,386 @@
+{
+  "common": {
+    "welcome": "欢迎使用 XIK",
+    "buy": "购买",
+    "connect": "连接",
+    "connectWallet": "连接钱包",
+    "disconnect": "断开连接",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "close": "关闭"
+  },
+  "navbar": {
+    "home": "首页",
+    "about": "关于",
+    "preSale": "预售",
+    "tokenomics": "代币经济学",
+    "referral": "推荐",
+    "aboutUs": "关于我们",
+    "contactUs": "联系我们"
+  },
+  "hero": {
+    "title": "预售正在进行中。",
+    "subtitle": "推动交易革命。",
+    "description": "Cointicket 过滤噪音，奖励真正的交易者，并跟踪真实的结果。",
+    "learnMore": "了解如何运作",
+    "audit": "SolidProof 审核",
+    "buyNow": "购买代币"
+  },
+  "features": {
+    "title": "为什么选择 XIK？",
+    "description": "体验 XIK 革命性功能的区块链未来，结合人工智能、自主治理和以人为本的设计，创建世界上第一个真正智能的区块链生态系统。",
+    "circularValue": {
+      "title": "循环价值经济",
+      "description": "所有交易费用、代理活动和协议激励都旨在支持生态系统内的积极参与者和贡献者。"
+    },
+    "autonomousGov": {
+      "title": "自主人工智能治理",
+      "description": "80+ 人工智能代理自主管理运营 — 从安全性和扩展到经济校准。"
+    },
+    "humanGuided": {
+      "title": "人类指导的决策",
+      "description": "代币持有者通过生物识别安全投票引导长期愿景，而人工智能处理执行。"
+    }
+  },
+  "timeline": {
+    "title": "路线图",
+    "description": "跟随我们构建区块链未来的旅程。每个里程碑都使我们更接近具有增强实用工具、治理和社区奖励的完全去中心化生态系统。",
+    "milestones": {
+      "ten": {
+        "title": "10% 已售出 – 早期支持者认可",
+        "description": "当 10% NFT 售出时，5 名 NFT 持有者每人将获得 200 USDC。此阶段标志着早期社区奖励的开始和初始生态系统的发展。"
+      },
+      "nineteen": {
+        "title": "19% 已售出 – 社区参与",
+        "description": "在 19% 时，10 名 NFT 持有者每人将获得 500 USDC。DApp 开发开始扩展 XIKS 生态系统并为未来的实用功能做准备。"
+      },
+      "thirtyfive": {
+        "title": "35% 已售出 – 实用扩展",
+        "description": "在 35% 时，5 名 NFT 持有者每人将获得 1,000 USDC 和一个额外的 NFT。将集成新功能和实用程序以增强 XIKS 生态系统。"
+      },
+      "fifty": {
+        "title": "50% 已售出 – 大型实用解锁",
+        "description": "在 50% 时，一名幸运的 NFT 持有者将赢得 5,000 USDC。我们解锁了高级实用程序，增强的 DApp 和功能推动更深入的生态系统参与。"
+      },
+      "seventyfive": {
+        "title": "75% 已售出 – DAO 治理集成",
+        "description": "在 75% 时，我们将激活 DAO 治理，让 NFT 持有者能够参与协议升级、质押和奖励等关键决策。"
+      },
+      "hundred": {
+        "title": "100% 已售出 – 完整生态系统启动",
+        "description": "随着所有 NFT 售出，完整的 DAO 治理将被激活。所有生态系统实用程序，包括质押、奖励和高级 DApp，将上线，标志着路线图的完成。"
+      }
+    }
+  },
+  "presale": {
+    "title": "加入预售",
+    "heading": "如何参与预售",
+    "connectWallet": "连接钱包",
+    "selectPlan": "选择金额",
+    "makePayment": "付款",
+    "claimTokens": "领取代币",
+    "connectDescription": "连接您的加密货币钱包以参与 XIK 预售。确保您有足够的资金用于所需的投资金额。",
+    "selectDescription": "决定您想投资多少 XIK 代币。选择您的投资金额和首选付款方式（USDT、USDC 或 ETH）。",
+    "paymentDescription": "通过确认交易完成您的代币购买。您的 XIK 代币将在成功付款后分配给您的钱包地址。",
+    "claimDescription": "领取您的 XIK 代币！您购买的代币现在可以在您的钱包中使用，并在预售结束时准备好交易。"
+  },
+  "tokenInfo": {
+    "title": "代币信息",
+    "tokenNameLabel": "代币名称：",
+    "tokenNameValue": "XIK",
+    "networkLabel": "网络：",
+    "networkValue": "以太坊",
+    "standardLabel": "标准：",
+    "standardValue": "ERC-20",
+    "sale": "销售",
+    "days": "天"
+  },
+  "reserve": {
+    "private": "私人 XIK 预售",
+    "reserve": "预订 XIK 访问权限",
+    "privateActive": "私人预售活跃",
+    "startingDate": "2025年5月12日东部标准时间开始",
+    "referralText": "您已被邀请参与私人预售。推荐人：",
+    "description": "加入早期访问阶段并在 XIK 网络中确保您的分配。可用参与窗口有限。",
+    "currentPrice": "当前价格：",
+    "fundsRaised": "已筹集资金：",
+    "buyNow": "立即购买 XIK",
+    "referToFriend": "推荐给朋友",
+    "tooltip": "提示：在价格上涨之前进入。提供限时分配。"
+  },
+  "tokenomics": {
+    "title": "XIK 代币经济学",
+    "description": "探索 XIK 的全面代币经济学结构，具有双代币生态系统，包括治理、质押奖励、流动性管理和通缩机制，旨在实现可持续增长和社区参与。",
+    "dualToken": "双代币生态系统",
+    "governance": "治理",
+    "staking": "质押奖励",
+    "liquidity": "流动性管理",
+    "deflationary": "通缩机制",
+    "sales": {
+      "label": "销售",
+      "transactionFees": "交易费用：",
+      "baseFee": "基础费用：每次链上交易收取固定的 0.01%。",
+      "allocation": "分配：",
+      "allocationDescription": "90% 的交易费用被销毁以减少总供应量，确保通缩。剩余的 10% 分配给网络参与者，如质押者和矿工。",
+      "aiRentals": "AI 代理租赁：",
+      "rentalFee": "租赁费用：每个代理每小时 0.1 XIK。",
+      "revenueAllocation": "收入分配：",
+      "revenueDescription": "70% 归代理所有者，20% 流向生态系统基金，10% 分配给质押者和矿工作为奖励系统的一部分。"
+    },
+    "governanceDetails": {
+      "label": "治理",
+      "xikToken": "XIK 代币：",
+      "tokenDescription": "生态系统的治理由 XIK 代币驱动，其总供应量固定为 280 亿。",
+      "voting": "投票：",
+      "votingDescription": "代币持有者可以通过治理影响决策，每个 XIK 代币代表 1 票。投票权可以通过质押增强，质押的代币越多，影响力越大。",
+      "deflationMechanism": "通缩机制：",
+      "deflationDescription": "每次交易费用的高达 0.05% 被永久销毁，有助于 XIK 代币的通缩性质。"
+    },
+    "liquidityDetails": {
+      "label": "流动性",
+      "dualTokenModel": "双代币模型：",
+      "modelDescription": "生态系统使用两种代币运行：",
+      "xikUsage": "XIK：用于治理和奖励，以及",
+      "xiksStablecoin": "XIKS：与美元挂钩的稳定币，由 150% 的资产储备支撑，确保稳定性。",
+      "liquidityManagement": "流动性管理：",
+      "liquidityDescription": "AI 驱动的机制已到位，以优化流动性，管理市场深度，并确保交易的滑点最小。这包括主动做市计划和跨市场流动性协调。",
+      "stabilityMechanisms": "稳定性机制：",
+      "stabilityDescription": "系统采用回购和销毁来平滑波动并稳定代币价值。"
+    },
+    "stakingDetails": {
+      "label": "质押",
+      "stakingRewards": "质押奖励：",
+      "apyDescription": "质押者可以根据其质押资产获得 8%–15% 的年化百分比收益率 (APY)。",
+      "mobileMiners": "移动矿工可以通过参与网络每小时赚取 5–10 XIK。",
+      "incomeSources": "收入来源：",
+      "incomeDescription": "质押者从 10% 的交易费用和 10% 的 AI 租赁费用中获得奖励，这些奖励根据他们在网络中的质押比例分配。",
+      "consensusMechanism": "共识机制：",
+      "consensusDescription": "网络利用混合权益证明 (PoS) 和使用证明系统。参与者因停机或恶意活动会受到惩罚（削减），确保网络安全性和可靠性。"
+    }
+  },
+  "howItWorks": {
+    "title": "想要了解",
+    "titleLine2": "它的工作原理？",
+    "description": "探索 XIK 如何结合人工智能、移动挖矿和抗量子安全性，为世界上第一个自主区块链经济提供动力。",
+    "whitepaper": "白皮书"
+  },
+  "footer": {
+    "tagline": "相信",
+    "decentralized": "去中心化",
+    "collaboration": "协作的力量。",
+    "weGrow": "我们",
+    "grow": "成长",
+    "together": "团结一致，并",
+    "beyond": "超越",
+    "nextLevel": "下一个层次。",
+    "company": "公司",
+    "aboutUs": "关于我们",
+    "tokenomics": "代币经济学",
+    "preSale": "预售",
+    "contactUs": "联系我们",
+    "resources": "资源",
+    "joinPresale": "加入预售",
+    "viewTokenomics": "查看代币经济学",
+    "subscribe": "订阅我们的时事通讯",
+    "subscribeText": "立即订阅以接收最新更新、独家内容和有价值的见解，直接发送到您的收件箱。",
+    "emailPlaceholder": "输入您的电子邮件",
+    "subscribeButton": "订阅",
+    "copyright": "版权所有 © 2025 XIK | 保留所有权利"
+  },
+  "claim": {
+    "privatePresale": "私人预售申领",
+    "tokenClaim": "代币申领",
+    "subtitle": "领取您已归属的 XIK 代币。",
+    "privateSubtitle": "领取您已归属的 XIK 代币。私人预售参与者享有优先访问权限。",
+    "referralWarning": "私人预售需要在 URL 中提供有效的推荐人地址",
+    "baseTokens": "基础代币",
+    "alreadyReleased": "已释放",
+    "availableToClaim": "可申领",
+    "claimableAmount": "可申领金额",
+    "connectWalletWarning": "请连接您的钱包以申领取代币",
+    "noTokensWarning": "目前没有可申领的代币",
+    "vestingInformation": "归属信息",
+    "totalVested": "总归属",
+    "released": "已释放",
+    "remaining": "剩余",
+    "claiming": "申领中...",
+    "claimTokens": "申领取代币",
+    "nextClaimAvailable": "下次申领可用："
+  },
+  "tokenSale": {
+    "title": "代币销售指标",
+    "privateTitle": "私人预售指标",
+    "tokenName": "代币名称：",
+    "tokenType": "代币类型：",
+    "chain": "链：",
+    "currentPrice": "当前价格：",
+    "fundsRaised": "已筹集资金：",
+    "yourTokens": "您的代币：",
+    "phaseEndTime": "阶段结束时间：",
+    "totalSupply": "总供应量：",
+    "tokensAvailable": "可用代币：",
+    "walletAddress": "钱包地址：",
+    "notConnected": "未连接",
+    "loading": "加载中..."
+  },
+  "automation": {
+    "heading": "解锁智能自动化的未来",
+    "subtext": "探索推动下一代自动化的创新代币经济学，并加入我们的独家预售活动。成为首批拥有为智能自动化革命提供动力的货币的所有者之一。",
+    "joinPresale": "立即加入预售",
+    "whitepaper": "白皮书"
+  },
+  "referral": {
+    "getReferralLink": "获取您的推荐链接",
+    "getReferralLinkDesc": "连接您的钱包并生成您的唯一推荐链接",
+    "shareWithFriends": "与朋友分享",
+    "shareWithFriendsDesc": "通过社交媒体、消息或直接分享分享您的链接",
+    "theyBuyTokens": "他们购买 XIK 代币",
+    "theyBuyTokensDesc": "朋友使用您的链接在预售中购买 XIK 代币",
+    "earnRewards": "赚取奖励",
+    "earnRewardsDesc": "您根据他们的购买和您的排名赚取 XIK 代币",
+    "referralRewards": "推荐奖励",
+    "topReferrer": "顶级推荐者",
+    "topReferrerReward": "75,000 XIK",
+    "topReferrerDesc": "表现最好的推荐者获得最大奖励",
+    "top10Referrers": "前 10 名推荐者",
+    "top10ReferrersReward": "每人 20,000 XIK",
+    "top10ReferrersDesc": "前 10 名的稳定推荐者获得丰厚奖励",
+    "bonusTiers": "奖励层级",
+    "minimumBuy": "最低购买：",
+    "finalTokens": "最终代币：",
+    "readyToStartEarning": "准备开始赚钱了吗？",
+    "readyToStartEarningDesc": "连接您的钱包，立即开始推荐朋友赚取 XIK 代币！",
+    "getReferralLinkButton": "获取推荐链接",
+    "yourReferralLink": "您的推荐链接",
+    "shareReferralText": "与朋友分享您的推荐链接，当他们参与预售时赚取奖励！",
+    "pleaseConnectWallet": "请先连接您的钱包",
+    "copy": "复制",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "twitter": "Twitter",
+    "tierPrime": "Prime",
+    "tierPrimeDesc": "非常适合入门",
+    "tierElite": "Elite",
+    "tierEliteDesc": "为活跃交易者提供超值服务",
+    "tierTitan": "Titan",
+    "tierTitanDesc": "基础 250K 流动资金，125K 奖金归属",
+    "tierLegend": "Legend",
+    "tierLegendDesc": "基础 500K 流动资金，300K 奖金归属"
+  },
+  "whatIsXik": {
+    "title": "什么是 XIK？",
+    "description1": "XIK 是一个由",
+    "description2": "运行的去中心化区块链生态系统。",
+    "description3": "它通过代理治理共识、通缩代币经济学和完全链上自动化，消除了中心化控制。",
+    "burnMechanism": "销毁机制：",
+    "burnDescription": "每次交易的最高 0.05% 被永久销毁",
+    "whyItMatters": "🔹 为什么重要：",
+    "point1": "没有中心化验证者或核心团队",
+    "point2": "代理提议、验证、优化和执行智能合约",
+    "point3": "整个经济系统是自我维持和社区控制的"
+  },
+  "vision": {
+    "title": "我们的愿景",
+    "description": "构建第一个真正智能的区块链，它自己运行——由其自己的 AI 驱动的代理进行维护、治理和改进。"
+  },
+  "mission": {
+    "title": "我们的使命",
+    "description": "通过去中心化和透明的基础设施赋予用户、开发人员和机器权力，其中自动化等于自由，而不是控制。"
+  },
+  "whyJoin": {
+    "title": "为什么尽早加入？",
+    "point1": "自我升级的 AI 驱动的区块链",
+    "point2": "没有风险投资或内部人士——",
+    "point2Highlight": "早期用户成为治理",
+    "point3": "移动挖矿： passively 赚取 XIK",
+    "point4": "量子安全且面向未来",
+    "point5": "强大的实用性：Gas、质押、投票、AI 代理部署",
+    "point6": "生态友好：2% 利润用于碳清除"
+  },
+  "mechanism": {
+    "slide1Title": "XIK 使用基于代理的权益证明共识机制。",
+    "slide1Subtext": "加入这场运动，成为有史以来最先进的 Web3 基础设施的一部分。",
+    "slide1Button": "加入预售",
+    "slide2Title": "由智能代理驱动的无与伦比的安全性",
+    "slide2Subtext": "XIK 利用自主代理持续监控、检测和预防恶意行为，创建一个自我修复、抗攻击的区块链环境。",
+    "slide2Button": "了解更多",
+    "slide2Button2": "开始使用",
+    "slide3Title": "零摩擦的跨链就绪",
+    "slide3Subtext": "利用 XIK 的原生跨链功能跨生态系统桥接资产和数据——无需复杂的包装器或第三方工具。",
+    "slide3Button": "发现",
+    "slide3Button2": "注册",
+    "slide4Title": "零摩擦的跨链就绪",
+    "slide4Subtext": "利用 XIK 的原生跨链功能跨生态系统桥接资产和数据——无需复杂的包装器或第三方工具。",
+    "slide4Button": "探索",
+    "slide4Button2": "立即加入"
+  },
+  "contact": {
+    "title": "保持联系",
+    "namePlaceholder": "输入姓名",
+    "emailPlaceholder": "邮箱",
+    "messagePlaceholder": "留言",
+    "submitButton": "联系我们"
+  },
+  "faq": {
+    "subheading": "常见问题",
+    "heading": "获取常见问题的答案",
+    "description": "从基础知识到高级主题，在这里找到您需要了解的一切。让我们帮助您简化流程并找到您所寻求的清晰度。",
+    "question1": "什么是 XIK，它是如何工作的？",
+    "answer1": "XIK 是由 AI 代理运行的去中心化区块链生态系统。",
+    "question2": "区块链与加密货币有何关系？",
+    "answer2": "区块链是推动加密货币的底层技术。它作为一个分布式账本，安全地记录和验证交易，使比特币和 XIK 等去中心化货币成为可能。",
+    "question3": "区块链技术安全吗？",
+    "answer3": "是的。区块链使用高级密码学、分布式共识和记录的不可变性来确保安全。交易由多个参与者验证，使数据篡改变得极其困难。",
+    "question4": "区块链如何增强安全性？",
+    "answer4": "区块链通过在去中心化网络中存储数据、使用加密保护交易以及应用防止未经授权更改的共识机制来增强安全性。这消除了单点故障。",
+    "question5": "区块链会被黑客攻击吗？",
+    "answer5": "虽然没有任何系统 100% 免疫，但攻击区块链是非常不切实际的。攻击者需要同时控制网络超过 51% 的计算能力，这对于大型网络来说成本极高且几乎不可能。",
+    "question6": "如何在您的行业中实施区块链？",
+    "answer6": "您可以通过识别需要透明度、信任和安全性的流程（如支付、供应链管理、医疗记录或身份验证）并将区块链平台或解决方案集成到其中来实施区块链。"
+  },
+  "header": {
+    "homeTitle1": "首个自我进化的",
+    "homeTitle2": "区块链 - 由 AI 驱动",
+    "homeSubtitle": "一个智能、自主的网络，可以自我升级、扩展和保护——同时为贡献者提供每个区块上的网络功能访问。",
+    "tokenomicsTitle1": "透明。可持续。",
+    "tokenomicsTitle2": "去中心化。",
+    "tokenomicsSubtitle": "XIK Tokenomics 旨在支持生态系统增长，鼓励早期参与，并实现真正去中心化、由 AI 治理的区块链经济。",
+    "aboutTitle1": "明天的",
+    "aboutTitle2": "AI 驱动区块链",
+    "aboutSubtitle": "XIK 是由智能代理治理的自主 Layer 1 区块链。为可扩展性、安全性和去中心化智能而构建——这就是 AI 与 Web3 核心相遇的地方。",
+    "contactTitle": "保持联系",
+    "contactSubtitle": "我们为您提供代币供应、可用链和丰富的 DeFi 功能的见解。新的和改进的 Tokenomics 正在将 GoC 代币转变为真正的实用宝石。",
+    "featuresTitle": "强大功能",
+    "featuresSubtitle": "AI 支持的升级、智能治理、无缝可扩展性。",
+    "presaleTitle1": "加入未来的",
+    "presaleTitle2": "自主区块链",
+    "presaleSubtitle": "XIKS 是第一个由 AI 治理、移动优先、量子安全的区块链生态系统。通过加入预售，您将早日进入由 80 多个自主代理驱动的下一代金融网络。供应有限。无 VC 控制。100% 社区主导。",
+    "referralTitle1": "通过",
+    "referralTitle2": "推荐朋友赚取 XIK 代币",
+    "referralSubtitle": "加入我们的推荐计划，赚取高达 75,000 个 XIK 代币！与朋友分享您的唯一推荐链接，并在他们参与预售时获得奖励。您推荐得越多，赚得越多！",
+    "announcementTitle": "公告",
+    "announcementSubtitle": "我们为您提供代币供应、可用链和丰富的 DeFi 功能的见解。新的和改进的 Tokenomics 正在将 GoC 代币转变为真正的实用宝石。",
+    "joinPreSaleNow": "立即加入预售",
+    "whitepaper": "白皮书",
+    "joinPreSale": "加入预售",
+    "contactUs": "联系我们",
+    "exploreFeatures": "探索功能",
+    "useCases": "用例",
+    "joinNow": "立即加入",
+    "claimNow": "立即申领",
+    "getReferralLink": "获取推荐链接"
+  },
+  "announcementSection": {
+    "title": "公告",
+    "announcement1": "公告 1",
+    "message1": "XIK 是第一个由 AI 治理、移动优先、量子安全的区块链生态系统。通过加入预售，您将早日进入由 80 多个自主代理驱动的下一代金融网络。供应有限。无 VC 控制。100% 社区主导。",
+    "announcement2": "公告 2",
+    "message2": "XIK 是第一个由 AI 治理、移动优先、量子安全的区块链生态系统。通过加入预售，您将早日进入由 80 多个自主代理驱动的下一代金融网络。供应有限。无 VC 控制。100% 社区主导。",
+    "announcement3": "公告 3",
+    "message3": "XIK 是第一个由 AI 治理、移动优先、量子安全的区块链生态系统。通过加入预售，您将早日进入由 80 多个自主代理驱动的下一代金融网络。供应有限。无 VC 控制。100% 社区主导。",
+    "announcement4": "公告 4",
+    "message4": "XIK 是第一个由 AI 治理、移动优先、量子安全的区块链生态系统。通过加入预售，您将早日进入由 80 多个自主代理驱动的下一代金融网络。供应有限。无 VC 控制。100% 社区主导。"
+  }
+}
+

@@ -73,7 +73,7 @@
 }
 
 .chart-header {
-  display: flex;
+  display: none;
   justify-content: space-between;
   margin-bottom: 12px;
 }

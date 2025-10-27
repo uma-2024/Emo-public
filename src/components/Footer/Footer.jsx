@@ -1,38 +1,40 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./Footer.css";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="footer-container">
       <div className="footer-top">
         <div className="footer-logo">
           <img src={logo} alt="XIK Logo" />
           <p className="footer-tagline">
-            Believe In The Power Of{" "}
-            <span className="decentralized">Decentralized</span> Collaboration.
+            {t('footer.tagline')}{" "}
+            <span className="decentralized">{t('footer.decentralized')}</span> {t('footer.collaboration')}
             <br />
-            We <span className="grow">Grow</span> Together And{" "}
-            <span className="beyond">Beyond</span> The Next Level.
+            {t('footer.weGrow')} <span className="grow">{t('footer.grow')}</span> {t('footer.together')}{" "}
+            <span className="beyond">{t('footer.beyond')}</span> {t('footer.nextLevel')}
           </p>
         </div>
       </div>
 
       <div className="footer-links">
         <div className="footer-column">
-          <h4 className="footer-container-title">COMPANY</h4>
+          <h4 className="footer-container-title">{t('footer.company')}</h4>
           <ul>
             <li>
-              <Link to="/about">About Us</Link>
+              <Link to="/about">{t('footer.aboutUs')}</Link>
             </li>
             <li>
-              <Link to="/tokenomics">Tokenomics</Link>
+              <Link to="/tokenomics">{t('footer.tokenomics')}</Link>
             </li>
             <li>
-              <Link to="/pre-sale">Pre-Sale</Link>
+              <Link to="/pre-sale">{t('footer.preSale')}</Link>
             </li>
             <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">{t('footer.contactUs')}</Link>
             </li>
           </ul>
         </div>
@@ -47,7 +49,7 @@ const Footer = () => {
           </ul>
         </div> */}
         <div className="footer-column">
-          <h4 className="footer-container-title">RESOURCES</h4>
+          <h4 className="footer-container-title">{t('footer.resources')}</h4>
           <ul>
             <li>
               <a 
@@ -56,38 +58,37 @@ const Footer = () => {
                 rel="noopener noreferrer"
                
               >
-                Whitepaper
+                {t('howItWorks.whitepaper')}
               </a>
             </li>
             <li>
               <Link to="/pre-sale" >
-                Join Presale
+                {t('footer.joinPresale')}
               </Link>
             </li>
             <li>
               <Link to="/tokenomics">
-                View Tokenomics
+                {t('footer.viewTokenomics')}
               </Link>
             </li>
           </ul>
         </div>
         <div className="footer-column newsletter">
           <h4 className="footer-container-title">
-            SUBSCRIBE TO OUR NEWSLETTER
+            {t('footer.subscribe')}
           </h4>
           <p>
-            Subscribe today to receive the latest updates, exclusive content,
-            and valuable insights delivered right to your inbox.
+            {t('footer.subscribeText')}
           </p>
           <div className="subscribe-form">
-            <input type="email" placeholder="Enter your email" />
-            <button>Subscribe</button>
+            <input type="email" placeholder={t('footer.emailPlaceholder')} />
+            <button>{t('footer.subscribeButton')}</button>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>Copyright © 2025 XIK | All Rights Reserved</p>
+        <p>{t('footer.copyright')}</p>
         <div className="social-icons">
           <a
             href="https://www.facebook.com/profile.php?id=61576894374414"

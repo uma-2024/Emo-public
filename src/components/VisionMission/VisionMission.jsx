@@ -1,25 +1,25 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./VisionMission.css";
 import visionIcon from "../../assets/images/vision.gif"; 
 import missionIcon from "../../assets/images/mission.gif"; 
 
 const VisionMission = () => {
+  const { t } = useTranslation();
   return (
     <div className="vision-mission-container">
       <div className="card">
         <img src={visionIcon} alt="Vision Icon" className="card-icon" />
-        <h3 className="card-title">Our Vision</h3>
+        <h3 className="card-title">{t('vision.title')}</h3>
         <p className="card-text">
-          To build the first truly intelligent blockchain that runs itself — maintained, governed,
-          and improved by its own AI-powered agents.
+          {t('vision.description')}
         </p>
       </div>
       <div className="card">
         <img src={missionIcon} alt="Mission Icon" className="card-icon" />
-        <h3 className="card-title">Our Mission</h3>
+        <h3 className="card-title">{t('mission.title')}</h3>
         <p className="card-text">
-          To empower users, developers, and machines through a decentralized and transparent
-          infrastructure where automation equals freedom, not control.
+          {t('mission.description')}
         </p>
       </div>
     </div>

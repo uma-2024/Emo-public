@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import "./ReferralSystem.css";
 import { FaTrophy, FaUsers, FaGift, FaCoins, FaArrowRight, FaDollarSign, FaBullseye, FaBolt, FaCrown, FaCopy, FaTimes } from "react-icons/fa";
 import bgVideo from "../../assets/bg.mp4";
@@ -6,6 +7,7 @@ import { WalletContext } from "../WalletConnect/WalletConnect";
 import { toast } from "react-toastify";
 
 const ReferralSystem = () => {
+  const { t } = useTranslation();
   const { address } = useContext(WalletContext);
   const [showReferralModal, setShowReferralModal] = useState(false);
 
@@ -52,74 +54,74 @@ const ReferralSystem = () => {
   const referralTiers = [
     {
       rank: 1,
-      title: "Top Referrer",
-      reward: "75,000 XIK",
-      description: "The highest performing referrer gets the biggest reward",
+      title: t('referral.topReferrer'),
+      reward: t('referral.topReferrerReward'),
+      description: t('referral.topReferrerDesc'),
       icon: <FaTrophy className="trophy-icon" />
     },
     {
       rank: 2,
-      title: "Top 10 Referrers",
-      reward: "20,000 XIK each",
-      description: "Consistent referrers in the top 10 get substantial rewards",
+      title: t('referral.top10Referrers'),
+      reward: t('referral.top10ReferrersReward'),
+      description: t('referral.top10ReferrersDesc'),
       icon: <FaUsers className="users-icon" />
     }
   ];
 
   const bonusTiers = [
     {
-      name: "Prime",
+      name: t('referral.tierPrime'),
       minBuy: "50,000 XIK",
       bonus: "+10%",
       finalTokens: "55,000 XIK",
-      description: "Perfect for getting started"
+      description: t('referral.tierPrimeDesc')
     },
     {
-      name: "Elite", 
+      name: t('referral.tierElite'), 
       minBuy: "100,000 XIK",
       bonus: "+30%",
       finalTokens: "130,000 XIK",
-      description: "Great value for active traders"
+      description: t('referral.tierEliteDesc')
     },
     {
-      name: "Titan",
+      name: t('referral.tierTitan'),
       minBuy: "250,000 XIK", 
       bonus: "+50%",
       finalTokens: "375,000 XIK",
-      description: "Base 250K liquid, 125K bonus vested"
+      description: t('referral.tierTitanDesc')
     },
     {
-      name: "Legend",
+      name: t('referral.tierLegend'),
       minBuy: "500,000 XIK",
       bonus: "+60%", 
       finalTokens: "800,000 XIK",
-      description: "Base 500K liquid, 300K bonus vested"
+      description: t('referral.tierLegendDesc')
     }
   ];
 
   const howItWorks = [
     {
       step: 1,
-      title: "Get Your Referral Link",
-      description: "Connect your wallet and generate your unique referral link",
+      title: t('referral.getReferralLink'),
+      description: t('referral.getReferralLinkDesc'),
       icon: <FaCoins className="step-icon" />
     },
     {
       step: 2,
-      title: "Share with Friends",
-      description: "Share your link via social media, messaging, or direct sharing",
+      title: t('referral.shareWithFriends'),
+      description: t('referral.shareWithFriendsDesc'),
       icon: <FaUsers className="step-icon" />
     },
     {
       step: 3,
-      title: "They Buy XIK Tokens",
-      description: "Friends use your link to purchase XIK tokens in the presale",
+      title: t('referral.theyBuyTokens'),
+      description: t('referral.theyBuyTokensDesc'),
       icon: <FaArrowRight className="step-icon" />
     },
     {
       step: 4,
-      title: "Earn Rewards",
-      description: "You earn XIK tokens based on their purchases and your ranking",
+      title: t('referral.earnRewards'),
+      description: t('referral.earnRewardsDesc'),
       icon: <FaGift className="step-icon" />
     }
   ];
@@ -154,7 +156,7 @@ const ReferralSystem = () => {
 
         {/* Referral Rewards */}
         <div className="referral-rewards">
-          <h3 className="section-title">Referral Rewards</h3>
+          <h3 className="section-title">{t('referral.referralRewards')}</h3>
           <div className="rewards-grid">
             {referralTiers.map((tier, index) => (
               <div key={index} className="reward-card">
@@ -185,7 +187,7 @@ const ReferralSystem = () => {
 
         {/* Bonus Tiers */}
         <div className="bonus-tiers">
-          <h3 className="section-title">Bonus Tiers</h3>
+          <h3 className="section-title">{t('referral.bonusTiers')}</h3>
           {/* <p className="bonus-subtitle">
             When your referrals buy XIK tokens, they get bonus rewards based on their purchase amount
           </p> */}
@@ -198,11 +200,11 @@ const ReferralSystem = () => {
                 </div>
                 <div className="tier-details">
                   <div className="tier-min-buy">
-                    <span className="label">Minimum Buy:</span>
+                    <span className="label">{t('referral.minimumBuy')}</span>
                     <span className="value">{tier.minBuy}</span>
                   </div>
                   <div className="tier-final-tokens">
-                    <span className="label">Final Tokens:</span>
+                    <span className="label">{t('referral.finalTokens')}</span>
                     <span className="value">{tier.finalTokens}</span>
                   </div>
                   <p className="tier-description">{tier.description}</p>
@@ -268,12 +270,12 @@ const ReferralSystem = () => {
             Your browser does not support the video tag.
           </video>
           <div className="referral-cta-overlay">
-            <h3 className="cta-title">Ready to Start Earning?</h3>
+            <h3 className="cta-title">{t('referral.readyToStartEarning')}</h3>
             <p className="cta-description">
-              Connect your wallet and start referring friends to earn XIK tokens today!
+              {t('referral.readyToStartEarningDesc')}
             </p>
             <div className="cta-buttons">
-              <button className="cta-primary" onClick={handleGetReferralLink}>Get Referral Link</button>
+              <button className="cta-primary" onClick={handleGetReferralLink}>{t('referral.getReferralLinkButton')}</button>
               {/* <button className="cta-secondary">View Leaderboard</button> */}
             </div>
           </div>
@@ -285,7 +287,7 @@ const ReferralSystem = () => {
         <div className="referral-modal-overlay" onClick={() => setShowReferralModal(false)}>
           <div className="referral-modal" onClick={(e) => e.stopPropagation()}>
             <div className="referral-modal-header">
-              <h3>Your Referral Link</h3>
+              <h3>{t('referral.yourReferralLink')}</h3>
               <button
                 className="referral-modal-close"
                 onClick={() => setShowReferralModal(false)}
@@ -294,11 +296,11 @@ const ReferralSystem = () => {
               </button>
             </div>
             <div className="referral-modal-content">
-              <p>Share your referral link with friends and earn rewards when they participate in the presale!</p>
+              <p>{t('referral.shareReferralText')}</p>
               <div className="referral-link-container">
                 <div className="referral-link-display">
                   <span className="referral-link-text">
-                    {address ? `${window.location.origin}?ref=${address}` : 'Please connect your wallet first'}
+                    {address ? `${window.location.origin}?ref=${address}` : t('referral.pleaseConnectWallet')}
                   </span>
                   <button
                     className="copy-referral-btn"
@@ -306,7 +308,7 @@ const ReferralSystem = () => {
                     disabled={!address}
                   >
                     <FaCopy />
-                    Copy
+                    {t('referral.copy')}
                   </button>
                 </div>
               </div>
@@ -316,21 +318,21 @@ const ReferralSystem = () => {
                   onClick={shareOnWhatsApp} 
                   disabled={!address}
                 >
-                  WhatsApp
+                  {t('referral.whatsapp')}
                 </button>
                 <button 
                   className="share-referral-btn telegram" 
                   onClick={shareOnTelegram} 
                   disabled={!address}
                 >
-                  Telegram
+                  {t('referral.telegram')}
                 </button>
                 <button 
                   className="share-referral-btn twitter" 
                   onClick={shareOnTwitter} 
                   disabled={!address}
                 >
-                  Twitter
+                  {t('referral.twitter')}
                 </button>
               </div>
             </div>

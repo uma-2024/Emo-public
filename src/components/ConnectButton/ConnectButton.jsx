@@ -1,5 +1,6 @@
 // src/components/WalletConnect/ConnectButton.jsx
 import React, { useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import { WalletContext } from "../WalletConnect/WalletConnect";
 
 
@@ -16,12 +17,17 @@ function shorten(addr = "") {
  */
 export default function ConnectButton({
   className = "",
-  labelDisconnected = "Connect Wallet",
-  labelConnected = "Disconnect",
+  labelDisconnected,
+  labelConnected,
   showAddress = true,
   ...rest
 }) {
+  const { t } = useTranslation();
   const { address, connectWallet, disconnectWallet } = useContext(WalletContext);
+  
+  // Use translation if no custom labels provided
+  const defaultLabelDisconnected = labelDisconnected || t('common.connectWallet');
+  const defaultLabelConnected = labelConnected || t('common.disconnect');
 
   const handleClick = async () => {
     if (address) {
@@ -36,7 +42,7 @@ export default function ConnectButton({
       ? labelConnected(address)
       : showAddress && address
       ? `${shorten(address)}`
-      : labelConnected;
+      : (labelConnected || defaultLabelConnected);
 
   return (
     <button
@@ -44,7 +50,7 @@ export default function ConnectButton({
       onClick={handleClick}
       {...rest}
     >
-      {address ? connectedLabel : labelDisconnected}
+      {address ? connectedLabel : defaultLabelDisconnected}
     </button>
   );
 }

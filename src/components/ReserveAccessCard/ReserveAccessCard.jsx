@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import "./ReserveAccessCard.css";
 import bgVideo from "../../assets/bg.mp4";
 import xikIcon from "../../assets/images/logo.png"; 
@@ -12,6 +13,7 @@ import { ethers } from "ethers";
 import { toast } from "react-toastify";
 
 const ReserveAccessCard = () => {
+  const { t } = useTranslation();
   // Bonus tiers based on purchase amount
   const bonusTiers = [
     { minAmount: 0, maxAmount: 99, bonus: 0, name: "No Bonus" },
@@ -279,29 +281,29 @@ const ReserveAccessCard = () => {
         <div className="reserve-card-badge">
           <span className="badge-new">{isPrivatePresale ? "Private" : "New"}</span>
           <span className="badge-date">
-            {isPrivatePresale ? "Private Presale Active" : "Starting on 12th May 2025 EST"}
+            {isPrivatePresale ? t('reserve.privateActive') : t('reserve.startingDate')}
           </span>
         </div>
 
         <h2 className="reserve-title">
-          {isPrivatePresale ? "Private XIK Presale" : "Reserve XIK Access"}
+          {isPrivatePresale ? t('reserve.private') : t('reserve.reserve')}
         </h2>
         <p className="reserve-desc">
           {isPrivatePresale 
-            ? `You've been invited to participate in the private presale. Referred by: ${refAddress?.slice(0, 6)}...${refAddress?.slice(-4)}`
-            : "Join the early access phase and secure your allocation in the XIK network. Limited participation window available."
+            ? `${t('reserve.referralText')} ${refAddress?.slice(0, 6)}...${refAddress?.slice(-4)}`
+            : t('reserve.description')
           }
         </p>
 
         <div className="amount-boxes">
           <div className="amount-box">
-            Current Price: <strong>
-              {phaseData ? `$${(Number(phaseData.price) / 1e6).toFixed(6)}` : "Loading..."}
+            {t('reserve.currentPrice')} <strong>
+              {phaseData ? `$${(Number(phaseData.price) / 1e6).toFixed(6)}` : t('common.loading')}
             </strong>
           </div>
           <div className="amount-box">
-            Funds Raised: <strong>
-              {fundsRaised ? `$${(Number(fundsRaised) / 1e6).toFixed(2)}` : "Loading..."}
+            {t('reserve.fundsRaised')} <strong>
+              {fundsRaised ? `$${(Number(fundsRaised) / 1e6).toFixed(2)}` : t('common.loading')}
             </strong>
           </div>
           {/* {isPrivatePresale && (
@@ -312,13 +314,13 @@ const ReserveAccessCard = () => {
         </div>
 
         <button className="buy-button" onClick={() => setIsModalOpen(true)}>
-          <span className="buy-button-text">BUY XIK NOW</span>
+          <span className="buy-button-text">{t('reserve.buyNow')}</span>
         </button>
         <button className="refer-button" onClick={handleReferClick}>
-          <span className="refer-button-text">Refer To Friend</span>
+          <span className="refer-button-text">{t('reserve.referToFriend')}</span>
         </button>
         <p className="tooltip">
-          Tooltip: Get in before the price increases. Limited-time allocation available.
+          {t('reserve.tooltip')}
         </p>
       </div>
 

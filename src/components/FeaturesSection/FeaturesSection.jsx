@@ -1,40 +1,38 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./FeaturesSection.css";
 import autoImage from '../../assets/images/autonomous 2.svg'
 import ecoImage from '../../assets/images/economy-growth 1.svg'
 import humanImage from '../../assets/images/Vector.svg'
 
-const features = [
-  {
-    icon: autoImage , 
-    title: "Circular Value Economy",
-    description:
-      "All transaction fees, agent activity, and protocol incentives are designed to support active participants and contributors within the ecosystem.",
-  },
-  {
-    icon: ecoImage,
-    title: "Autonomous AI Governance",
-    description:
-      "80+ AI agents autonomously manage operations — from security and scaling to economic calibration.",
-  },
-  {
-    icon: humanImage,
-    title: "Human-Guided Decisions",
-    description:
-      "Token holders steer the long-term vision through biometric-secured voting, while AI handles execution.",
-  },
-];
-
 const FeaturesSection = () => {
+  const { t } = useTranslation();
+  
+  const features = [
+    {
+      icon: autoImage,
+      title: t('features.circularValue.title'),
+      description: t('features.circularValue.description'),
+    },
+    {
+      icon: ecoImage,
+      title: t('features.autonomousGov.title'),
+      description: t('features.autonomousGov.description'),
+    },
+    {
+      icon: humanImage,
+      title: t('features.humanGuided.title'),
+      description: t('features.humanGuided.description'),
+    },
+  ];
+
   return (
     <div className="features-container">
       {/* Title and Description Section */}
       <div className="features-header">
-        <h2 className="features-title">Why Choose XIK?</h2>
+        <h2 className="features-title">{t('features.title')}</h2>
         <p className="features-description">
-          Experience the future of blockchain with XIK's revolutionary features that combine 
-          artificial intelligence, autonomous governance, and human-centered design to create 
-          the world's first truly intelligent blockchain ecosystem.
+          {t('features.description')}
         </p>
       </div>
 

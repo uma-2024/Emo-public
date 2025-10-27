@@ -1,9 +1,11 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./AutomationPromo.css";
 import video from '../../assets/bg.mp4'
 import { useNavigate } from "react-router-dom";
 
 const AutomationPromo = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="automation-promo-wrapper">
@@ -20,19 +22,17 @@ const AutomationPromo = () => {
 
       <div className="automation-promo-overlay">
         <h2 className="automation-heading">
-          Unlock The Future of Intelligent Automation
+          {t('automation.heading')}
         </h2>
         <p className="automation-subtext">
-          Discover the innovative Tokenomics ics driving the next generation of
-          automation and join our exclusive Pre-Sale event. Be among the first
-          to own the currency powering the intelligent automation revolution.
+          {t('automation.subtext')}
         </p>
         <div className="automation-buttons">
         <button
       className="automation-btn primary"
       onClick={() => navigate("/pre-sale")}
     >
-      Join Pre-Sale Now
+      {t('automation.joinPresale')}
     </button>
           <button className="automation-btn secondary" onClick={() => {
     const link = document.createElement("a");
@@ -41,7 +41,7 @@ const AutomationPromo = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }}>Whitepaper</button>
+  }}>{t('automation.whitepaper')}</button>
         </div>
       </div>
     </div>

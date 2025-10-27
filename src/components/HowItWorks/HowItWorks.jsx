@@ -1,10 +1,12 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./HowItWorks.css";
 import docImage from "../../assets/images/doc.svg";
 import videoBg from "../../assets/bg.mp4";
 import { FaFileDownload } from "react-icons/fa";
 
 export default function HowItWorks() {
+  const { t } = useTranslation();
   return (
     <div className="how-it-works-section">
       <div className="how-left">
@@ -19,13 +21,12 @@ export default function HowItWorks() {
 
         <div className="how-content">
           <h2 className="headline">
-            Want the picture
+            {t('howItWorks.title')}
             <br />
-            of how it works?
+            {t('howItWorks.titleLine2')}
           </h2>
           <p className="description">
-            Discover how XIK combines A.I., mobile mining, and quantum-resistant
-            security to power the world’s first autonomous blockchain economy.
+            {t('howItWorks.description')}
           </p>
           <button
             className="whitepaper-btn"
@@ -39,7 +40,7 @@ export default function HowItWorks() {
             }}
           >
             <FaFileDownload style={{ marginRight: "8px" }} />
-            Whitepaper
+            {t('howItWorks.whitepaper')}
           </button>
         </div>
       </div>

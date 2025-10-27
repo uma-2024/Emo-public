@@ -78,6 +78,7 @@
 
 // src/components/PreSaleConnect/PreSaleConnect.jsx
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./PreSaleConnect.css";
 import videoBg from "../../assets/bg.mp4";
 import metamaskIcon from "../../assets/images/Frame 27111.svg";
@@ -97,6 +98,7 @@ const icons = [
 const stepImages = [connectImg, planImg, payImg, confirmImg];
 
 export default function PreSaleConnect() {
+  const { t } = useTranslation();
   const [activeIdx, setActiveIdx] = useState(0);
   const active = icons[activeIdx].label;
 
@@ -122,38 +124,38 @@ export default function PreSaleConnect() {
         </div>
 
         <div className="presale-main">
-          <h2 className="heading">How to join the pre-sale</h2>
+          <h2 className="heading">{t('presale.heading')}</h2>
           <h3 className="subheading">
-            {active === "rocket" && "Connect Wallet"}
-            {active === "wallet" && "Choose Amount"}
-            {active === "dollar" && "Make Payment"}
-            {active === "globe"  && "Claim Tokens"}
+            {active === "rocket" && t('presale.connectWallet')}
+            {active === "wallet" && t('presale.selectPlan')}
+            {active === "dollar" && t('presale.makePayment')}
+            {active === "globe" && t('presale.claimTokens')}
           </h3>
 
           <p className="info">
-            {icons[activeIdx].label === "rocket" && "Connect your crypto wallet to participate in the XIK presale. Ensure you have sufficient funds for your desired investment amount."}
-            {icons[activeIdx].label === "wallet" && "Decide how much you want to invest in XIK tokens. Choose your investment amount and select your preferred payment method (USDT, USDC, or ETH)."}
-            {icons[activeIdx].label === "dollar" && "Complete your token purchase by confirming the transaction. Your XIK tokens will be allocated to your wallet address upon successful payment."}
-            {icons[activeIdx].label === "globe"  && "Claim your XIK tokens! Your purchased tokens are now available in your wallet and ready for trading when the presale ends."}
+            {icons[activeIdx].label === "rocket" && t('presale.connectDescription')}
+            {icons[activeIdx].label === "wallet" && t('presale.selectDescription')}
+            {icons[activeIdx].label === "dollar" && t('presale.paymentDescription')}
+            {icons[activeIdx].label === "globe" && t('presale.claimDescription')}
           </p>
 
           {active === "rocket" ? (
             <ConnectButton
               className="connect-btn"
-              labelDisconnected="Connect Wallet"
+              labelDisconnected={t('presale.connectWallet')}
               labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
             />
           ) : active === "wallet" ? (
             <ConnectButton
             className="connect-btn"
-            labelDisconnected="Connect Now"
-            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+            labelDisconnected={t('presale.selectPlan')}
+            labelConnected={(addr) => `Select Amount`}
           />
           ) : active === "dollar" ? (
             <ConnectButton
             className="connect-btn"
-            labelDisconnected="Connect Now"
-            labelConnected={(addr) => `${addr?.slice(0,6)}…${addr?.slice(-4)}`}
+            labelDisconnected={t('presale.makePayment')}
+            labelConnected={(addr) => `Pay Now`}
           />
             ) : (
               <button 
@@ -166,7 +168,7 @@ export default function PreSaleConnect() {
                   });
                 }}
               >
-                Claim Tokens
+                {t('presale.claimTokens')}
               </button>
             )}
         </div>

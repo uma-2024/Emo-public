@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./MechanismSection.css";
 import video from "../../assets/bg.mp4";
 import illustration1 from "../../assets/images/blockchain.svg";
@@ -9,16 +10,17 @@ import ConnectButton from "../ConnectButton/ConnectButton";
 import { useNavigate } from "react-router-dom";
 
 const MechanismSection = () => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
+  
   const slides = [
     {
       illustration: illustration1,
-      title: "XIK uses an agent-based proof-of-stake consensus mechanism.",
-      subtext:
-        "Join the movement and be part of the most advanced Web3 infrastructure ever built.",
+      title: t('mechanism.slide1Title'),
+      subtext: t('mechanism.slide1Subtext'),
       primary: {
-        label: "Join Pre-Sale",
+        label: t('mechanism.slide1Button'),
         onClick: () => {
          navigate("/pre-sale")
         },
@@ -27,17 +29,16 @@ const MechanismSection = () => {
     },
     {
       illustration: illustration2,
-      title: "Unmatched Security Powered by Intelligent Agents",
-      subtext:
-        "XIK leverages autonomous agents to continuously monitor, detect, and prevent malicious behavior creating a self-healing, attack-resilient blockchain environment.",
+      title: t('mechanism.slide2Title'),
+      subtext: t('mechanism.slide2Subtext'),
       primary: {
-        label: "Learn More",
+        label: t('mechanism.slide2Button'),
         onClick: () => {
           /*…*/
         },
       },
       secondary: {
-        label: "Get Started",
+        label: t('mechanism.slide2Button2'),
         onClick: () => {
           /*…*/
         },
@@ -45,17 +46,16 @@ const MechanismSection = () => {
     },
     {
       illustration: illustration3,
-      title: "Cross-Chain Ready with Zero Friction",
-      subtext:
-        "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+      title: t('mechanism.slide3Title'),
+      subtext: t('mechanism.slide3Subtext'),
       primary: {
-        label: "Discover",
+        label: t('mechanism.slide3Button'),
         onClick: () => {
           /*…*/
         },
       },
       secondary: {
-        label: "Sign Up",
+        label: t('mechanism.slide3Button2'),
         onClick: () => {
           /*…*/
         },
@@ -63,23 +63,23 @@ const MechanismSection = () => {
     },
     {
       illustration: illustration4,
-      title: "Cross-Chain Ready with Zero Friction",
-      subtext:
-        "Bridge assets and data across ecosystems with XIK’s native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+      title: t('mechanism.slide4Title'),
+      subtext: t('mechanism.slide4Subtext'),
       primary: {
-        label: "Explore",
+        label: t('mechanism.slide4Button'),
         onClick: () => {
           /*…*/
         },
       },
       secondary: {
-        label: "Join Now",
+        label: t('mechanism.slide4Button2'),
         onClick: () => {
           /*…*/
         },
       },
     },
   ];
+  
   const { illustration, title, subtext, primary, secondary } =
     slides[activeIndex];
 

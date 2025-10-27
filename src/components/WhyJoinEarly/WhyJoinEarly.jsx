@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import "./WhyJoinEarly.css";
 import illustration from "../../assets/images/nft-holder.svg"; 
 import video from '../../assets/bg.mp4'
 const WhyJoinEarly = () => {
+  const { t } = useTranslation();
   return (
     <div className="why-join-wrapper">
       <video
@@ -18,14 +20,14 @@ const WhyJoinEarly = () => {
 
       <div className="why-join-overlay">
         <div className="why-left">
-          <h2 className="why-title">Why Join Early?</h2>
+          <h2 className="why-title">{t('whyJoin.title')}</h2>
           <ul className="why-points">
-            <li><span className="check">✔</span> AI-powered blockchain that upgrades itself</li>
-            <li><span className="check">✔</span> No VCs or insiders — <span className="highlight">Early users become governance</span></li>
-            <li><span className="check">✔</span> Mobile mining: Earn XIK passively</li>
-            <li><span className="check">✔</span> Quantum-Secure and future-proof</li>
-            <li><span className="check">✔</span> Strong utility: Gas, staking, voting, AI agent deployment</li>
-            <li><span className="check">✔</span> Eco-positive: 2% profits go to carbon removal</li>
+            <li><span className="check">✔</span> {t('whyJoin.point1')}</li>
+            <li><span className="check">✔</span> {t('whyJoin.point2')} <span className="highlight">{t('whyJoin.point2Highlight')}</span></li>
+            <li><span className="check">✔</span> {t('whyJoin.point3')}</li>
+            <li><span className="check">✔</span> {t('whyJoin.point4')}</li>
+            <li><span className="check">✔</span> {t('whyJoin.point5')}</li>
+            <li><span className="check">✔</span> {t('whyJoin.point6')}</li>
           </ul>
         </div>
         <div className="why-right">

@@ -1,0 +1,390 @@
+{
+  "common": {
+    "welcome": "Welcome to XIK",
+    "buy": "Buy",
+    "connect": "Connect",
+    "connectWallet": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "copy": "Copy full address",
+    "connectFirst": "Connect wallet first"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "aboutUs": "About Us",
+    "presale": "Presale",
+    "preSale": "Pre-Sale",
+    "tokenomics": "Tokenomics",
+    "contact": "Contact",
+    "contactUs": "Contact Us",
+    "referral": "Referral"
+  },
+  "hero": {
+    "title": "THE PRESALE IS LIVE.",
+    "subtitle": "FUEL THE TRADING REVOLUTION.",
+    "description": "Cointicket filters the noise, rewards real traders, and tracks real results.",
+    "learnMore": "Learn How It Works",
+    "audit": "SolidProof Audit",
+    "buyNow": "Buy Token"
+  },
+  "features": {
+    "title": "Why Choose XIK?",
+    "description": "Experience the future of blockchain with XIK's revolutionary features that combine artificial intelligence, autonomous governance, and human-centered design to create the world's first truly intelligent blockchain ecosystem.",
+    "circularValue": {
+      "title": "Circular Value Economy",
+      "description": "All transaction fees, agent activity, and protocol incentives are designed to support active participants and contributors within the ecosystem."
+    },
+    "autonomousGov": {
+      "title": "Autonomous AI Governance",
+      "description": "80+ AI agents autonomously manage operations — from security and scaling to economic calibration."
+    },
+    "humanGuided": {
+      "title": "Human-Guided Decisions",
+      "description": "Token holders steer the long-term vision through biometric-secured voting, while AI handles execution."
+    }
+  },
+  "timeline": {
+    "title": "Roadmap",
+    "description": "Follow our journey as we build the future of blockchain. Each milestone brings us closer to a fully decentralized ecosystem with enhanced utilities, governance, and community rewards.",
+    "milestones": {
+      "ten": {
+        "title": "10% Sold – Early Supporter Recognition",
+        "description": "At 10% of NFTs sold, 5 NFT holders will receive 200 USDC each. This phase marks the start of early community rewards and initial ecosystem development."
+      },
+      "nineteen": {
+        "title": "19% Sold – Community Engagement",
+        "description": "At 19%, 10 NFT holders will receive 500 USDC each. DApp development begins to expand the XIKS ecosystem and prepare for future utility features."
+      },
+      "thirtyfive": {
+        "title": "35% Sold – Utility Expansion",
+        "description": "At 35%, 5 NFT holders will receive 1,000 USDC and an additional NFT. New features and utilities will be integrated to enhance the XIKS ecosystem."
+      },
+      "fifty": {
+        "title": "50% Sold – Mega Utility Unlock",
+        "description": "At 50%, one lucky NFT holder will win 5,000 USDC. We unlock advanced utilities, with enhanced DApps and features driving deeper ecosystem engagement."
+      },
+      "seventyfive": {
+        "title": "75% Sold – DAO Governance Integration",
+        "description": "At 75%, we'll activate DAO governance, empowering NFT holders to participate in key decisions on protocol upgrades, staking, and rewards."
+      },
+      "hundred": {
+        "title": "100% Sold – Full Ecosystem Launch",
+        "description": "With all NFTs sold, full DAO governance will be activated. All ecosystem utilities, including staking, rewards, and advanced DApps, will go live, marking the completion of the roadmap."
+      }
+    }
+  },
+  "presale": {
+    "title": "Join the Presale",
+    "heading": "How to participate in the presale",
+    "connectWallet": "Connect Wallet",
+    "selectPlan": "Choose Amount",
+    "makePayment": "Make Payment",
+    "claimTokens": "Claim Tokens",
+    "connectDescription": "Connect your crypto wallet to participate in the XIK presale. Ensure you have sufficient funds for your desired investment amount.",
+    "selectDescription": "Decide how much you want to invest in XIK tokens. Choose your investment amount and select your preferred payment method (USDT, USDC, or ETH).",
+    "paymentDescription": "Complete your token purchase by confirming the transaction. Your XIK tokens will be allocated to your wallet address upon successful payment.",
+    "claimDescription": "Claim your XIK tokens! Your purchased tokens are now available in your wallet and ready for trading when the presale ends."
+  },
+  "reserve": {
+    "private": "Private XIK Presale",
+    "reserve": "Reserve XIK Access",
+    "privateActive": "Private Presale Active",
+    "startingDate": "Starting on 12th May 2025 EST",
+    "referralText": "You've been invited to participate in the private presale. Referred by:",
+    "description": "Join the early access phase and secure your allocation in the XIK network. Limited participation window available.",
+    "currentPrice": "Current Price:",
+    "fundsRaised": "Funds Raised:",
+    "buyNow": "BUY XIK NOW",
+    "referToFriend": "Refer To Friend",
+    "tooltip": "Tooltip: Get in before the price increases. Limited-time allocation available."
+  },
+  "tokenInfo": {
+    "title": "Information Of Token",
+    "tokenNameLabel": "Token Name:",
+    "tokenNameValue": "XIK",
+    "networkLabel": "Network:",
+    "networkValue": "Ethereum",
+    "standardLabel": "Standard:",
+    "standardValue": "ERC-20",
+    "sale": "Sale",
+    "days": "days"
+  },
+  "tokenomics": {
+    "title": "XIK Tokenomics",
+    "description": "Discover the comprehensive tokenomics structure of XIK, featuring a dual-token ecosystem with governance, staking rewards, liquidity management, and deflationary mechanisms designed for sustainable growth and community participation.",
+    "dualToken": "Dual-Token Ecosystem",
+    "governance": "Governance",
+    "staking": "Staking Rewards",
+    "liquidity": "Liquidity Management",
+    "deflationary": "Deflationary Mechanisms",
+    "sales": {
+      "label": "Sales",
+      "transactionFees": "Transaction Fees:",
+      "baseFee": "Base Fee: A fixed 0.01% is charged for each on-chain transaction.",
+      "allocation": "Allocation:",
+      "allocationDescription": "90% of the transaction fees are burned to reduce total supply, ensuring deflation. The remaining 10% is distributed to network participants such as stakers and miners.",
+      "aiRentals": "AI Agent Rentals:",
+      "rentalFee": "Rental Fee: 0.1 XIK per agent per hour.",
+      "revenueAllocation": "Revenue Allocation:",
+      "revenueDescription": "70% goes to the owner of the agent, 20% is directed to the Ecosystem Fund, and 10% is distributed to stakers and miners as part of the reward system."
+    },
+    "governanceDetails": {
+      "label": "Governance",
+      "xikToken": "XIK Token:",
+      "tokenDescription": "The governance of the ecosystem is driven by the XIK token, which has a fixed total supply of 28 billion.",
+      "voting": "Voting:",
+      "votingDescription": "Token holders can influence decisions through governance, with each XIK token representing 1 vote. Voting power can be enhanced through staking, where higher amounts of staked tokens result in greater influence.",
+      "deflationMechanism": "Deflationary Mechanism:",
+      "deflationDescription": "Up to 0.05% of each transaction fee is permanently burned, contributing to the deflationary nature of the XIK token."
+    },
+    "liquidityDetails": {
+      "label": "Liquidity",
+      "dualTokenModel": "Dual-Token Model:",
+      "modelDescription": "The ecosystem operates with two tokens:",
+      "xikUsage": "XIK: Used for governance and rewards, and",
+      "xiksStablecoin": "XIKS: A USD-pegged stablecoin, backed by 150% asset reserves to ensure stability.",
+      "liquidityManagement": "Liquidity Management:",
+      "liquidityDescription": "AI-powered mechanisms are in place to optimize liquidity, manage market depth, and ensure minimal slippage for transactions. This includes active market-making programs and cross-market liquidity coordination.",
+      "stabilityMechanisms": "Stability Mechanisms:",
+      "stabilityDescription": "The system employs buybacks and burns to smooth out volatility and stabilize the token's value."
+    },
+    "stakingDetails": {
+      "label": "Staking",
+      "stakingRewards": "Staking Rewards:",
+      "apyDescription": "Stakers can earn an 8%–15% annual percentage yield (APY) based on their staked assets.",
+      "mobileMiners": "Mobile Miners can earn between 5–10 XIK per hour through participation in the network.",
+      "incomeSources": "Income Sources:",
+      "incomeDescription": "Stakers earn rewards from 10% of transaction fees and 10% of AI rental fees, which are distributed proportionally based on their stake in the network.",
+      "consensusMechanism": "Consensus Mechanism:",
+      "consensusDescription": "The network utilizes a hybrid Proof-of-Stake (PoS) and Proof-of-Usage system. Participants are subject to penalties (slashing) for downtime or malicious activity, ensuring network security and reliability."
+    }
+  },
+  "howItWorks": {
+    "title": "Want the picture",
+    "titleLine2": "of how it works?",
+    "description": "Discover how XIK combines A.I., mobile mining, and quantum-resistant security to power the world's first autonomous blockchain economy.",
+    "whitepaper": "Whitepaper"
+  },
+  "footer": {
+    "tagline": "Believe In The Power Of",
+    "decentralized": "Decentralized",
+    "collaboration": "Collaboration.",
+    "weGrow": "We",
+    "grow": "Grow",
+    "together": "Together And",
+    "beyond": "Beyond",
+    "nextLevel": "The Next Level.",
+    "company": "COMPANY",
+    "aboutUs": "About Us",
+    "tokenomics": "Tokenomics",
+    "preSale": "Pre-Sale",
+    "contactUs": "Contact Us",
+    "resources": "RESOURCES",
+    "joinPresale": "Join Presale",
+    "viewTokenomics": "View Tokenomics",
+    "subscribe": "SUBSCRIBE TO OUR NEWSLETTER",
+    "subscribeText": "Subscribe today to receive the latest updates, exclusive content, and valuable insights delivered right to your inbox.",
+    "emailPlaceholder": "Enter your email",
+    "subscribeButton": "Subscribe",
+    "copyright": "Copyright © 2025 XIK | All Rights Reserved"
+  },
+  "claim": {
+    "privatePresale": "Private Presale Claim",
+    "tokenClaim": "Token Claim",
+    "subtitle": "Claim your vested XIK tokens.",
+    "privateSubtitle": "Claim your vested XIK tokens. Private presale participants get priority access.",
+    "referralWarning": "Private presale requires a valid referrer address in the URL",
+    "baseTokens": "Base Tokens",
+    "alreadyReleased": "Already Released",
+    "availableToClaim": "Available to Claim",
+    "claimableAmount": "Claimable Amount",
+    "connectWalletWarning": "Please connect your wallet to claim tokens",
+    "noTokensWarning": "No tokens available to claim at this time",
+    "vestingInformation": "Vesting Information",
+    "totalVested": "Total Vested",
+    "released": "Released",
+    "remaining": "Remaining",
+    "claiming": "Claiming...",
+    "claimTokens": "Claim Tokens",
+    "nextClaimAvailable": "Next claim available:"
+  },
+  "tokenSale": {
+    "title": "Token Sale Metrics",
+    "privateTitle": "Private Presale Metrics",
+    "tokenName": "Token Name:",
+    "tokenType": "Token Type:",
+    "chain": "Chain:",
+    "currentPrice": "Current Price:",
+    "fundsRaised": "Funds Raised:",
+    "yourTokens": "Your Tokens:",
+    "phaseEndTime": "Phase End Time:",
+    "totalSupply": "Total Supply:",
+    "tokensAvailable": "Tokens Available:",
+    "walletAddress": "Wallet Address:",
+    "notConnected": "Not Connected",
+    "loading": "Loading..."
+  },
+  "automation": {
+    "heading": "Unlock The Future of Intelligent Automation",
+    "subtext": "Discover the innovative Tokenomics ics driving the next generation of automation and join our exclusive Pre-Sale event. Be among the first to own the currency powering the intelligent automation revolution.",
+    "joinPresale": "Join Pre-Sale Now",
+    "whitepaper": "Whitepaper"
+  },
+  "referral": {
+    "getReferralLink": "Get Your Referral Link",
+    "getReferralLinkDesc": "Connect your wallet and generate your unique referral link",
+    "shareWithFriends": "Share with Friends",
+    "shareWithFriendsDesc": "Share your link via social media, messaging, or direct sharing",
+    "theyBuyTokens": "They Buy XIK Tokens",
+    "theyBuyTokensDesc": "Friends use your link to purchase XIK tokens in the presale",
+    "earnRewards": "Earn Rewards",
+    "earnRewardsDesc": "You earn XIK tokens based on their purchases and your ranking",
+    "referralRewards": "Referral Rewards",
+    "topReferrer": "Top Referrer",
+    "topReferrerReward": "75,000 XIK",
+    "topReferrerDesc": "The highest performing referrer gets the biggest reward",
+    "top10Referrers": "Top 10 Referrers",
+    "top10ReferrersReward": "20,000 XIK each",
+    "top10ReferrersDesc": "Consistent referrers in the top 10 get substantial rewards",
+    "bonusTiers": "Bonus Tiers",
+    "minimumBuy": "Minimum Buy:",
+    "finalTokens": "Final Tokens:",
+    "readyToStartEarning": "Ready to Start Earning?",
+    "readyToStartEarningDesc": "Connect your wallet and start referring friends to earn XIK tokens today!",
+    "getReferralLinkButton": "Get Referral Link",
+    "yourReferralLink": "Your Referral Link",
+    "shareReferralText": "Share your referral link with friends and earn rewards when they participate in the presale!",
+    "pleaseConnectWallet": "Please connect your wallet first",
+    "copy": "Copy",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "twitter": "Twitter",
+    "tierPrime": "Prime",
+    "tierPrimeDesc": "Perfect for getting started",
+    "tierElite": "Elite",
+    "tierEliteDesc": "Great value for active traders",
+    "tierTitan": "Titan",
+    "tierTitanDesc": "Base 250K liquid, 125K bonus vested",
+    "tierLegend": "Legend",
+    "tierLegendDesc": "Base 500K liquid, 300K bonus vested"
+  },
+  "whatIsXik": {
+    "title": "What is XIK?",
+    "description1": "XIK is a decentralized blockchain ecosystem run by",
+    "description2": "It eliminates centralized control through agent-governed consensus, deflationary tokenomics, and fully on-chain automation.",
+    "description3": "AI agents.",
+    "burnMechanism": "Burn Mechanism:",
+    "burnDescription": "Up to 0.05% of each transaction is permanently burned",
+    "whyItMatters": "🔹 Why it matters:",
+    "point1": "No centralized validators or core teams",
+    "point2": "Agents propose, validate, optimize, and execute smart contracts",
+    "point3": "The entire economy is self-sustaining and community-controlled"
+  },
+  "vision": {
+    "title": "Our Vision",
+    "description": "To build the first truly intelligent blockchain that runs itself — maintained, governed, and improved by its own AI-powered agents."
+  },
+  "mission": {
+    "title": "Our Mission",
+    "description": "To empower users, developers, and machines through a decentralized and transparent infrastructure where automation equals freedom, not control."
+  },
+  "whyJoin": {
+    "title": "Why Join Early?",
+    "point1": "AI-powered blockchain that upgrades itself",
+    "point2": "No VCs or insiders —",
+    "point2Highlight": "Early users become governance",
+    "point3": "Mobile mining: Earn XIK passively",
+    "point4": "Quantum-Secure and future-proof",
+    "point5": "Strong utility: Gas, staking, voting, AI agent deployment",
+    "point6": "Eco-positive: 2% profits go to carbon removal"
+  },
+  "mechanism": {
+    "slide1Title": "XIK uses an agent-based proof-of-stake consensus mechanism.",
+    "slide1Subtext": "Join the movement and be part of the most advanced Web3 infrastructure ever built.",
+    "slide1Button": "Join Pre-Sale",
+    "slide2Title": "Unmatched Security Powered by Intelligent Agents",
+    "slide2Subtext": "XIK leverages autonomous agents to continuously monitor, detect, and prevent malicious behavior creating a self-healing, attack-resilient blockchain environment.",
+    "slide2Button": "Learn More",
+    "slide2Button2": "Get Started",
+    "slide3Title": "Cross-Chain Ready with Zero Friction",
+    "slide3Subtext": "Bridge assets and data across ecosystems with XIK's native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+    "slide3Button": "Discover",
+    "slide3Button2": "Sign Up",
+    "slide4Title": "Cross-Chain Ready with Zero Friction",
+    "slide4Subtext": "Bridge assets and data across ecosystems with XIK's native cross-chain capabilities—no need for complex wrappers or third-party tools.",
+    "slide4Button": "Explore",
+    "slide4Button2": "Join Now"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "namePlaceholder": "Enter Name",
+    "emailPlaceholder": "Email",
+    "messagePlaceholder": "Message",
+    "submitButton": "Contact Us"
+  },
+  "faq": {
+    "subheading": "FAQ",
+    "heading": "Get Answers To Common Questions",
+    "description": "From basics to advanced topics, find everything you need to know right here. Let us help you simplify the process and find the clarity you're looking for.",
+    "question1": "What is XIK, and how does it work?",
+    "answer1": "XIK is a decentralized blockchain ecosystem run by AI agents.",
+    "question2": "How is blockchain related to cryptocurrency?",
+    "answer2": "Blockchain is the underlying technology that powers cryptocurrencies. It acts as a distributed ledger where transactions are securely recorded and verified, making decentralized currencies like Bitcoin and XIK possible.",
+    "question3": "Is Blockchain technology secure?",
+    "answer3": "Yes. Blockchain uses advanced cryptography, distributed consensus, and immutability of records to ensure security. Transactions are verified by multiple participants, making data tampering extremely difficult.",
+    "question4": "How does blockchain enhance security?",
+    "answer4": "Blockchain enhances security by storing data across a decentralized network, using encryption to protect transactions, and applying consensus mechanisms that prevent unauthorized changes. This eliminates single points of failure.",
+    "question5": "Can blockchain be hacked?",
+    "answer5": "While no system is 100% immune, hacking a blockchain is highly impractical. An attacker would need to control over 51% of the network's computing power simultaneously, which is extremely costly and nearly impossible for large networks.",
+    "question6": "How can I implement blockchain in my industry?",
+    "answer6": "You can implement blockchain by identifying processes that need transparency, trust, and security—such as payments, supply chain management, healthcare records, or identity verification—and integrating blockchain platforms or solutions into them."
+  },
+  "header": {
+    "homeTitle1": "The First Self-Evolving",
+    "homeTitle2": "Blockchain - Powered by AI",
+    "homeSubtitle": "An intelligent, autonomous network that upgrades, scales, and secures itself — while providing contributors with access to network functionality on every block.",
+    "tokenomicsTitle1": "Transparent. Sustainable.",
+    "tokenomicsTitle2": "Decentralized.",
+    "tokenomicsSubtitle": "XIK Tokenomics are designed to support ecosystem growth, encourage early participation, and enable a truly decentralized, AI-governed blockchain economy.",
+    "aboutTitle1": "The AI-Driven Blockchain of",
+    "aboutTitle2": "Tomorrow",
+    "aboutSubtitle": "XIK is an autonomous Layer 1 blockchain governed by intelligent agents. Built for scalability, security, and decentralized intelligence — this is where AI meets the core of Web3.",
+    "contactTitle": "Get in touch",
+    "contactSubtitle": "We offering you insights into the token's supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
+    "featuresTitle": "Powerful Features",
+    "featuresSubtitle": "AI-backed upgrades, smart governance, seamless scalability.",
+    "presaleTitle1": "Join the Future of",
+    "presaleTitle2": "Autonomous Blockchain",
+    "presaleSubtitle": "XIKS is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    "referralTitle1": "Earn XIK Tokens by",
+    "referralTitle2": "Referring Friends",
+    "referralSubtitle": "Join our referral program and earn up to 75,000 XIK tokens! Share your unique referral link with friends and earn rewards when they participate in the presale. The more you refer, the more you earn!",
+    "announcementTitle": "Announcement",
+    "announcementSubtitle": "We offering you insights into the token's supply, available chains, and rich DeFi features. The new and improved tokenomics is transforming the GoC token into a true utility gem.",
+    "joinPreSaleNow": "Join Pre-Sale Now",
+    "whitepaper": "Whitepaper",
+    "joinPreSale": "Join Pre-Sale",
+    "contactUs": "Contact Us",
+    "exploreFeatures": "Explore Features",
+    "useCases": "Use Cases",
+    "joinNow": "Join Now",
+    "claimNow": "Claim Now",
+    "getReferralLink": "Get Referral Link"
+  },
+  "announcementSection": {
+    "title": "Announcement",
+    "announcement1": "Announcement 1",
+    "message1": "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    "announcement2": "Announcement 2",
+    "message2": "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    "announcement3": "Announcement 3",
+    "message3": "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led.",
+    "announcement4": "Announcement 4",
+    "message4": "XIK is the first AI-governed, mobile-first, quantum-secure blockchain ecosystem. By joining the pre-sale, you're getting in early on a next-gen financial network powered by 80+ autonomous agents. Limited supply. No VC control. 100% community-led."
+  }
+}
+

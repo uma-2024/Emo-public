@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./TokenSaleSection.css";
 import bgVideo from "../../assets/bg.mp4";
 import btcImage from "../../assets/images/Group 48095371.svg";
@@ -9,6 +10,7 @@ import { FaCopy, FaCheck } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const TokenSaleSection = () => {
+  const { t } = useTranslation();
   const { isPrivatePresale } = usePresale();
   const { provider, address } = useContext(WalletContext);
   const { phaseData, fundsRaised, userInfo } = usePresaleContract(provider, address);
@@ -32,7 +34,7 @@ const TokenSaleSection = () => {
   };
 
   const formatAddress = (addr) => {
-    if (!addr) return "Not Connected";
+    if (!addr) return t('tokenSale.notConnected');
     return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
   };
   
@@ -51,24 +53,24 @@ const TokenSaleSection = () => {
             <source src={bgVideo} type="video/mp4" />
           </video>
 
-          <h2>{isPrivatePresale ? "Private Presale Metrics" : "Token Sale Metrics"}</h2>
-          <p><strong>Token Name:</strong> XIK</p>
-          <p><strong>Token Type:</strong> ERC-20</p>
-          <p><strong>Chain:</strong> BSC Testnet</p>
-          <p><strong>Current Price:</strong> {phaseData ? `$${(Number(phaseData.price) / 1e6).toFixed(6)}` : "Loading..."}</p>
-          <p><strong>Funds Raised:</strong> {fundsRaised ? `$${(Number(fundsRaised) / 1e6).toFixed(2)}` : "Loading..."}</p>
-          <p><strong>Your Tokens:</strong> {userInfo ? `${(Number(userInfo.base) / 1e18).toFixed(2)} XIK` : "0 XIK"}</p>
-          <p><strong>Phase End Time:</strong> {phaseData ? new Date(Number(phaseData.endTime) * 1000).toLocaleString() : "Loading..."}</p>
-          <p><strong>Total Supply:</strong> 1,000,000,000 XIK</p>
-          <p><strong>Tokens Available:</strong> {phaseData ? `${(Number(phaseData.tokens) / 1e18).toLocaleString()} XIK` : "Loading..."}</p>
+          <h2>{isPrivatePresale ? t('tokenSale.privateTitle') : t('tokenSale.title')}</h2>
+          <p><strong>{t('tokenSale.tokenName')}</strong> XIK</p>
+          <p><strong>{t('tokenSale.tokenType')}</strong> ERC-20</p>
+          <p><strong>{t('tokenSale.chain')}</strong> BSC Testnet</p>
+          <p><strong>{t('tokenSale.currentPrice')}</strong> {phaseData ? `$${(Number(phaseData.price) / 1e6).toFixed(6)}` : t('tokenSale.loading')}</p>
+          <p><strong>{t('tokenSale.fundsRaised')}</strong> {fundsRaised ? `$${(Number(fundsRaised) / 1e6).toFixed(2)}` : t('tokenSale.loading')}</p>
+          <p><strong>{t('tokenSale.yourTokens')}</strong> {userInfo ? `${(Number(userInfo.base) / 1e18).toFixed(2)} XIK` : "0 XIK"}</p>
+          <p><strong>{t('tokenSale.phaseEndTime')}</strong> {phaseData ? new Date(Number(phaseData.endTime) * 1000).toLocaleString() : t('tokenSale.loading')}</p>
+          <p><strong>{t('tokenSale.totalSupply')}</strong> 1,000,000,000 XIK</p>
+          <p><strong>{t('tokenSale.tokensAvailable')}</strong> {phaseData ? `${(Number(phaseData.tokens) / 1e18).toLocaleString()} XIK` : t('tokenSale.loading')}</p>
           
-          <p><strong>Wallet Address:</strong>{" "} <span className="wallet-address-text">
+          <p><strong>{t('tokenSale.walletAddress')}</strong>{" "} <span className="wallet-address-text">
                 {formatAddress(address)}
               </span> {" "} {" "} <button 
                 // className="copy-address-btn" 
                 onClick={copyToClipboard}
                 disabled={!address}
-                title={address ? "Copy full address" : "Connect wallet first"}
+                title={address ? t('common.copy') : t('common.connect')}
               >
                 {copied ? <FaCheck color="#000"/> : <FaCopy color="#000"/>}
               </button></p>

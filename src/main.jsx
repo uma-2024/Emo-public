@@ -13,6 +13,9 @@ import { PresaleProvider } from "./contexts/PresaleContext.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Initialize i18n
+import "./i18n.js";
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(

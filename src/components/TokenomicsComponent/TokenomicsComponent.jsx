@@ -1,94 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import "./TokenomicsComponent.css";
 import image from "../../assets/images/Group 112.svg";
 import video from "../../assets/bg.mp4";
-const tokenomicsData = [
-  {
-    label: "Sales",
-    color: "#E85243",
-    value: "2.1m",
-    flagX: 530,
-    flagY: 80,
-    description: (
-      <>
-        <strong>Transaction Fees:</strong><br />
-        Base Fee: A fixed 0.01% is charged for each on-chain transaction.
-        <br /><br />
-        <strong>Allocation:</strong> 90% of the transaction fees are burned to reduce total supply, ensuring deflation. The remaining 10% is distributed to network participants such as stakers and miners.
-        <br /><br />
-        <strong>AI Agent Rentals:</strong><br />
-        Rental Fee: 0.1 XIK per agent per hour.
-        <br /><br />
-        <strong>Revenue Allocation:</strong> 70% goes to the owner of the agent, 20% is directed to the Ecosystem Fund, and 10% is distributed to stakers and miners as part of the reward system.
-      </>
-    ),
-  },
-
-  {
-    label: "Governance",
-    color: " #EFB00D",
-    value: "2.1m",
-    flagX: 530,
-    flagY: 80,
-    description: (
-      <>
-        <strong>XIK Token:</strong> The governance of the ecosystem is driven by the XIK token, which has a fixed total supply of 28 billion.
-        <br /><br />
-        <strong>Voting:</strong> Token holders can influence decisions through governance, with each XIK token representing 1 vote. Voting power can be enhanced through staking, where higher amounts of staked tokens result in greater influence.
-        <br /><br />
-        <strong>Deflationary Mechanism:</strong> Up to 0.05% of each transaction fee is permanently burned, contributing to the deflationary nature of the XIK token.
-      </>
-    ),
-  },
-
-  {
-    label: "Liquidity",
-    color: "#3D8ADA",
-    value: "2.1m",
-    flagX: 530,
-    flagY: 80,
-    description: (
-      <>
-        <strong>Dual-Token Model:</strong> The ecosystem operates with two tokens:
-        <br /><br />
-        XIK: Used for governance and rewards, and
-        <br />
-        XIKS: A USD-pegged stablecoin, backed by 150% asset reserves to ensure stability.
-        <br /><br />
-        <strong>Liquidity Management:</strong> AI-powered mechanisms are in place to optimize liquidity, manage market depth, and ensure minimal slippage for transactions. This includes active market-making programs and cross-market liquidity coordination.
-        <br /><br />
-        <strong>Stability Mechanisms:</strong> The system employs buybacks and burns to smooth out volatility and stabilize the token's value.
-      </>
-    ),
-  },
-
-  {
-    label: "Staking",
-    color: "#33AF71",
-    value: "2.1m",
-    flagX: 530,
-    flagY: 80,
-    description: (
-      <>
-        <strong>Staking Rewards:</strong>
-        <br /><br />
-        Stakers can earn an 8%–15% annual percentage yield (APY) based on their staked assets.
-        <br /><br />
-        Mobile Miners can earn between 5–10 XIK per hour through participation in the network.
-        <br /><br />
-        <strong>Income Sources:</strong> Stakers earn rewards from 10% of transaction fees and 10% of AI rental fees, which are distributed proportionally based on their stake in the network.
-        <br /><br />
-        <strong>Consensus Mechanism:</strong> The network utilizes a hybrid Proof-of-Stake (PoS) and Proof-of-Usage system. Participants are subject to penalties (slashing) for downtime or malicious activity, ensuring network security and reliability.
-      </>
-    ),
-  },
-];
-
-
 
 export default function TokenomicsComponent() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = tokenomicsData[activeIndex ?? 0];
   const pathRefs = useRef([]);
   const [flagPosition, setFlagPosition] = useState({ x: 0, y: 0 });
 
@@ -96,6 +14,87 @@ export default function TokenomicsComponent() {
   const [hoveringYellow, setHoveringYellow] = useState(false);
   const [hoveringBlue, setHoveringBlue] = useState(false);
   const [hoveringGreen, setHoveringGreen] = useState(false);
+
+  // Dynamic tokenomics data using translations
+  const tokenomicsData = [
+    {
+      label: t('tokenomics.sales.label'),
+      color: "#E85243",
+      value: "2.1m",
+      flagX: 530,
+      flagY: 80,
+      description: (
+        <>
+          <strong>{t('tokenomics.sales.transactionFees')}</strong><br />
+          {t('tokenomics.sales.baseFee')}
+          <br /><br />
+          <strong>{t('tokenomics.sales.allocation')}</strong> {t('tokenomics.sales.allocationDescription')}
+          <br /><br />
+          <strong>{t('tokenomics.sales.aiRentals')}</strong><br />
+          {t('tokenomics.sales.rentalFee')}
+          <br /><br />
+          <strong>{t('tokenomics.sales.revenueAllocation')}</strong> {t('tokenomics.sales.revenueDescription')}
+        </>
+      ),
+    },
+    {
+      label: t('tokenomics.governanceDetails.label'),
+      color: " #EFB00D",
+      value: "2.1m",
+      flagX: 530,
+      flagY: 80,
+      description: (
+        <>
+          <strong>{t('tokenomics.governanceDetails.xikToken')}</strong> {t('tokenomics.governanceDetails.tokenDescription')}
+          <br /><br />
+          <strong>{t('tokenomics.governanceDetails.voting')}</strong> {t('tokenomics.governanceDetails.votingDescription')}
+          <br /><br />
+          <strong>{t('tokenomics.governanceDetails.deflationMechanism')}</strong> {t('tokenomics.governanceDetails.deflationDescription')}
+        </>
+      ),
+    },
+    {
+      label: t('tokenomics.liquidityDetails.label'),
+      color: "#3D8ADA",
+      value: "2.1m",
+      flagX: 530,
+      flagY: 80,
+      description: (
+        <>
+          <strong>{t('tokenomics.liquidityDetails.dualTokenModel')}</strong><br />
+          {t('tokenomics.liquidityDetails.modelDescription')}<br />
+          {t('tokenomics.liquidityDetails.xikUsage')}<br />
+          {t('tokenomics.liquidityDetails.xiksStablecoin')}
+          <br /><br />
+          <strong>{t('tokenomics.liquidityDetails.liquidityManagement')}</strong> {t('tokenomics.liquidityDetails.liquidityDescription')}
+          <br /><br />
+          <strong>{t('tokenomics.liquidityDetails.stabilityMechanisms')}</strong> {t('tokenomics.liquidityDetails.stabilityDescription')}
+        </>
+      ),
+    },
+    {
+      label: t('tokenomics.stakingDetails.label'),
+      color: "#33AF71",
+      value: "2.1m",
+      flagX: 530,
+      flagY: 80,
+      description: (
+        <>
+          <strong>{t('tokenomics.stakingDetails.stakingRewards')}</strong>
+          <br /><br />
+          {t('tokenomics.stakingDetails.apyDescription')}
+          <br /><br />
+          {t('tokenomics.stakingDetails.mobileMiners')}
+          <br /><br />
+          <strong>{t('tokenomics.stakingDetails.incomeSources')}</strong> {t('tokenomics.stakingDetails.incomeDescription')}
+          <br /><br />
+          <strong>{t('tokenomics.stakingDetails.consensusMechanism')}</strong> {t('tokenomics.stakingDetails.consensusDescription')}
+        </>
+      ),
+    },
+  ];
+
+  const active = tokenomicsData[activeIndex ?? 0];
   useEffect(() => {
     if (activeIndex !== null && pathRefs.current[activeIndex]) {
       const rect = pathRefs.current[activeIndex].getBoundingClientRect();
@@ -113,11 +112,9 @@ export default function TokenomicsComponent() {
     <div className="tokenomics-wrapper">
       {/* Title and Description Section */}
       <div className="tokenomics-header">
-        <h1 className="tokenomics-title">XIK Tokenomics</h1>
+        <h1 className="tokenomics-title">{t('tokenomics.title')}</h1>
         <p className="tokenomics-description">
-          Discover the comprehensive tokenomics structure of XIK, featuring a dual-token ecosystem with 
-          governance, staking rewards, liquidity management, and deflationary mechanisms designed for 
-          sustainable growth and community participation.
+          {t('tokenomics.description')}
         </p>
       </div>
 
@@ -153,7 +150,7 @@ export default function TokenomicsComponent() {
               fill="#808080"
             />
           </g>
-          <g opacity="0.4" filter="url(#filter1_f_27_122)">
+          <g opacity="0.4" filter="url(#filter1_f_27_122)" onMouseEnter={() => { setActiveIndex(1); setHoveringYellow(true); }} onMouseLeave={() => { setActiveIndex(null); setHoveringYellow(false); }}>
             <path
               className={`hover-fill ${hoveringYellow ? "hover-active" : ""}`}
               data-index="1"
@@ -161,7 +158,7 @@ export default function TokenomicsComponent() {
               fill="#808080"
             />
           </g>
-          <g opacity="0.4" filter="url(#filter2_f_27_122)">
+          <g opacity="0.4" filter="url(#filter2_f_27_122)" onMouseEnter={() => { setActiveIndex(2); setHoveringBlue(true); }} onMouseLeave={() => { setActiveIndex(null); setHoveringBlue(false); }}>
             <path
               className={`hover-fill ${hoveringBlue ? "hover-active" : ""}`}
               data-index="2"
@@ -169,7 +166,7 @@ export default function TokenomicsComponent() {
               fill="#808080"
             />
           </g>
-          <g opacity="0.4" filter="url(#filter3_f_27_122)">
+          <g opacity="0.4" filter="url(#filter3_f_27_122)" onMouseEnter={() => { setActiveIndex(3); setHoveringGreen(true); }} onMouseLeave={() => { setActiveIndex(null); setHoveringGreen(false); }}>
             <path
               className={`hover-fill ${hoveringGreen ? "hover-active" : ""}`}
               data-index="3"
