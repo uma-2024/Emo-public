@@ -35,6 +35,16 @@
 .arrow {
   font-size: 12px;
   transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.arrow svg {
+  transition: transform 0.3s ease;
+}
+
+.arrow .rotate {
+  transform: rotate(180deg);
 }
 
 .language-menu {

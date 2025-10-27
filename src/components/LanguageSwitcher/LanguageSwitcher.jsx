@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaAngleDown } from "react-icons/fa";
 import './LanguageSwitcher.css';
 
 const LanguageSwitcher = () => {
@@ -30,7 +31,9 @@ const LanguageSwitcher = () => {
       >
         <span className="flag">{currentLanguage.flag}</span>
         <span className="language-name">{currentLanguage.name}</span>
-        <span className="arrow">{isOpen ? '▲' : '▼'}</span>
+        <span className="arrow">
+          <FaAngleDown className={isOpen ? 'rotate' : ''} />
+        </span>
       </button>
       
       {isOpen && (
