@@ -13,9 +13,11 @@
   "navbar": {
     "home": "Accueil",
     "about": "À propos",
-    "presale": "Prévente",
+    "preSale": "Prévente",
     "tokenomics": "Tokenomics",
-    "contact": "Contact"
+    "referral": "Parrainage",
+    "aboutUs": "À Propos de Nous",
+    "contactUs": "Contactez-Nous"
   },
   "hero": {
     "title": "LA PRÉVENTE EST EN LIGNE.",
@@ -94,7 +96,15 @@
     "fundsRaised": "Fonds Levés:",
     "buyNow": "ACHETER XIK MAINTENANT",
     "referToFriend": "Référencer un Ami",
-    "tooltip": "Conseil: Inscrivez-vous avant que le prix augmente. Allocation à durée limitée disponible."
+    "tooltip": "Conseil: Inscrivez-vous avant que le prix augmente. Allocation à durée limitée disponible.",
+    "modalTitle": "Acheter XIK",
+    "youPay": "Vous Payez",
+    "youReceive": "Vous Recevez",
+    "amountPlaceholder": "0.00",
+    "maxButton": "MAX",
+    "processing": "Traitement...",
+    "buyButton": "Acheter",
+    "currentPriceLabel": "Prix Actuel:"
   },
   "tokenInfo": {
     "title": "Informations du Token",
@@ -333,6 +343,49 @@
     "answer5": "Bien qu'aucun système ne soit 100% à l'abri, pirater une blockchain est très peu pratique. Un attaquant devrait contrôler simultanément plus de 51% de la puissance de calcul du réseau, ce qui est extrêmement coûteux et presque impossible pour les grands réseaux.",
     "question6": "Comment puis-je implémenter la blockchain dans mon industrie?",
     "answer6": "Vous pouvez implémenter la blockchain en identifiant les processus qui nécessitent transparence, confiance et sécurité—comme les paiements, la gestion de la chaîne d'approvisionnement, les dossiers de santé ou la vérification d'identité—et en intégrant des plateformes ou solutions blockchain en eux."
+  },
+  "header": {
+    "homeTitle1": "La Première Blockchain",
+    "homeTitle2": "Auto-Évolutive - Propulsée par IA",
+    "homeSubtitle": "Un réseau intelligent et autonome qui s'améliore, évolue et se sécurise lui-même — tout en offrant aux contributeurs un accès à la fonctionnalité réseau à chaque bloc.",
+    "tokenomicsTitle1": "Transparent. Durable.",
+    "tokenomicsTitle2": "Décentralisé.",
+    "tokenomicsSubtitle": "Les Tokenomics XIK sont conçues pour soutenir la croissance de l'écosystème, encourager la participation précoce et permettre une économie blockchain véritablement décentralisée gouvernée par IA.",
+    "aboutTitle1": "La Blockchain Propulsée par IA",
+    "aboutTitle2": "de Demain",
+    "aboutSubtitle": "XIK est une blockchain Layer 1 autonome gouvernée par des agents intelligents. Construite pour l'évolutivité, la sécurité et l'intelligence décentralisée — c'est là que l'IA rencontre le cœur de Web3.",
+    "contactTitle": "Entrer en contact",
+    "contactSubtitle": "Nous vous offrons des informations sur l'approvisionnement du token, les chaînes disponibles et les riches fonctionnalités DeFi. Les tokenomics nouvelles et améliorées transforment le token GoC en un véritable joyau utilitaire.",
+    "featuresTitle": "Caractéristiques Puissantes",
+    "featuresSubtitle": "Mises à jour soutenues par l'IA, gouvernance intelligente, évolutivité parfaite.",
+    "presaleTitle1": "Rejoindre l'Avenir de",
+    "presaleTitle2": "la Blockchain Autonome",
+    "presaleSubtitle": "XIKS est le premier écosystème blockchain gouverné par IA, mobile-first et sécurisé quantiquement. En rejoignant la prévente, vous intégrez tôt un réseau financier de nouvelle génération propulsé par plus de 80 agents autonomes. Approvisionnement limité. Aucun contrôle VC. 100% dirigé par la communauté.",
+    "referralTitle1": "Gagnez des Tokens XIK en",
+    "referralTitle2": "Référent des Amis",
+    "referralSubtitle": "Rejoignez notre programme de parrainage et gagnez jusqu'à 75 000 tokens XIK ! Partagez votre lien de parrainage unique avec des amis et gagnez des récompenses lorsqu'ils participent à la prévente. Plus vous parrainez, plus vous gagnez !",
+    "announcementTitle": "Annonce",
+    "announcementSubtitle": "Nous vous offrons des informations sur l'approvisionnement du token, les chaînes disponibles et les riches fonctionnalités DeFi. Les tokenomics nouvelles et améliorées transforment le token GoC en un véritable joyau utilitaire.",
+    "joinPreSaleNow": "Rejoindre la Prévente Maintenant",
+    "whitepaper": "Livre Blanc",
+    "joinPreSale": "Rejoindre la Prévente",
+    "contactUs": "Nous Contacter",
+    "exploreFeatures": "Explorer les Caractéristiques",
+    "useCases": "Cas d'Usage",
+    "joinNow": "Rejoindre Maintenant",
+    "claimNow": "Réclamer Maintenant",
+    "getReferralLink": "Obtenir le Lien de Parrainage"
+  },
+  "announcementSection": {
+    "title": "Annonce",
+    "announcement1": "Annonce 1",
+    "message1": "XIK est le premier écosystème blockchain gouverné par IA, mobile-first et sécurisé quantiquement. En rejoignant la prévente, vous intégrez tôt un réseau financier de nouvelle génération propulsé par plus de 80 agents autonomes. Approvisionnement limité. Aucun contrôle VC. 100% dirigé par la communauté.",
+    "announcement2": "Annonce 2",
+    "message2": "XIK est le premier écosystème blockchain gouverné par IA, mobile-first et sécurisé quantiquement. En rejoignant la prévente, vous intégrez tôt un réseau financier de nouvelle génération propulsé par plus de 80 agents autonomes. Approvisionnement limité. Aucun contrôle VC. 100% dirigé par la communauté.",
+    "announcement3": "Annonce 3",
+    "message3": "XIK est le premier écosystème blockchain gouverné par IA, mobile-first et sécurisé quantiquement. En rejoignant la prévente, vous intégrez tôt un réseau financier de nouvelle génération propulsé par plus de 80 agents autonomes. Approvisionnement limité. Aucun contrôle VC. 100% dirigé par la communauté.",
+    "announcement4": "Annonce 4",
+    "message4": "XIK est le premier écosystème blockchain gouverné par IA, mobile-first et sécurisé quantiquement. En rejoignant la prévente, vous intégrez tôt un réseau financier de nouvelle génération propulsé par plus de 80 agents autonomes. Approvisionnement limité. Aucun contrôle VC. 100% dirigé par la communauté."
   }
 }
 

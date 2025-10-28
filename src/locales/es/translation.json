@@ -13,9 +13,11 @@
   "navbar": {
     "home": "Inicio",
     "about": "Acerca de",
-    "presale": "Preventa",
+    "preSale": "Preventa",
     "tokenomics": "Tokenómica",
-    "contact": "Contacto"
+    "referral": "Referido",
+    "aboutUs": "Acerca de Nosotros",
+    "contactUs": "Contáctanos"
   },
   "hero": {
     "title": "LA PREVENTA ESTÁ ACTIVA.",
@@ -94,7 +96,15 @@
     "fundsRaised": "Fondos Recaudados:",
     "buyNow": "COMPRA XIK AHORA",
     "referToFriend": "Referir a un Amigo",
-    "tooltip": "Consejo: Entra antes de que aumente el precio. Asignación de tiempo limitado disponible."
+    "tooltip": "Consejo: Entra antes de que aumente el precio. Asignación de tiempo limitado disponible.",
+    "modalTitle": "Comprar XIK",
+    "youPay": "Tú Pagas",
+    "youReceive": "Tú Recibes",
+    "amountPlaceholder": "0.00",
+    "maxButton": "MÁX",
+    "processing": "Procesando...",
+    "buyButton": "Comprar",
+    "currentPriceLabel": "Precio Actual:"
   },
   "tokenInfo": {
     "title": "Información del Token",
@@ -333,6 +343,49 @@
     "answer5": "Aunque ningún sistema es 100% inmune, hackear blockchain es altamente impráctico. Un atacante necesitaría controlar simultáneamente más del 51% del poder computacional de la red, lo cual es extremadamente costoso y casi imposible para redes grandes.",
     "question6": "¿Cómo puedo implementar blockchain en mi industria?",
     "answer6": "Puedes implementar blockchain identificando procesos que necesitan transparencia, confianza y seguridad—como pagos, gestión de cadena de suministro, registros de salud o verificación de identidad—e integrando plataformas o soluciones blockchain en ellos."
+  },
+  "header": {
+    "homeTitle1": "La Primera Blockchain",
+    "homeTitle2": "que Evoluciona - Impulsada por IA",
+    "homeSubtitle": "Una red inteligente y autónoma que se actualiza, escala y asegura a sí misma — mientras proporciona a los contribuyentes acceso a la funcionalidad de red en cada bloque.",
+    "tokenomicsTitle1": "Transparente. Sostenible.",
+    "tokenomicsTitle2": "Descentralizado.",
+    "tokenomicsSubtitle": "Las Tokenomics de XIK están diseñadas para apoyar el crecimiento del ecosistema, fomentar la participación temprana y habilitar una economía blockchain verdaderamente descentralizada gobernada por IA.",
+    "aboutTitle1": "La Blockchain Impulsada por IA",
+    "aboutTitle2": "del Mañana",
+    "aboutSubtitle": "XIK es una blockchain Layer 1 autónoma gobernada por agentes inteligentes. Construida para escalabilidad, seguridad e inteligencia descentralizada — aquí es donde la IA se encuentra con el núcleo de Web3.",
+    "contactTitle": "Ponte en contacto",
+    "contactSubtitle": "Te ofrecemos información sobre el suministro del token, las cadenas disponibles y las ricas funciones DeFi. Las nuevas y mejoradas tokenomics están transformando el token GoC en una verdadera gema utilitaria.",
+    "featuresTitle": "Características Poderosas",
+    "featuresSubtitle": "Actualizaciones respaldadas por IA, gobierno inteligente, escalabilidad perfecta.",
+    "presaleTitle1": "Únete al Futuro de",
+    "presaleTitle2": "Blockchain Autónoma",
+    "presaleSubtitle": "XIKS es el primer ecosistema blockchain gobernado por IA, móvil primero y seguro cuántico. Al unirte a la preventa, te estás adentrando temprano en una red financiera de próxima generación impulsada por más de 80 agentes autónomos. Suministro limitado. Sin control de VC. 100% dirigido por la comunidad.",
+    "referralTitle1": "Gana Tokens XIK",
+    "referralTitle2": "Refiriendo Amigos",
+    "referralSubtitle": "¡Únete a nuestro programa de referidos y gana hasta 75,000 tokens XIK! Comparte tu enlace único de referido con amigos y gana recompensas cuando participen en la preventa. ¡Cuanto más refieras, más ganas!",
+    "announcementTitle": "Anuncio",
+    "announcementSubtitle": "Te ofrecemos información sobre el suministro del token, las cadenas disponibles y las ricas funciones DeFi. Las nuevas y mejoradas tokenomics están transformando el token GoC en una verdadera gema utilitaria.",
+    "joinPreSaleNow": "Únete a la Preventa Ahora",
+    "whitepaper": "Libro Blanco",
+    "joinPreSale": "Únete a la Preventa",
+    "contactUs": "Contáctanos",
+    "exploreFeatures": "Explora Características",
+    "useCases": "Casos de Uso",
+    "joinNow": "Únete Ahora",
+    "claimNow": "Reclamar Ahora",
+    "getReferralLink": "Obtener Enlace de Referido"
+  },
+  "announcementSection": {
+    "title": "Anuncio",
+    "announcement1": "Anuncio 1",
+    "message1": "XIK es el primer ecosistema blockchain gobernado por IA, móvil primero y seguro cuántico. Al unirte a la preventa, te estás adentrando temprano en una red financiera de próxima generación impulsada por más de 80 agentes autónomos. Suministro limitado. Sin control de VC. 100% dirigido por la comunidad.",
+    "announcement2": "Anuncio 2",
+    "message2": "XIK es el primer ecosistema blockchain gobernado por IA, móvil primero y seguro cuántico. Al unirte a la preventa, te estás adentrando temprano en una red financiera de próxima generación impulsada por más de 80 agentes autónomos. Suministro limitado. Sin control de VC. 100% dirigido por la comunidad.",
+    "announcement3": "Anuncio 3",
+    "message3": "XIK es el primer ecosistema blockchain gobernado por IA, móvil primero y seguro cuántico. Al unirte a la preventa, te estás adentrando temprano en una red financiera de próxima generación impulsada por más de 80 agentes autónomos. Suministro limitado. Sin control de VC. 100% dirigido por la comunidad.",
+    "announcement4": "Anuncio 4",
+    "message4": "XIK es el primer ecosistema blockchain gobernado por IA, móvil primero y seguro cuántico. Al unirte a la preventa, te estás adentrando temprano en una red financiera de próxima generación impulsada por más de 80 agentes autónomos. Suministro limitado. Sin control de VC. 100% dirigido por la comunidad."
   }
 }
 

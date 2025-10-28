@@ -100,7 +100,15 @@
     "fundsRaised": "Funds Raised:",
     "buyNow": "BUY XIK NOW",
     "referToFriend": "Refer To Friend",
-    "tooltip": "Tooltip: Get in before the price increases. Limited-time allocation available."
+    "tooltip": "Tooltip: Get in before the price increases. Limited-time allocation available.",
+    "modalTitle": "Buy XIK",
+    "youPay": "You Pay",
+    "youReceive": "You Receive",
+    "amountPlaceholder": "0.00",
+    "maxButton": "MAX",
+    "processing": "Processing...",
+    "buyButton": "Buy",
+    "currentPriceLabel": "Current Price:"
   },
   "tokenInfo": {
     "title": "Information Of Token",

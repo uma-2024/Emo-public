@@ -329,7 +329,7 @@ const ReserveAccessCard = () => {
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>Buy XIK</h3>
+              <h3>{t('reserve.modalTitle')}</h3>
               <button 
                 className="modal-close-btn" 
                 onClick={() => setIsModalOpen(false)}
@@ -343,7 +343,7 @@ const ReserveAccessCard = () => {
               {/* Price Display */}
               {phaseData && (
                 <div className="price-display">
-                  <p>Current Price: <strong>${(Number(phaseData.price) / 1e6).toFixed(6)}</strong></p>
+                  <p>{t('reserve.currentPriceLabel')} <strong>${(Number(phaseData.price) / 1e6).toFixed(6)}</strong></p>
                   {/* {isPrivatePresale && (
                     <p className="bonus-info">Private Presale: <strong>+20% Bonus</strong></p>
                   )} */}
@@ -354,7 +354,7 @@ const ReserveAccessCard = () => {
             <form className="buy-panel__form">
               {/* You Pay */}
               <div className="form-row">
-                <label className="form-row__label">You Pay</label>
+                <label className="form-row__label">{t('reserve.youPay')}</label>
                 <div className="form-row__input-group">
                   {/* Improved Dropdown */}
                   <div
@@ -402,7 +402,7 @@ const ReserveAccessCard = () => {
                       type="text"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      placeholder="0.00"
+                      placeholder={t('reserve.amountPlaceholder')}
                       className="amount-input"
                       min="0"
                       step="0.01"
@@ -413,7 +413,7 @@ const ReserveAccessCard = () => {
 
               {/* You Receive */}
               <div className="form-row">
-                <label className="form-row__label">You Receive</label>
+                <label className="form-row__label">{t('reserve.youReceive')}</label>
                 <div className="form-row__input-group">
                   <div className="form___input1">
                     <img src={xikIcon} className="form-row__icon" alt="XIK" />
@@ -424,7 +424,7 @@ const ReserveAccessCard = () => {
                       {calculatedTokens}
                     </span>
                     <button type="button" className="form-row__max-button">
-                      MAX
+                      {t('reserve.maxButton')}
                     </button>
                   </div>
                 </div>
@@ -450,24 +450,6 @@ const ReserveAccessCard = () => {
                   </div>
                 )}
               </div>
-
-              {/* Referral Address */}
-              <div className="form-row">
-                <label className="form-row__label">Referral Address</label>
-                <div className="form-row__input-group">
-                  <div className="form___input">
-                    <input
-                      type="text"
-                      value={refAddress ? `${refAddress.slice(0, 8)}....${refAddress.slice(-8)}` : ""}
-                      placeholder="0x..."
-                      className="referral-input"
-                      disabled
-                      title="Referral address is automatically set from URL parameter"
-                    />
-                  </div>
-                </div>
-               
-              </div>
             </form>
 
               {/* Modal Actions */}
@@ -477,7 +459,7 @@ const ReserveAccessCard = () => {
                   onClick={handlePurchase}
                   disabled={isProcessing || !amount || !address}
                 >
-                  {isProcessing ? "Processing..." : "Buy"}
+                  {isProcessing ? t('reserve.processing') : t('reserve.buyButton')}
                 </button>
               </div>
             </div>

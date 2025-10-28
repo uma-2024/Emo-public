@@ -107,7 +107,15 @@
     "fundsRaised": "已筹集资金：",
     "buyNow": "立即购买 XIK",
     "referToFriend": "推荐给朋友",
-    "tooltip": "提示：在价格上涨之前进入。提供限时分配。"
+    "tooltip": "提示：在价格上涨之前进入。提供限时分配。",
+    "modalTitle": "购买 XIK",
+    "youPay": "您支付",
+    "youReceive": "您将收到",
+    "amountPlaceholder": "0.00",
+    "maxButton": "最大",
+    "processing": "处理中...",
+    "buyButton": "购买",
+    "currentPriceLabel": "当前价格："
   },
   "tokenomics": {
     "title": "XIK 代币经济学",
